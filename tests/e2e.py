@@ -17,7 +17,7 @@ def route(r):
         if m=='PATCH':prof.update(q.post_data_json);return ok(None,204)
         return ok([prof])
     if t=='delete_my_account':return ok(None,204)
-    d=db[t]
+    d=db.setdefault(t,{})
     if m=='GET':return ok(list(d.values()))
     if m=='POST':
         for x in q.post_data_json:d[(x['habit_id'],x['day']) if t=='habit_logs' else x['id']]=x
