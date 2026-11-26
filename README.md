@@ -7,10 +7,12 @@ Aplicação para maiores de 18 anos. Código em `docs/` (HTML, CSS e JavaScript,
 - Perfil (nome, biografia, foto) e interesses
 - My Place: agenda, tarefas, objetivos, hábitos, lista de desejos
 - Diário
+- Comunidade: publicações, comentários, gostos, grupos, perguntas, denúncias e bloqueios
+- Painel de administração: denúncias, ocultar e repor conteúdo, aprovar livros, suspender contas
 
 ## Ainda só no dispositivo
-Moodboards, coleções, Beauty & Style, Club, Comunidade, grupos, clube de livros, loja,
-serviços, denúncias e bloqueios. Estes dados apagam-se ao terminar sessão.
+Moodboards, coleções, Beauty & Style, The Club, conversas e vendas do clube de livros,
+estante, loja e serviços. Estes dados apagam-se ao terminar sessão.
 
 ## Publicar (GitHub Pages)
 1. GitHub: Settings → Pages → Deploy from a branch → `main`, pasta `/docs`.
@@ -27,4 +29,4 @@ serviços, denúncias e bloqueios. Estes dados apagam-se ao terminar sessão.
 - Publicar Termos e Política de Privacidade
 
 ## Testes
-`python3 tests/e2e.py` (precisa de Playwright; usa um servidor simulado).
+`python3 tests/e2e.py` e `python3 tests/comunidade.py` (precisa de Playwright; usa um servidor simulado).
