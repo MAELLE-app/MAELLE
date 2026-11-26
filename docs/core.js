@@ -75,6 +75,12 @@ const allGroups=()=>S.mygroups.concat(GROUPS);
 const findItem=id=>allProds().find(p=>p.id===id)||allSvc().find(p=>p.id===id);
 const isBlocked=n=>S.blocked.indexOf(n)>=0;
 const brandName=p=>{const b=BRANDS.find(x=>x.id===p.b);return b?b.n:(p.bn||'')};
+/* ilustrações originais (tools/ilustracoes.py), usadas quando ainda não há foto */
+const art=k=>`img/${TOPICS[k]?k:'moda'}.svg`;
+const SVC_ART={'Beleza':'beleza','Cabelo':'beleza','Maquilhagem':'beleza','Imagem e estilo':'moda','Organização':'organizacao'};
+const svcArt=c=>art(SVC_ART[c]||'criatividade');
+const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
+const banner=k=>`<img class="banner" src="${art(k)}" alt="">`;
 const grad=k=>TOPICS[k]?`linear-gradient(160deg,${TOPICS[k].tint[0]},${TOPICS[k].tint[1]})`:'linear-gradient(160deg,#EBE1D3,#D8C5AD)';
 
 /* ---------- navegação ---------- */
