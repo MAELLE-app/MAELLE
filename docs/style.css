@@ -254,3 +254,14 @@ input[type=range]{width:100%;accent-color:var(--sand-deep);margin:6px 0 0}
 .legal h1{font-size:34px}.legal h2{font-size:22px;margin-top:30px}
 .legal li{margin-bottom:6px}.legal a{color:inherit}
 body.legalpage{display:block;height:auto;min-height:100%}
+
+.banner{display:block;width:100%;height:240px;object-fit:cover;object-position:center 75%;border-radius:24px;margin-bottom:16px}
+.arches{display:flex;gap:10px;align-items:flex-end;justify-content:center;margin-bottom:26px}
+.arches img{width:82px;height:118px;object-fit:cover;border-radius:41px 41px 16px 16px}
+.arches img:nth-child(2){width:104px;height:150px;border-radius:52px 52px 16px 16px}
+@media (max-height:700px){.arches{display:none}}
+.prod .img{height:150px}
+.prod .img img,.pimg img[src^="img/"]{object-position:center 75%}
+.pimg{height:200px}
+.disc .wm{display:none}
+.prod .img img{object-position:center 85%}
