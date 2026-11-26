@@ -15,6 +15,8 @@ const ageOf=s=>{const b=new Date(s),n=new Date();let a=n.getFullYear()-b.getFull
 const ic=(p,s)=>`<svg width="${s||22}" height="${s||22}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const star=(s,c)=>`<svg width="${s}" height="${Math.round(s*1.5)}" viewBox="0 0 40 60" aria-hidden="true"><path fill="${c||'var(--sand)'}" d="M20 0C21.5 18 24 24 40 30C24 36 21.5 42 20 60C18.5 42 16 36 0 30C16 24 18.5 18 20 0Z"/></svg>`;
 const P={
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>',
+ gear:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
  home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
  plan:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M9 15l2 2 4-4"/>',
  club:'<path d="M12 3c.8 5 2.6 7.2 8 9-5.4 1.8-7.2 4-8 9-.8-5-2.6-7.2-8-9 5.4-1.8 7.2-4 8-9z"/>',
@@ -90,7 +92,7 @@ const cur=()=>stack[stack.length-1];
 function go(v,p){stack.push({v:v,p:p||{}});render()}
 function back(){if(stack.length>1)stack.pop();render()}
 function tab(v){stack=[{v:v,p:{}}];render()}
-const TABS=[['home','Início','home'],['myplace','My Place','plan'],['club','Club','club'],['community','Comunidade','chat'],['edit','The Edit','bag']];
+const TABS=[['home','Início','home'],['myplace','My Place','plan'],['club','Club','club'],['community','Comunidade','chat'],['edit','The Edit','bag'],['me','Perfil','user']];
 function render(keep){
  const c=cur(),el=$('#view'),sc=el.scrollTop;
  let def=V[c.v];

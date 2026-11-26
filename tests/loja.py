@@ -87,5 +87,5 @@ with sync_playwright() as pw:
     pg.click('#tabs >> text=Comunidade');pg.click('text=Painel de administração');pg.wait_for_selector('[data-act=admhide]');pg.click('[data-act=admhide]');W();assert db['listings'][0]['status']=='hidden'
     pg.click('[data-act=admshow]');W();assert db['listings'][0]['status']=='active'
     edit();pg.click('text=Shop');pg.click('.seg >> text=Produtos');pg.screenshot(path='/tmp/t/shop.png')
-    pg.click('#tabs >> text=Início');pg.click('[aria-label="O meu perfil"]');pg.click('text=Terminar sessão');pg.click('text=Explorar sem conta');pg.check('#age-ok');pg.click('#sheet button[type=submit]');edit();pg.click('text=Shop');assert pg.locator('.prod').count()>5
+    pg.click('#tabs >> text=Perfil');pg.click('[aria-label="Definições"]');pg.click('text=Terminar sessão');pg.click('text=Explorar sem conta');pg.check('#age-ok');pg.click('#sheet button[type=submit]');edit();pg.click('text=Shop');assert pg.locator('.prod').count()>5
     assert not errs,errs;assert not dialogs;print('LOJA E CLUBE OK',len(calls));b.close()

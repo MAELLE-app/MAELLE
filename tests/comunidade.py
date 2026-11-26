@@ -79,6 +79,6 @@ with sync_playwright() as pw:
     pg.click('[data-act=admhide]');W();assert db['posts'][0]['status']=='hidden' and db['reports'][0]['status']=='actioned'
     pg.click('[data-act=admshow]');W();assert db['posts'][0]['status']=='visible'
     tab();pg.click('text=Publicações');pg.locator('article',has_text='olá').locator('text=Bloquear').click();pg.click('#sheet >> text=Bloquear >> nth=-1');W();assert db['blocks'][0]['blocked_id']==OTHER
-    pg.click('#tabs >> text=Início');pg.click('[aria-label="O meu perfil"]');pg.click('text=Desbloquear');W();assert not db['blocks']
+    pg.click('#tabs >> text=Perfil');pg.click('[aria-label="Definições"]');pg.click('text=Desbloquear');W();assert not db['blocks']
     pg.click('text=Terminar sessão');pg.click('text=Explorar sem conta');pg.check('#age-ok');pg.click('#sheet button[type=submit]');tab();pg.click('text=Publicações');pg.wait_for_selector('text=moodboard de verão')
     assert not errs,errs;assert not dialogs;print('COMUNIDADE OK',len(calls));b.close()

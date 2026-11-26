@@ -56,13 +56,13 @@ with sync_playwright() as pw:
     down[0]=True;pg.click('#tabs >> text=My Place');pg.click('text=Minha lista de tarefas');pg.click('text=Por fazer');pg.fill('#tk-t','Sem rede');pg.keyboard.press('Enter');pg.wait_for_timeout(1000);assert len(db['tasks'])==1
     down[0]=False;pg.reload();pg.wait_for_timeout(3000);assert len(db['tasks'])==2,db['tasks']
     # sair e voltar a entrar: dados vêm do servidor
-    pg.click('#tabs >> text=Início');pg.click('[aria-label="O meu perfil"]');pg.click('text=Terminar sessão');pg.wait_for_selector('text=Já tenho conta')
+    pg.click('#tabs >> text=Perfil');pg.click('[aria-label="Definições"]');pg.click('text=Terminar sessão');pg.wait_for_selector('text=Já tenho conta')
     assert 'Comprar flores' not in pg.evaluate('localStorage.getItem("maelle-v3")')
     pg.click('text=Já tenho conta');pg.fill('#li-email','a@b.pt');pg.fill('#li-pw','segredo123');pg.click('button:has-text("Entrar")');pg.wait_for_selector('text=Bem-vinda ao teu universo')
     pg.click('#tabs >> text=My Place');pg.click('text=Minha lista de tarefas');pg.wait_for_selector('text=Sem rede')
     pg.click('.item .del');pg.wait_for_timeout(1000);assert len(db['tasks'])==1
     pg.screenshot(path='tasks.png')
-    pg.click('#tabs >> text=Início');pg.click('[aria-label="O meu perfil"]');pg.click('text=Apagar a minha conta');pg.click('#sheet button[type=submit]');pg.wait_for_selector('text=Já tenho conta')
+    pg.click('#tabs >> text=Perfil');pg.click('[aria-label="Definições"]');pg.click('text=Apagar a minha conta');pg.click('#sheet button[type=submit]');pg.wait_for_selector('text=Já tenho conta')
     assert ('POST','/rest/v1/rpc/delete_my_account') in calls
     assert not files and calls.index(('DELETE','/storage/v1/object/media'))<calls.index(('POST','/rest/v1/rpc/delete_my_account'))
     assert not errs,errs;print('TUDO OK',len(calls))
