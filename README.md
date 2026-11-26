@@ -27,7 +27,8 @@ Moodboards, coleções, Beauty & Style e The Club. Não há pagamentos na app. E
 ## Por fazer antes do lançamento
 - Apagar também as fotos guardadas quando se apaga uma conta (RGPD)
 - Configurar um serviço de e-mail próprio no Supabase
-- Publicar Termos e Política de Privacidade
+- Política de Privacidade publicada em versão provisória (`docs/privacidade.html`): falta o responsável, NIF, morada, e-mail de contacto e revisão jurídica
+- Publicar os Termos de Utilização
 
 ## Testes
 `python3 tests/e2e.py` `python3 tests/comunidade.py` e `python3 tests/loja.py` (precisa de Playwright; usa um servidor simulado).
