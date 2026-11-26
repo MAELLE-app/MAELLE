@@ -231,7 +231,7 @@ shared('bookclub',(p,o)=>{
  if(BK!=='chat'){const key=BK==='sale'?'shop':'books',h=noSamples(o.html(p));return C[key]?h:h.replace(/<\/div>$/,()=>waiting(key)+'</div>')}
  const seg=`<div class="seg">${[['rec','Indicações'],['sale','À venda'],['chat','Conversas']].map(x=>`<button class="${BK===x[0]?'on':''}" data-act="bk" data-t="${x[0]}">${x[1]}</button>`).join('')}</div>`;
  const body=C.rooms?C.rooms.rooms.map(r=>{const last=C.rooms.last.find(m=>m.room_id===r.id);return `<button class="menu" data-act="go" data-v="room" data-id="${r.id}"><span class="ic">${ic(P.chat,22)}</span><span class="tx"><span class="t">${esc(r.title)}</span><span class="p">${last?esc(who(last)+': '+last.body.slice(0,56)):'Sê a primeira a escrever'}</span></span></button>`}).join(''):waiting('rooms');
- return `<div class="page">${head('Clube de Livros','Descobre, troca e conversa sobre livros.')}${seg}<button class="btn" data-act="sheet" data-s="newroom" style="margin-bottom:16px">${ic(P.plus,18)} Começar uma conversa</button>${body}</div>`},
+ return `<div class="page">${head('Clube de Livros','Descobre, troca e conversa sobre livros.')}${banner('livros')}${seg}<button class="btn" data-act="sheet" data-s="newroom" style="margin-bottom:16px">${ic(P.plus,18)} Começar uma conversa</button>${body}</div>`},
  ()=>load({rec:'books',sale:'shop',chat:'rooms'}[BK]));
 shared('room',p=>{
  const r=findRoom(p.id);if(!r)return `<div class="page">${head('Conversa','')}${C.rooms?'<div class="empty">Esta conversa ainda não está disponível. Os livros só têm sala depois de aprovados.</div>':waiting('rooms')}</div>`;
