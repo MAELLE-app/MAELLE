@@ -265,3 +265,10 @@ body.legalpage{display:block;height:auto;min-height:100%}
 .pimg{height:200px}
 .disc .wm{display:none}
 .prod .img img{object-position:center 85%}
+
+.phead{display:flex;flex-direction:column;align-items:center;gap:4px}.phead .h1{margin:10px 0 0;overflow-wrap:anywhere}
+.person{display:inline-flex;align-items:center;gap:10px;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+.postimg{display:block;width:100%;max-height:360px;object-fit:cover;border-radius:18px;margin:0 0 10px}
+a.menu{text-decoration:none;color:inherit}
+.langs{display:flex;gap:8px;justify-content:center;margin:10px 0}
+#tabs button{min-width:0;flex:1}#tabs span{font-size:9px;letter-spacing:0;white-space:nowrap}
