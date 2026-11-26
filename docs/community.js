@@ -3,9 +3,14 @@
    Sem sessão, a app continua a mostrar os exemplos locais.
    Quem pode ver ou fazer o quê é decidido na base de dados (RLS). */
 const isStaff=()=>online()&&(S.role==='admin'||S.role==='moderator');
-const emptyC=owner=>({owner:owner,posts:{},groups:null,qa:null,blocks:[],admin:null,at:{},err:{}});
+const emptyC=owner=>({owner:owner,posts:{},msgs:{},shop:null,rooms:null,groups:null,qa:null,blocks:[],admin:null,at:{},seq:{},err:{}});
 let C=emptyC(null);
-const SAMPLE_BOOKS=BOOKS.slice();
+const SAMPLES=[BOOKS,PRODUCTS,SERVICES,BRANDS].map(a=>[a,a.slice()]);
+const fill=(a,l)=>a.splice(0,a.length,...l);
+/* só aceitamos imagens do nosso armazenamento e ligações http(s) */
+const safeImg=u=>String(u||'').startsWith(SB_URL+'/storage/v1/object/public/media/')&&!/["'<>\s]/.test(u)?u:'';
+const safeLink=u=>/^https?:\/\//i.test(u||'')?u:'';
+const SELLER='seller:profiles!listings_seller_id_fkey(username)';
 const rest=(path,o)=>api('/rest/v1/'+path,o);
 const add=(t,body,prefer)=>rest(t,{method:'POST',headers:{Prefer:prefer||'return=minimal'},body:body});
 const patch=(path,body)=>rest(path,{method:'PATCH',headers:{Prefer:'return=representation'},body:body}).then(r=>{if(!r||!r.length)throw new Error('Sem permissão')});
@@ -24,38 +29,61 @@ const LOAD={
  groups:()=>rest('groups?select=id,name,description,topic,rules,status,owner_id,group_members(user_id)&order=created_at.desc&limit=200'),
  qa:()=>rest('questions?select=id,body,created_at,author_id,'+AUTHOR('questions')+',answers(id,body,created_at,author_id,'+AUTHOR('answers')+')&order=created_at.desc&limit=60'),
  blocks:()=>rest('blocks?select=blocked_id,who:profiles!blocks_blocked_id_fkey(username)&blocker_id=eq.'+S.auth.uid),
- books:()=>rest('books?select=id,title,author,tag,blurb,approved&order=created_at.asc&limit=300'),
+ async books(){const [books,shelves]=await Promise.all([rest('books?select=id,title,author,tag,blurb,approved&order=created_at.asc&limit=300'),rest('shelves?select=book_id,status&user_id=eq.'+S.auth.uid)]);return {books:books,shelves:shelves}},
+ async shop(){const me=S.auth.uid;const [listings,brands,favs,follows]=await Promise.all([
+   rest('listings?select=id,seller_id,brand_id,kind,title,description,price_cents,category,mode,city,author,condition,contact,link,image_url,status,'+SELLER+'&order=created_at.desc&limit=300'),
+   rest('brands?select=id,name,description&or=(verified.is.true,owner_id.is.null)&order=name.asc'),
+   rest('favorites?select=listing_id&user_id=eq.'+me),rest('brand_follows?select=brand_id&user_id=eq.'+me)]);
+  return {listings:listings,brands:brands,favs:favs,follows:follows}},
+ async rooms(){const [rooms,last]=await Promise.all([rest('book_rooms?select=id,title,book_id&order=created_at.asc&limit=200'),rest('room_messages?select=room_id,body,'+AUTHOR('room_messages')+'&status=eq.visible&order=created_at.desc&limit=200')]);return {rooms:rooms,last:last}},
+ msgs:id=>rest('room_messages?select=id,body,status,created_at,author_id,'+AUTHOR('room_messages')+'&room_id=eq.'+encodeURIComponent(id)+'&order=created_at.desc&limit=100'),
  async admin(){
   const reports=await rest('reports?select=id,target_type,target_id,reason,created_at,reporter:profiles!reports_reporter_id_fkey(username)&status=eq.open&order=created_at.asc&limit=100');
-  const info={post:['posts','id,body,author_id,status,'+AUTHOR('posts')],comment:['comments','id,body,author_id,'+AUTHOR('comments')],group:['groups','id,name,owner_id,status'],question:['questions','id,body,author_id,'+AUTHOR('questions')],answer:['answers','id,body,author_id,'+AUTHOR('answers')],profile:['profiles','id,username']};
+  const info={post:['posts','id,body,author_id,status,'+AUTHOR('posts')],comment:['comments','id,body,author_id,'+AUTHOR('comments')],group:['groups','id,name,owner_id,status'],question:['questions','id,body,author_id,'+AUTHOR('questions')],answer:['answers','id,body,author_id,'+AUTHOR('answers')],profile:['profiles','id,username'],listing:['listings','id,title,seller_id,status,'+SELLER],message:['room_messages','id,body,author_id,'+AUTHOR('room_messages')]};
   const targets={};
   await Promise.all(Object.keys(info).map(async k=>{const ids=reports.filter(r=>r.target_type===k).map(r=>r.target_id);if(!ids.length)return;(await rest(info[k][0]+'?select='+info[k][1]+'&id=in.('+ids.join(',')+')')).forEach(x=>{targets[k+x.id]=x})}));
-  const [books,posts,groups,banned,members]=await Promise.all([
+  const [books,posts,groups,banned,members,listings]=await Promise.all([
    rest('books?select=id,title,author,blurb&approved=eq.false&order=created_at.asc'),
    rest('posts?select=id,body,'+AUTHOR('posts')+'&status=eq.hidden&order=created_at.desc&limit=50'),
    rest('groups?select=id,name&status=eq.hidden'),
    S.role==='admin'?rest('rpc/admin_list_banned',{method:'POST',body:{}}):[],
-   rest('profiles?select=id&limit=1000')]);
-  return {reports:reports,targets:targets,books:books,posts:posts,groups:groups,banned:banned,members:members.length};
+   rest('profiles?select=id&limit=1000'),
+   rest('listings?select=id,title,'+SELLER+'&status=eq.hidden&limit=50')]);
+  return {reports:reports,targets:targets,books:books,posts:posts,groups:groups,banned:banned,members:members.length,listings:listings};
  }
 };
+function applyShop(d){
+ const me=S.auth.uid,live=d.listings.filter(x=>x.status!=='hidden'),seller=x=>(x.seller&&x.seller.username)||'Utilizadora';
+ const base=x=>({id:x.id,sid:x.seller_id,mine:x.seller_id===me,seller:seller(x),p:x.price_cents/100,d:x.description||'',contact:x.contact||'',img:safeImg(x.image_url)});
+ const prod=live.filter(x=>x.kind==='product').map(x=>Object.assign(base(x),{n:x.title,b:x.brand_id,bn:x.author||seller(x),c:x.category,link:safeLink(x.link)}));
+ const svc=live.filter(x=>x.kind==='service').map(x=>Object.assign(base(x),{n:x.title,by:seller(x),c:x.category||'Outros',mode:x.mode||'Online',city:x.city||''}));
+ S.myprods=prod.filter(x=>x.mine);fill(PRODUCTS,prod.filter(x=>!x.mine));
+ S.mysvc=svc.filter(x=>x.mine);fill(SERVICES,svc.filter(x=>!x.mine));
+ S.sales=live.filter(x=>x.kind==='book').map(x=>Object.assign(base(x),{t:x.title,a:x.author||'',cond:x.condition||'',city:x.city||'',by:seller(x)}));
+ fill(BRANDS,d.brands.map(x=>({id:x.id,n:x.name,d:x.description||''})));
+ S.favs=d.favs.map(x=>x.listing_id);S.brands=d.follows.map(x=>x.brand_id);store();
+}
 function applyData(key,data){
- if(key.startsWith('posts:'))C.posts[key.slice(6)]=data;
- else if(key==='blocks'){C.blocks=data.map(b=>({id:b.blocked_id,name:(b.who&&b.who.username)||'Utilizadora'}));S.blocked=C.blocks.map(b=>b.name);store()}
- else if(key==='books'){BOOKS.splice(0,BOOKS.length,...data.map(b=>({id:b.id,t:b.title,a:b.author,tag:b.approved?(b.tag||'Indicação'):'A aguardar aprovação',d:b.blurb||''})));S.mybooks=[]}
- else C[key]=data;
+ const [kind,id]=key.split(':');
+ if(id){C[kind][id]=data;return}
+ if(key==='blocks'){C.blocks=data.map(b=>({id:b.blocked_id,name:(b.who&&b.who.username)||'Utilizadora'}));S.blocked=C.blocks.map(b=>b.name);store()}
+ else if(key==='books'){fill(BOOKS,data.books.map(b=>({id:b.id,t:b.title,a:b.author,tag:b.approved?(b.tag||'Indicação'):'A aguardar aprovação',d:b.blurb||''})));S.mybooks=[];S.shelf={};data.shelves.forEach(x=>{S.shelf[x.book_id]=x.status});C.books=data;store()}
+ else{C[key]=data;if(key==='shop')applyShop(data)}
 }
 function checkOwner(){
- const o=online()?S.auth.uid:null;
- if(C.owner!==o){C=emptyC(o);BOOKS.splice(0,BOOKS.length,...SAMPLE_BOOKS)}
+ const o=online()?S.auth.uid:null;if(C.owner===o)return;
+ C=emptyC(o);SF={t:'prod',c:'all',b:null,sc:'all'};
+ SAMPLES.forEach(p=>fill(p[0],o?[]:p[1]));
+ /* com sessão não se mostram anúncios de exemplo */
+ if(o){S.myprods=[];S.mysvc=[];S.sales=[];S.mybooks=[];S.favs=[];S.brands=[];S.shelf={}}
 }
 async function load(key,force){
  checkOwner();if(!online())return;
  if(!force&&Date.now()-(C.at[key]||0)<15000)return;
- C.at[key]=Date.now();const mine=C,seq=C.at[key];
- const read=()=>JSON.stringify(key.startsWith('posts:')?[C.posts[key.slice(6)],C.err[key]]:key==='books'?[BOOKS,C.err[key]]:[C[key],C.err[key]]);
+ C.at[key]=Date.now();const mine=C,seq=C.seq[key]=(C.seq[key]||0)+1,[kind,id]=key.split(':');
+ const read=()=>JSON.stringify([id?C[kind][id]:C[kind],C.err[key]]);
  const was=read();
- try{const data=await(key.startsWith('posts:')?LOAD.posts(key.slice(6)):LOAD[key]());if(mine!==C||C.at[key]!==seq)return;delete C.err[key];applyData(key,data)}
+ try{const data=await(id?LOAD[kind](id):LOAD[kind]());if(mine!==C||C.seq[key]!==seq)return;delete C.err[key];applyData(key,data)}
  catch(e){if(mine!==C)return;C.err[key]=e.offline?e.message:'Não foi possível carregar.';console.warn(key,e.message)}
  const a=document.activeElement;
  if(read()!==was&&!(a&&/INPUT|TEXTAREA/.test(a.tagName)&&a.value))render(true);
@@ -107,15 +135,15 @@ shared('group',p=>{
  ${feed(g.id,mine,'Ainda sem publicações. Sê a primeira.')}</div>`},p=>{load('groups');load('posts:'+p.id)});
 shared('qa',()=>`<div class="page">${head('Perguntas & Respostas','')}<form data-form="ask" class="addrow"><input class="field" id="qa-q" name="q" placeholder="Faz uma pergunta" maxlength="140" aria-label="Nova pergunta" autocomplete="off"><button class="btn" type="submit" aria-label="Publicar pergunta">${ic(P.plus,22)}</button></form>${C.qa?(C.qa.map(q=>{const mine=q.author_id===S.auth.uid;return `<div class="card"><span class="meta">${esc(who(q))}</span><h3 style="font:500 21px/1.25 var(--serif);margin:4px 0 8px">${esc(q.body)}</h3><div class="acts" style="margin-bottom:8px">${mine||isStaff()?`<button class="mini" data-act="srvdel" data-t="questions" data-id="${q.id}">Apagar</button>`:mod('question',q.id,q.author_id,who(q))}</div>${(q.answers||[]).slice().sort(byDate).map(a=>`<div class="cm"><b>${esc(who(a))}</b> ${esc(a.body)} ${a.author_id===S.auth.uid||isStaff()?`<button class="mini" data-act="srvdel" data-t="answers" data-id="${a.id}">Apagar</button>`:mod('answer',a.id,a.author_id,who(a))}</div>`).join('')||'<p style="margin:0 0 8px;font-size:13px;color:var(--muted)">Ainda sem respostas.</p>'}<form class="cmform" data-form="answer" data-id="${q.id}"><input class="field" id="an-${q.id}" name="t" placeholder="Responder" maxlength="240" aria-label="Responder" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar resposta">${ic(P.send,18)}</button></form></div>`}).join('')||'<div class="empty">Ainda não há perguntas.</div>'):waiting('qa')}</div>`,()=>load('qa'));
 shared('profile',(p,o)=>{const h=o.html(p);return p.edit&&isStaff()?h.replace('<h2 class="sec s">SEGURANÇA</h2>',()=>adminLink()+'<h2 class="sec s">SEGURANÇA</h2>'):h},p=>{if(p.edit)load('blocks')});
-shared('bookclub',(p,o)=>o.html(p),()=>load('books'));
+
 
 /* ---------- painel de administração ---------- */
 const TYPES={post:'Publicação',comment:'Comentário',group:'Grupo',question:'Pergunta',answer:'Resposta',profile:'Perfil',message:'Mensagem',listing:'Anúncio'};
 function reportCard(r,d){
- const t=d.targets[r.target_type+r.target_id],author=t&&(r.target_type==='profile'?t.id:(t.author_id||t.owner_id));
- const hide=r.target_type==='post'||r.target_type==='group';
- const table={post:'posts',comment:'comments',group:'groups',question:'questions',answer:'answers'}[r.target_type];
- return `<div class="card"><span class="meta">${TYPES[r.target_type]||r.target_type} · ${ago(r.created_at)} · por ${esc((r.reporter&&r.reporter.username)||'?')}</span><p style="margin:8px 0 4px"><b>${esc(r.reason)}</b></p><p class="p14" style="overflow-wrap:anywhere">${t?esc((t.author?t.author.username+': ':'')+(t.body||t.name||t.username||'')):'O conteúdo já não existe.'}</p><div class="acts" style="flex-wrap:wrap">${t&&table?`<button class="mini" data-act="${hide?'admhide':'admremove'}" data-t="${table}" data-id="${t.id}" data-r="${r.id}">${hide?'Ocultar':'Apagar conteúdo'}</button>`:''}${author&&S.role==='admin'&&author!==S.auth.uid?`<button class="mini" data-act="sheet" data-s="suspend" data-id="${author}" data-r="${r.id}">Suspender conta</button>`:''}<button class="mini" data-act="admclose" data-r="${r.id}">Arquivar</button></div></div>`;
+ const t=d.targets[r.target_type+r.target_id],author=t&&(r.target_type==='profile'?t.id:(t.author_id||t.owner_id||t.seller_id));
+ const hide=['post','group','listing'].indexOf(r.target_type)>=0;
+ const table={post:'posts',comment:'comments',group:'groups',question:'questions',answer:'answers',listing:'listings',message:'room_messages'}[r.target_type];
+ return `<div class="card"><span class="meta">${TYPES[r.target_type]||r.target_type} · ${ago(r.created_at)} · por ${esc((r.reporter&&r.reporter.username)||'?')}</span><p style="margin:8px 0 4px"><b>${esc(r.reason)}</b></p><p class="p14" style="overflow-wrap:anywhere">${t?esc((t.author?t.author.username+': ':'')+(t.body||t.name||t.title||t.username||'')):'O conteúdo já não existe.'}</p><div class="acts" style="flex-wrap:wrap">${t&&table?`<button class="mini" data-act="${hide?'admhide':'admremove'}" data-t="${table}" data-id="${t.id}" data-r="${r.id}">${hide?'Ocultar':'Apagar conteúdo'}</button>`:''}${author&&S.role==='admin'&&author!==S.auth.uid?`<button class="mini" data-act="sheet" data-s="suspend" data-id="${author}" data-r="${r.id}">Suspender conta</button>`:''}<button class="mini" data-act="admclose" data-r="${r.id}">Arquivar</button></div></div>`;
 }
 V.admin={tab:'community',html:()=>{
  checkOwner();if(!isStaff())return `<div class="page">${head('Administração','')}<div class="empty">Esta área é só para a equipa.</div></div>`;
@@ -125,7 +153,7 @@ V.admin={tab:'community',html:()=>{
  <button class="btn small ghost" data-act="retry" data-k="admin">Atualizar</button>
  ${sec('DENÚNCIAS POR TRATAR',d.reports.map(r=>reportCard(r,d)),'Sem denúncias por tratar.')}
  ${sec('LIVROS POR APROVAR',d.books.map(b=>`<div class="card"><h3 class="h3">${esc(b.title)}</h3><span class="meta">${esc(b.author)}</span><p class="p14">${esc(b.blurb||'')}</p><div class="acts"><button class="mini" data-act="admbook" data-id="${b.id}">Aprovar</button><button class="mini" data-act="admremove" data-t="books" data-id="${b.id}">Rejeitar</button></div></div>`),'Nenhum livro à espera.')}
- ${sec('CONTEÚDO OCULTO',d.posts.map(x=>`<div class="item"><span class="tx">${esc(x.body)}<small>${esc(who(x))}</small></span><button class="mini" data-act="admshow" data-t="posts" data-id="${x.id}">Repor</button></div>`).concat(d.groups.map(g=>`<div class="item"><span class="tx">${esc(g.name)}<small>Grupo</small></span><button class="mini" data-act="admshow" data-t="groups" data-id="${g.id}">Repor</button></div>`)),'Nada oculto.')}
+ ${sec('CONTEÚDO OCULTO',d.posts.map(x=>`<div class="item"><span class="tx">${esc(x.body)}<small>${esc(who(x))}</small></span><button class="mini" data-act="admshow" data-t="posts" data-id="${x.id}">Repor</button></div>`).concat(d.groups.map(g=>`<div class="item"><span class="tx">${esc(g.name)}<small>Grupo</small></span><button class="mini" data-act="admshow" data-t="groups" data-id="${g.id}">Repor</button></div>`),(d.listings||[]).map(x=>`<div class="item"><span class="tx">${esc(x.title)}<small>Anúncio</small></span><button class="mini" data-act="admshow" data-t="listings" data-id="${x.id}">Repor</button></div>`)),'Nada oculto.')}
  ${S.role==='admin'?sec('CONTAS SUSPENSAS',d.banned.map(u=>`<div class="item"><span class="tx">${esc(u.username)}</span><button class="mini" data-act="admunban" data-id="${u.id}">Reativar</button></div>`),'Nenhuma conta suspensa.'):''}</div>`},
  after:()=>{if(isStaff())load('admin')}};
 const closeReport=(id,status)=>patch('reports?id=eq.'+id,{status:status});
@@ -163,3 +191,58 @@ ACT.admclose=d=>act(()=>closeReport(d.r,'dismissed'),'Denúncia arquivada',['adm
 ACT.admbook=d=>act(()=>patch('books?id=eq.'+d.id,{approved:true}),'Livro aprovado',['admin','books']);
 ACT.admban=d=>act(async()=>{await setBan(d.id,true);await closeReport(d.r,'actioned')},'Conta suspensa',['admin']);
 ACT.admunban=d=>act(()=>setBan(d.id,false),'Conta reativada',['admin']);
+
+/* ---------- loja ---------- */
+const loadShop=()=>load('shop');
+const noSamples=h=>h.replace('Produtos, serviços e marcas de exemplo. A compra online liga-se numa próxima fase.','Para comprar ou reservar, contacta quem vende. O pagamento na app chega numa próxima fase.').replace('Os anúncios de exemplo são fictícios. A venda com pagamento liga-se numa próxima fase.','Para comprar, contacta quem vende.');
+const shopStatus=()=>C.shop?'':waiting('shop');
+['edit','shop','brands','sell','favs','recs'].forEach(n=>shared(n,(p,o)=>noSamples(o.html(p)).replace(/<\/div>$/,()=>shopStatus()+'</div>'),loadShop));
+const listing=body=>add('listings',Object.assign({seller_id:S.auth.uid},body));
+const cents=v=>{const n=num(v);return isNaN(n)||n<0||n>1000000?null:Math.round(n*100)};
+/* envia a foto (se houver) e cria o anúncio */
+async function publish(body){const img=tmpImg;if(img)body.image_url=await uploadImage(img,'anuncio');await listing(body)}
+function posted(f,body,msg,then){act(()=>publish(body),msg,['shop']).then(ok=>{if(ok){tmpImg=null;if(then)then()}})}
+both(FORM,'addprod',(fd,f)=>{const n=fd.get('n').trim(),c=cents(fd.get('price')),ct=(fd.get('contact')||'').trim();let link=fd.get('link').trim();if(link&&!/^https?:\/\//i.test(link))link='https://'+link;
+ if(!n)return ferr(f,'Dá um nome ao produto.');if(c===null)return ferr(f,'Indica o preço em euros.');if(!ct&&!link)return ferr(f,'Indica um contacto ou o link da loja.');
+ posted(f,{kind:'product',title:n,author:fd.get('bn').trim()||null,price_cents:c,category:fd.get('c'),description:fd.get('d').trim()||null,link:link||null,contact:ct||null},'Produto publicado',()=>{SF={t:'prod',c:'all',b:null,sc:'all'};render(true)})});
+both(FORM,'addsvc',(fd,f)=>{const n=fd.get('n').trim(),c=cents(fd.get('price')),d=fd.get('d').trim(),ct=fd.get('contact').trim();
+ if(!n)return ferr(f,'Dá um nome ao serviço.');if(c===null)return ferr(f,'Indica o preço desde, em euros.');if(!d)return ferr(f,'Explica o que inclui o serviço.');if(!ct)return ferr(f,'Indica um contacto para quem quiser falar contigo.');
+ posted(f,{kind:'service',title:n,price_cents:c,category:fd.get('c'),mode:fd.get('mode'),city:fd.get('city').trim()||null,description:d,contact:ct},'Serviço publicado',()=>{SF={t:'svc',c:'all',b:null,sc:'all'};if(cur().v!=='shop'&&cur().v!=='sell')go('shop');else render(true)})});
+both(FORM,'addsale',(fd,f)=>{const t=fd.get('t').trim(),c=cents(fd.get('price')),ct=fd.get('contact').trim();
+ if(!t)return ferr(f,'Indica o título do livro.');if(c===null)return ferr(f,'Indica o preço em euros.');if(!ct)return ferr(f,'Indica um contacto para quem quiser comprar.');
+ tmpImg=null;posted(f,{kind:'book',title:t,author:fd.get('a').trim()||null,price_cents:c,condition:fd.get('cond'),city:fd.get('city').trim()||null,contact:ct},'Livro anunciado',()=>{BK='sale';if(['sell','bookclub'].indexOf(cur().v)<0)go('bookclub');else render(true)})});
+const localAddprod=SHEETS.addprod;
+SHEETS.addprod=function(){localAddprod();if(online()){const l=$('#ap-l');if(l)l.insertAdjacentHTML('afterend','<input class="field" id="ap-ct" name="contact" placeholder="Contacto: e-mail, telefone ou link" maxlength="120" aria-label="Contacto">')}};
+/* janela de um anúncio: contacto, denúncia e bloqueio */
+['product','service','sale'].forEach(kind=>{const o=SHEETS[kind];SHEETS[kind]=d=>{o(d);if(!online())return;
+ const x=kind==='sale'?S.sales.find(y=>y.id===d.id):findItem(d.id),box=$('#sheet .sheet');if(!x||!box)return;
+ box.querySelectorAll('[data-s="report"]').forEach(e=>e.parentElement.remove());
+ const note=box.querySelector('.note');if(note)note.textContent=x.mine?'Anúncio teu.':'Para comprar ou reservar, contacta quem vende. Nunca pagues sem confirmares com quem falas.';
+ if(kind==='product'&&x.contact){const s=box.querySelector('.stack');s.insertAdjacentHTML('afterbegin',contactHTML(x.contact))}
+ if(!x.mine)box.insertAdjacentHTML('beforeend',`<p class="meta c" style="margin-top:12px">Vendido por ${esc(x.seller)}</p><div class="c">${mod('listing',x.id,x.sid,x.seller)}</div>`)}});
+both(ACT,'delmine',d=>act(()=>remove('listings?id=eq.'+d.id),'Anúncio apagado',['shop']));
+function toggleRow(on,table,filter,body,msg,d){return act(()=>on?remove(table+'?'+filter):add(table,body),msg,['shop']).then(async ok=>{if(ok){await load('shop',true);if(d&&d.sheet){const it=findItem(d.id);if(it)(it.by?SHEETS.service:SHEETS.product)({id:d.id})}}})}
+both(ACT,'fav',d=>{const on=S.favs.includes(d.id),me=S.auth.uid;toggleRow(on,'favorites','user_id=eq.'+me+'&listing_id=eq.'+d.id,{user_id:me,listing_id:d.id},on?'Removido dos favoritos':'Guardado nos favoritos',d)});
+both(ACT,'brand',d=>{const on=S.brands.includes(d.id),me=S.auth.uid;toggleRow(on,'brand_follows','user_id=eq.'+me+'&brand_id=eq.'+d.id,{user_id:me,brand_id:d.id},on?'':'A seguir')});
+
+/* ---------- clube de livros ---------- */
+const findRoom=id=>C.rooms&&C.rooms.rooms.find(r=>r.id===id||r.book_id===id);
+shared('bookclub',(p,o)=>{
+ if(BK!=='chat'){const key=BK==='sale'?'shop':'books',h=noSamples(o.html(p));return C[key]?h:h.replace(/<\/div>$/,()=>waiting(key)+'</div>')}
+ const seg=`<div class="seg">${[['rec','Indicações'],['sale','À venda'],['chat','Conversas']].map(x=>`<button class="${BK===x[0]?'on':''}" data-act="bk" data-t="${x[0]}">${x[1]}</button>`).join('')}</div>`;
+ const body=C.rooms?C.rooms.rooms.map(r=>{const last=C.rooms.last.find(m=>m.room_id===r.id);return `<button class="menu" data-act="go" data-v="room" data-id="${r.id}"><span class="ic">${ic(P.chat,22)}</span><span class="tx"><span class="t">${esc(r.title)}</span><span class="p">${last?esc(who(last)+': '+last.body.slice(0,56)):'Sê a primeira a escrever'}</span></span></button>`}).join(''):waiting('rooms');
+ return `<div class="page">${head('Clube de Livros','Descobre, troca e conversa sobre livros.')}${seg}<button class="btn" data-act="sheet" data-s="newroom" style="margin-bottom:16px">${ic(P.plus,18)} Começar uma conversa</button>${body}</div>`},
+ ()=>load({rec:'books',sale:'shop',chat:'rooms'}[BK]));
+shared('room',p=>{
+ const r=findRoom(p.id);if(!r)return `<div class="page">${head('Conversa','')}${C.rooms?'<div class="empty">Esta conversa ainda não está disponível. Os livros só têm sala depois de aprovados.</div>':waiting('rooms')}</div>`;
+ const ms=C.msgs[r.id];
+ return `<div class="page">${head(esc(r.title),'Conversa aberta às leitoras. Respeito acima de tudo.')}<div class="msgs">${ms?(ms.slice().sort(byDate).map(m=>{const mine=m.author_id===S.auth.uid;return `<div class="m ${mine?'me':''}"><b>${esc(who(m))}</b>${esc(m.body)}<div>${mine||isStaff()?`<button class="mini" data-act="srvmsgdel" data-r="${r.id}" data-id="${m.id}">Apagar</button>`:''}${mine?'':mod('message',m.id,m.author_id,who(m))}</div></div>`}).join('')||'<div class="empty">Ainda ninguém escreveu aqui. Começa tu.</div>'):waiting('msgs:'+r.id)}</div>
+ <form class="cmform" data-form="msg" data-r="${r.id}"><input class="field" id="rm-t" name="t" placeholder="Escreve uma mensagem" maxlength="300" aria-label="Mensagem" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar mensagem">${ic(P.send,18)}</button></form></div>`},
+ p=>{load('rooms').then(()=>{const r=findRoom(p.id);if(r&&cur().v==='room')load('msgs:'+r.id)})});
+both(FORM,'msg',(fd,f)=>{const t=fd.get('t').trim(),r=f.dataset.r;if(t)send(f,()=>add('room_messages',{room_id:r,author_id:S.auth.uid,body:t}),'',['msgs:'+r,'rooms'])});
+both(FORM,'newroom',(fd,f)=>{const n=fd.get('n').trim(),t=fd.get('t').trim();if(!n)return ferr(f,'Dá um tema à conversa.');if(!t)return ferr(f,'Escreve a primeira mensagem.');
+ const id=uid();act(async()=>{await add('book_rooms',{id:id,title:n,created_by:S.auth.uid});await add('room_messages',{room_id:id,author_id:S.auth.uid,body:t})},'Conversa criada').then(async ok=>{if(ok){await load('rooms',true);go('room',{id:id})}})});
+ACT.srvmsgdel=d=>act(()=>remove('room_messages?id=eq.'+d.id),'Apagado',['msgs:'+d.r,'rooms']);
+both(ACT,'shelf',d=>{const me=S.auth.uid,on=S.shelf[d.id]===d.s;act(()=>on?remove('shelves?user_id=eq.'+me+'&book_id=eq.'+d.id):add('shelves?on_conflict=user_id,book_id',{user_id:me,book_id:d.id,status:d.s},'resolution=merge-duplicates,return=minimal'),'',['books'])});
+/* mudar de separador no clube carrega os dados certos */
+const bkTab=ACT.bk;ACT.bk=d=>{bkTab(d);if(online())load({rec:'books',sale:'shop',chat:'rooms'}[BK])};

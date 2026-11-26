@@ -9,13 +9,14 @@ Aplicação para maiores de 18 anos. Código em `docs/` (HTML, CSS e JavaScript,
 - Diário
 - Comunidade: publicações, comentários, gostos, grupos, perguntas, denúncias e bloqueios
 - Painel de administração: denúncias, ocultar e repor conteúdo, aprovar livros, suspender contas
+- Loja e serviços: anúncios com foto e contacto, favoritos, marcas seguidas
+- Clube de livros: estante, livros à venda e conversas
 
 ## Ainda só no dispositivo
-Moodboards, coleções, Beauty & Style, The Club, conversas e vendas do clube de livros,
-estante, loja e serviços. Estes dados apagam-se ao terminar sessão.
+Moodboards, coleções, Beauty & Style e The Club. Não há pagamentos na app. Estes dados apagam-se ao terminar sessão.
 
 ## Publicar (GitHub Pages)
-1. GitHub: Settings → Pages → Deploy from a branch → `main`, pasta `/docs`.
+1. GitHub Pages publica o ramo `gh-pages`, que contém uma cópia da pasta `docs/`.
 2. Supabase: Authentication → URL Configuration → *Site URL* e *Redirect URLs*:
    `https://maelle-app.github.io/MAELLE/`
 
@@ -29,4 +30,4 @@ estante, loja e serviços. Estes dados apagam-se ao terminar sessão.
 - Publicar Termos e Política de Privacidade
 
 ## Testes
-`python3 tests/e2e.py` e `python3 tests/comunidade.py` (precisa de Playwright; usa um servidor simulado).
+`python3 tests/e2e.py` `python3 tests/comunidade.py` e `python3 tests/loja.py` (precisa de Playwright; usa um servidor simulado).

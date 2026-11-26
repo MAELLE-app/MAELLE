@@ -6,7 +6,7 @@ class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8766),functools.partial(Q,directory=str(D)));threading.Thread(target=srv.serve_forever,daemon=True).start()
 ME=str(uuid.uuid4());OTHER=str(uuid.uuid4());NOW='2026-11-26T07:00:00+00:00'
-db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books'.split()}
+db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages'.split()}
 db['posts'].append({'id':str(uuid.uuid4()),'author_id':OTHER,'group_id':None,'body':'<img src=x onerror=alert(1)> olá','status':'visible','created_at':NOW})
 names={ME:'Admin',OTHER:'Bia'};calls=[]
 def A(i):return {'username':names[i]}
@@ -25,6 +25,7 @@ def shape(t,x):
         x['comments']=[shape('comments',c) for c in db['comments'] if c['post_id']==x['id']];x['post_likes']=[l for l in db['post_likes'] if l['post_id']==x['id']]
     if t=='questions':x['answers']=[shape('answers',c) for c in db['answers'] if c['question_id']==x['id']]
     if t=='groups':x['group_members']=[m for m in db['group_members'] if m['group_id']==x['id']]
+    if t=='listings':x['seller']=A(x['seller_id'])
     if t=='reports':x['reporter']=A(x['reporter_id'])
     if t=='blocks':x['who']=A(x['blocked_id'])
     return x
