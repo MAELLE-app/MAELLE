@@ -139,9 +139,9 @@ async function signUp(name,email,pw,dob){
 }
 const signIn=async(email,pw)=>startSession(await sbFetch('/auth/v1/token?grant_type=password',{method:'POST',body:{email:email,password:pw}}));
 const recover=email=>sbFetch('/auth/v1/recover?redirect_to='+encodeURIComponent(appURL()),{method:'POST',body:{email:email}});
-async function uploadImage(dataURL){
+async function uploadImage(dataURL,prefix){
  const bin=atob(dataURL.split(',')[1]),buf=Uint8Array.from(bin,c=>c.charCodeAt(0));
- const path=S.auth.uid+'/avatar-'+Date.now()+'.jpg';
+ const path=S.auth.uid+'/'+(prefix||'avatar')+'-'+Date.now()+'.jpg';
  await api('/storage/v1/object/media/'+path,{method:'POST',headers:{'Content-Type':'image/jpeg'},body:new Blob([buf],{type:'image/jpeg'})});
  return SB_URL+'/storage/v1/object/public/media/'+path;
 }
