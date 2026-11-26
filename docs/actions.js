@@ -95,7 +95,7 @@ const FORM={
   if(!dob)return ferr(f,'Indica a tua data de nascimento.');
   const age=ageOf(dob);if(isNaN(age)||age<0||age>120)return ferr(f,'Confirma a data de nascimento.');
   if(age<18){S.blocked18=true;save();render();return}
-  if(!fd.get('agree'))return ferr(f,'Confirma que aceitas os Termos e a Política de Privacidade.');
+  if(!fd.get('agree'))return ferr(f,'Confirma que aceitas os Termos e que leste a Política de Privacidade.');
   await busy(f,async()=>{if(!await signUp(name,email,pw,dob)){go('login');toast('Enviámos um e-mail. Confirma-o e depois entra.')}})},
  async login(fd,f){const email=fd.get('email').trim().toLowerCase(),pw=fd.get('pw');
   if(!email||!pw)return ferr(f,'Preenche o e-mail e a palavra-passe.');

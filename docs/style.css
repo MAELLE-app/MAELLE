@@ -247,3 +247,10 @@ input[type=range]{width:100%;accent-color:var(--sand-deep);margin:6px 0 0}
 .avatar em{position:absolute;bottom:8px;right:8px;width:36px;height:36px;border-radius:50%;background:var(--white);display:grid;place-items:center;font-style:normal;z-index:1}
 .age-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--sand-deep);font:500 15px var(--serif);margin-bottom:6px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.agree a,.note a{color:inherit;text-decoration:underline}
+.legal{max-width:640px;margin:0 auto;padding:28px 22px 60px;font:400 15px/1.65 var(--sans);color:var(--ink)}
+.legal h1,.legal h2{font-family:var(--serif);font-weight:600;line-height:1.2}
+.legal h1{font-size:34px}.legal h2{font-size:22px;margin-top:30px}
+.legal li{margin-bottom:6px}.legal a{color:inherit}
+body.legalpage{display:block;height:auto;min-height:100%}
