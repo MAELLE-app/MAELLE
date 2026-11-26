@@ -51,7 +51,7 @@ with sync_playwright() as pw:
     assert len(db['events'])==1 and len(db['goals'])==1
     # offline e recuperação
     down[0]=True;pg.click('#tabs >> text=My Place');pg.click('text=Minha lista de tarefas');pg.click('text=Por fazer');pg.fill('#tk-t','Sem rede');pg.keyboard.press('Enter');pg.wait_for_timeout(1000);assert len(db['tasks'])==1
-    down[0]=False;pg.reload();pg.wait_for_timeout(3000);;assert len(db['tasks'])==2,db['tasks']
+    down[0]=False;pg.reload();pg.wait_for_timeout(3000);assert len(db['tasks'])==2,db['tasks']
     # sair e voltar a entrar: dados vêm do servidor
     pg.click('#tabs >> text=Início');pg.click('[aria-label="O meu perfil"]');pg.click('text=Terminar sessão');pg.wait_for_selector('text=Já tenho conta')
     assert 'Comprar flores' not in pg.evaluate('localStorage.getItem("maelle-v3")')
