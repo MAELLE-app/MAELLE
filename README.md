@@ -25,7 +25,6 @@ Moodboards, coleções, Beauty & Style e The Club. Não há pagamentos na app. E
 - Os dados são protegidos por regras RLS na base de dados.
 
 ## Por fazer antes do lançamento
-- Apagar também as fotos guardadas quando se apaga uma conta (RGPD)
 - Configurar um serviço de e-mail próprio no Supabase
 - Política de Privacidade publicada em versão provisória (`docs/privacidade.html`): faltam as garantias de transferência de dados e a revisão jurídica; trocar o e-mail de contacto antes de publicar a app nas lojas
 - Termos de Utilização publicados em versão provisória (`docs/termos.html`): falta revisão jurídica e confirmar o registo no Livro de Reclamações Eletrónico

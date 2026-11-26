@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 H=functools.partial(http.server.SimpleHTTPRequestHandler,directory=__import__('pathlib').Path(__file__).resolve().parent.parent.joinpath('docs').as_posix())
 H.func.log_message=lambda *a:None
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8765),H);threading.Thread(target=srv.serve_forever,daemon=True).start()
-UID=str(uuid.uuid4());db={k:{} for k in ['tasks','events','goals','habits','wishlist','journal','habit_logs']};prof={'username':'Ana_x','bio':None,'avatar_url':None,'interests':[],'role':'user'};calls=[];down=[False]
+UID=str(uuid.uuid4());db={k:{} for k in ['tasks','events','goals','habits','wishlist','journal','habit_logs']};prof={'username':'Ana_x','bio':None,'avatar_url':None,'interests':[],'role':'user'};calls=[];down=[False];files=['avatar-1.jpg','anuncio-2.jpg']
 def route(r):
     q=r.request;u=U.urlparse(q.url);p=u.path;m=q.method;calls.append((m,p));qs=dict(U.parse_qsl(u.query))
     def ok(b=None,s=200):r.fulfill(status=s,content_type='application/json',body='' if b is None else json.dumps(b),headers={'access-control-allow-origin':'*'})
@@ -11,6 +11,9 @@ def route(r):
     if p.startswith('/auth/v1/token') or p=='/auth/v1/signup':
         return ok({'access_token':'a','refresh_token':'r','expires_in':3600,'user':{'id':UID,'email':'a@b.pt','user_metadata':{'name':'Ana'}}})
     if p.startswith('/auth/'):return ok({})
+    if p=='/storage/v1/object/list/media':return ok([{'name':n} for n in files])
+    if p=='/storage/v1/object/media' and m=='DELETE':
+        gone=q.post_data_json['prefixes'];assert gone==[UID+'/'+n for n in files],gone;files.clear();return ok([{'name':n} for n in gone])
     if p.startswith('/storage/'):return ok({})
     t=p.split('/')[-1]
     if t=='profiles':
@@ -61,5 +64,6 @@ with sync_playwright() as pw:
     pg.screenshot(path='tasks.png')
     pg.click('#tabs >> text=Início');pg.click('[aria-label="O meu perfil"]');pg.click('text=Apagar a minha conta');pg.click('#sheet button[type=submit]');pg.wait_for_selector('text=Já tenho conta')
     assert ('POST','/rest/v1/rpc/delete_my_account') in calls
+    assert not files and calls.index(('DELETE','/storage/v1/object/media'))<calls.index(('POST','/rest/v1/rpc/delete_my_account'))
     assert not errs,errs;print('TUDO OK',len(calls))
     b.close()
