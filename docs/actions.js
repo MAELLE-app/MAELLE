@@ -29,6 +29,7 @@ const SHEETS={
 };
 let ACT_BUSY=false;
 const ACT={
+ draftclear:(d,el)=>{const box=el.closest('.postprev');clearDraft();box.innerHTML=''},
  go:d=>go(d.v,Object.assign({},d)),
  back:()=>back(), tab:d=>tab(d.v), close:()=>closeSheet(),
  bg:(d,t,e)=>{if(e.target===t)closeSheet()},
@@ -137,17 +138,19 @@ const FORM={
  look(fd){const t=fd.get('t').trim();if(!t)return;S.looks.unshift({id:uid(),t:t,date:today()});commit('Look guardado')},
  journal(fd,f){const t=fd.get('t').trim();if(!t)return ferr(f,'Escreve algumas linhas antes de guardar.');S.journal.push({id:uid(),date:today(),p:f.dataset.p,t:t});commit('Página guardada')},
  words(fd){S.words[monthKey()]=[fd.get('w1').trim(),fd.get('w2').trim(),fd.get('w3').trim()];commit('Palavras guardadas')},
- post(fd,f){const t=fd.get('t').trim(),img=postImg;if(!t&&!img)return;const l=postsOf(f.dataset.sc);l.unshift({id:uid(),me:true,a:uname(),ago:'agora',l:0,t:t,img:img,c:[]});if(!save()){l.shift();return toast('A foto é grande demais para guardar. Escolhe outra.')}postImg='';commit('Publicado')},
+ post(fd,f){const t=fd.get('t').trim(),img=draft.sc===f.dataset.sc?draft.img:'';if(!t&&!img)return;const l=postsOf(f.dataset.sc);l.unshift({id:uid(),me:true,a:uname(),ago:'agora',l:0,t:t,img:img,c:[]});if(!save()){l.shift();return toast('A foto é grande demais para guardar. Escolhe outra.')}clearDraft();commit('Publicado')},
  comment(fd,f){const t=fd.get('t').trim();if(!t)return;const p=postsOf(f.dataset.sc).find(x=>x.id===f.dataset.id);if(p){p.c.push({a:uname(),t:t,me:true});commit()}},
  ask(fd){const q=fd.get('q').trim();if(!q)return;S.qa.unshift({id:uid(),q:q,a:[]});commit('Pergunta publicada')},
  answer(fd,f){const t=fd.get('t').trim();if(!t)return;S.qa.find(q=>q.id===f.dataset.id).a.push({by:uname(),t:t});commit()},
  msg(fd,f){const t=fd.get('t').trim();if(!t)return;const r=f.dataset.r;(S.rooms[r]||(S.rooms[r]=[])).push({id:uid(),me:true,a:uname(),t:t});commit()}
 };
+const setDraft=(form,d)=>{clearDraft();draft=Object.assign({sc:form.dataset.sc,img:'',vid:null,url:''},d);form.querySelector('.postprev').innerHTML=draftHTML()};
 const CHANGE={
  photo:el=>{const f=el.files[0];if(!f)return;readImg(f,360,.82).then(d=>{photoTmp=d;$('#avatar').innerHTML=`<img src="${d}" alt="A tua foto"><em>${ic(P.cam,18)}</em>`}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  boardimg:el=>{const f=el.files[0];if(!f)return;readImg(f,640,.76).then(d=>{S.boards.find(b=>b.id===el.dataset.id).items.unshift({id:uid(),type:'img',src:d});commit()}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  tmpimg:el=>{const f=el.files[0];if(!f)return;readImg(f,640,.76).then(d=>{tmpImg=d;$('#pimgprev').innerHTML=`<img src="${d}" alt="" style="width:100%;height:100%;object-fit:cover">`}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
- postimg:el=>{const f=el.files[0];if(!f)return;readImg(f,900,.76).then(d=>{postImg=d;el.form.querySelector('.postprev').innerHTML=`<img class="postimg" src="${d}" alt="">`}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
+ postimg:el=>{const f=el.files[0];if(!f)return;el.value='';readImg(f,900,.76).then(d=>{setDraft(el.form,{img:d})}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
+ postvid:el=>{const f=el.files[0];if(!f)return;el.value='';if(!VIDEO_TYPES[f.type])return toast('Este formato de vídeo não é suportado.');if(f.size>VIDEO_MAX)return toast('O vídeo é grande demais. O limite é 30 MB.');setDraft(el.form,{vid:f,url:URL.createObjectURL(f)})},
  cover:el=>{const f=el.files[0];if(!f)return;readImg(f,520,.74).then(d=>{S.covers[el.dataset.k]=d;commit('Capa atualizada')}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  goalp:el=>{const g=S.goals.find(x=>x.id===el.dataset.id);g.p=Number(el.value);commit(g.p>=100?'Objetivo conquistado!':'')}
 };

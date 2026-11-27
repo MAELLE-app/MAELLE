@@ -482,6 +482,25 @@ Escreve a primeira mensagem.=Write the first message.
 Dá ao grupo um nome com pelo menos 3 letras.=Give the group a name with at least 3 letters.
 Confirma que vais garantir um espaço respeitoso.=Confirm you'll keep it a respectful space.
 Créditos das fotografias=Photo credits
+Vídeo=Video
+Retirar=Remove
+A enviar o vídeo…=Uploading the video…
+O vídeo é grande demais. O limite é 30 MB.=The video is too big. The limit is 30 MB.
+Este formato de vídeo não é suportado.=This video format is not supported.
+Seguidos=Following
+Seguidoras=Followers
+Remover=Remove
+Encontrar pessoas=Find people
+Descobre perfis e segue quem gostas.=Discover profiles and follow the ones you like.
+Procurar por nome=Search by name
+Ninguém encontrado.=No one found.
+Ainda sem seguidoras.=No followers yet.
+Ainda não segue ninguém.=Not following anyone yet.
+Todas=All
+Segue perfis para veres aqui as publicações.=Follow profiles to see their posts here.
+Começaste a seguir=You are now following
+Deixaste de seguir=You unfollowed
+Seguidora removida=Follower removed
 `;
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
@@ -958,6 +977,25 @@ Escreve a primeira mensagem.¦Écris le premier message.¦Escribe el primer mens
 Dá ao grupo um nome com pelo menos 3 letras.¦Donne au groupe un nom d'au moins 3 lettres.¦Pon al grupo un nombre de al menos 3 letras.¦Dai al gruppo un nome di almeno 3 lettere.
 Confirma que vais garantir um espaço respeitoso.¦Confirme que tu garantiras un espace respectueux.¦Confirma que garantizarás un espacio respetuoso.¦Conferma che garantirai uno spazio rispettoso.
 Créditos das fotografias¦Crédits photos¦Créditos de las fotos¦Crediti fotografici
+Vídeo¦Vidéo¦Vídeo¦Video
+Retirar¦Retirer¦Quitar¦Rimuovi
+A enviar o vídeo…¦Envoi de la vidéo…¦Subiendo el vídeo…¦Caricamento del video…
+O vídeo é grande demais. O limite é 30 MB.¦La vidéo est trop lourde. La limite est de 30 Mo.¦El vídeo es demasiado grande. El límite es de 30 MB.¦Il video è troppo grande. Il limite è di 30 MB.
+Este formato de vídeo não é suportado.¦Ce format vidéo n'est pas pris en charge.¦Este formato de vídeo no es compatible.¦Questo formato video non è supportato.
+Seguidos¦Abonnements¦Seguidos¦Seguiti
+Seguidoras¦Abonnées¦Seguidoras¦Follower
+Remover¦Retirer¦Quitar¦Rimuovi
+Encontrar pessoas¦Trouver des personnes¦Buscar personas¦Trova persone
+Descobre perfis e segue quem gostas.¦Découvre des profils et suis ceux que tu aimes.¦Descubre perfiles y sigue los que te gusten.¦Scopri profili e segui quelli che ti piacciono.
+Procurar por nome¦Chercher par nom¦Buscar por nombre¦Cerca per nome
+Ninguém encontrado.¦Personne trouvée.¦No se ha encontrado a nadie.¦Nessuno trovato.
+Ainda sem seguidoras.¦Pas encore d'abonnées.¦Aún sin seguidoras.¦Ancora nessun follower.
+Ainda não segue ninguém.¦Ne suit encore personne.¦Aún no sigue a nadie.¦Non segue ancora nessuno.
+Todas¦Toutes¦Todas¦Tutti
+Segue perfis para veres aqui as publicações.¦Suis des profils pour voir leurs publications ici.¦Sigue perfiles para ver aquí sus publicaciones.¦Segui dei profili per vedere qui i loro post.
+Começaste a seguir¦Tu suis ce profil¦Ahora sigues este perfil¦Ora segui questo profilo
+Deixaste de seguir¦Tu ne suis plus ce profil¦Has dejado de seguir¦Non segui più questo profilo
+Seguidora removida¦Abonnée retirée¦Seguidora eliminada¦Follower rimosso
 `;
 
 /* meses e frases com números ou nomes, por língua */

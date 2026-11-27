@@ -145,6 +145,12 @@ async function uploadImage(dataURL,prefix){
  await api('/storage/v1/object/media/'+path,{method:'POST',headers:{'Content-Type':'image/jpeg'},body:new Blob([buf],{type:'image/jpeg'})});
  return SB_URL+'/storage/v1/object/public/media/'+path;
 }
+const VIDEO_TYPES={'video/mp4':'mp4','video/quicktime':'mov','video/webm':'webm'},VIDEO_MAX=30*1024*1024;
+async function uploadVideo(file){
+ const path=S.auth.uid+'/video-'+Date.now()+'.'+VIDEO_TYPES[file.type];
+ await api('/storage/v1/object/media/'+path,{method:'POST',headers:{'Content-Type':file.type},body:file});
+ return SB_URL+'/storage/v1/object/public/media/'+path;
+}
 async function saveProfile(username,bio,newPhoto){
  const body={username:username,bio:bio};
  if(newPhoto)body.avatar_url=await uploadImage(newPhoto);

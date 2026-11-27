@@ -6,13 +6,13 @@ class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8768),functools.partial(Q,directory=str(D)));threading.Thread(target=srv.serve_forever,daemon=True).start()
 ME=str(uuid.uuid4());OTHER=str(uuid.uuid4());NOW='2026-11-26T07:00:00+00:00'
-db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages'.split()}
+db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows'.split()}
 db['posts'].append({'id':str(uuid.uuid4()),'author_id':OTHER,'group_id':None,'body':'<img src=x onerror=alert(1)> olá','status':'visible','created_at':NOW})
 names={ME:'Admin',OTHER:'Bia'};calls=[];files=[]
 def A(i):return {'username':names[i]}
 def match(x,qs):
     for k,v in qs.items():
-        if k in('select','order','limit','on_conflict'):continue
+        if k in('select','order','limit','on_conflict','or'):continue
         s=str(x.get(k)).lower() if x.get(k) is not None else 'null'
         if v.startswith('eq.') and s!=v[3:].lower():return False
         if v=='is.null' and x.get(k) is not None:return False
@@ -27,6 +27,7 @@ def shape(t,x):
     if t=='groups':x['group_members']=[m for m in db['group_members'] if m['group_id']==x['id']]
     if t=='listings':x['seller']=A(x['seller_id'])
     if t=='reports':x['reporter']=A(x['reporter_id'])
+    if t=='follows':x['follower']=A(x['follower_id']);x['followed']=A(x['followed_id'])
     if t=='blocks':x['who']=A(x['blocked_id'])
     return x
 def route(r):
@@ -36,6 +37,7 @@ def route(r):
     if p.startswith('/storage/'):
         files.append((m,p));return ok([{}])
     if t=='profiles' and qs.get('id')=='eq.'+OTHER:return ok([{'id':OTHER,'username':'Bia','bio':'Gosto de ler','avatar_url':None,'interests':['livros']}])
+    if t=='profiles' and qs.get('id','').startswith('neq.'):return ok([{'id':OTHER,'username':'Bia','avatar_url':None,'bio':'Gosto de ler'}])
     if t=='profiles':
         if m=='GET' and 'id' in qs:return ok([{'username':'Admin','bio':None,'avatar_url':None,'interests':['moda'],'role':'admin'}])
         return ok([{'id':ME},{'id':OTHER}]) if m=='GET' else ok(None,204)
@@ -79,6 +81,22 @@ with sync_playwright() as pw:
     art.locator('text=Apagar >> nth=0').click();W();assert len(db['posts'])==1 and ('DELETE','/storage/v1/object/media') in files
     tab();pg.click('text=Publicações');pg.click('.person >> text=Bia');pg.wait_for_selector('text=Gosto de ler');pg.wait_for_selector('article >> text=olá')
     pg.locator('article input').fill('Olá Bia');pg.locator('article input').press('Enter');pg.wait_for_selector('.cm >> text=Olá Bia');W();pg.screenshot(path='/tmp/t/user.png')
+    # seguir, listas, pesquisa e separador "Seguidos"
+    db['follows'].append({'follower_id':OTHER,'followed_id':ME})
+    tab();pg.click('text=Encontrar pessoas');pg.fill('#pq','Bi');row=pg.locator('.prsn',has_text='Bia');row.locator('[data-act=follow]:has-text("Seguir")').click();pg.wait_for_selector('.prsn [data-act=follow]:has-text("A seguir")')
+    assert {'follower_id':ME,'followed_id':OTHER}.items()<=db['follows'][-1].items()
+    pg.click('.person >> text=Bia');pg.wait_for_selector('.stats >> text=Seguidoras');W();assert pg.locator('.stats b').nth(1).inner_text()=='1';pg.screenshot(path='/tmp/t/user.png')
+    tab();pg.click('text=Publicações');pg.click('.seg >> text=Seguidos');pg.wait_for_selector('article >> text=olá');assert pg.locator('form[data-form=post]').count()==0
+    me();pg.wait_for_selector('.stats');W();pg.click('.stats >> text=Seguidoras');pg.wait_for_selector('.prsn >> text=Bia');pg.click('[data-act=unfollower]');W();assert len(db['follows'])==1
+    # vídeo: formato, tamanho, publicação e apagamento
+    me();pg.wait_for_selector('#me-t-vid',state='attached')
+    pg.set_input_files('#me-t-vid',files=[{'name':'a.avi','mimeType':'video/x-msvideo','buffer':b'x'}]);pg.wait_for_selector('text=Este formato de vídeo não é suportado.')
+    pg.evaluate("CHANGE.postvid({files:[{type:'video/mp4',size:VIDEO_MAX+1}],value:'',form:document.querySelector('form[data-form=post]')})");pg.wait_for_selector('text=O vídeo é grande demais')
+    pg.set_input_files('#me-t-vid',files=[{'name':'a.mp4','mimeType':'video/mp4','buffer':b'0000ftypmp42'}]);pg.wait_for_selector('.postprev video')
+    pg.click('button:has-text("Publicar")');pg.wait_for_selector('article video')
+    v=db['posts'][-1];assert '/media/'+ME+'/video-' in v['video_url'] and v['video_url'].endswith('.mp4') and v['body']=='' and 'image_url' not in v
+    pg.screenshot(path='/tmp/t/video.png',full_page=True)
+    n=files.count(('DELETE','/storage/v1/object/media'));pg.locator('article',has=pg.locator('video')).locator('text=Apagar >> nth=0').click();W();assert files.count(('DELETE','/storage/v1/object/media'))==n+1 and not any(x.get('video_url') for x in db['posts'])
     me();pg.click('[aria-label="Definições"]');pg.wait_for_selector('text=Painel de administração');pg.screenshot(path='/tmp/t/set.png',full_page=True)
     assert pg.locator('a[href="termos.html"]').count()==1 and pg.locator('a[href="privacidade.html"]').count()==1
     pg.click('.langs >> text=English');pg.wait_for_selector('text=Welcome to your world',timeout=8000)
