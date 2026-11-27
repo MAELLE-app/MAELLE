@@ -20,6 +20,9 @@ Fotografias CC0 carregadas do Wikimedia Commons (`PHOTOS` em `docs/core.js`, cr�
 ## Perfis
 Publicações com texto, fotografia ou vídeo (MP4, MOV ou WebM até 30 MB), gostos, comentários, seguir perfis, encontrar pessoas pelo nome e separador "Seguidos". Tabela `follows` com RLS; bloquear alguém apaga o "seguir" nos dois sentidos. Antes de abrir ao público: o plano gratuito do Supabase tem pouco espaço e tráfego para vídeo.
 
+## Mensagens privadas
+`docs/messages.js`, tabelas `messages` e `message_settings` com RLS. Cada pessoa escolhe quem lhe pode escrever (todas, quem segue ou ninguém); bloquear esconde a conversa; limite de 30 mensagens por minuto; a equipa só lê uma mensagem denunciada por quem a recebeu. Sem notificações no telemóvel nem tempo real (a conversa aberta atualiza a cada 5 segundos) e sem cifra de ponta a ponta.
+
 ## Línguas
 Português, inglês, francês, espanhol e italiano (`docs/i18n.js`; francês, espanhol e italiano ainda sem revisão por falantes nativas). Ainda em português: ideias e conteúdos do The Club e Beauty & Style, painel de administração, Termos e Política de Privacidade.
 

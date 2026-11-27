@@ -6,7 +6,7 @@ class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8768),functools.partial(Q,directory=str(D)));threading.Thread(target=srv.serve_forever,daemon=True).start()
 ME=str(uuid.uuid4());OTHER=str(uuid.uuid4());NOW='2026-11-26T07:00:00+00:00'
-db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows'.split()}
+db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows messages message_settings'.split()}
 db['posts'].append({'id':str(uuid.uuid4()),'author_id':OTHER,'group_id':None,'body':'<img src=x onerror=alert(1)> olá','status':'visible','created_at':NOW})
 names={ME:'Admin',OTHER:'Bia'};calls=[];files=[]
 def A(i):return {'username':names[i]}
@@ -27,6 +27,7 @@ def shape(t,x):
     if t=='groups':x['group_members']=[m for m in db['group_members'] if m['group_id']==x['id']]
     if t=='listings':x['seller']=A(x['seller_id'])
     if t=='reports':x['reporter']=A(x['reporter_id'])
+    if t=='messages':x['sender']=A(x['sender_id']);x['recipient']=A(x['recipient_id']);x['author']=x['sender'];x['author_id']=x['sender_id']
     if t=='follows':x['follower']=A(x['follower_id']);x['followed']=A(x['followed_id'])
     if t=='blocks':x['who']=A(x['blocked_id'])
     return x
@@ -97,6 +98,20 @@ with sync_playwright() as pw:
     v=db['posts'][-1];assert '/media/'+ME+'/video-' in v['video_url'] and v['video_url'].endswith('.mp4') and v['body']=='' and 'image_url' not in v
     pg.screenshot(path='/tmp/t/video.png',full_page=True)
     n=files.count(('DELETE','/storage/v1/object/media'));pg.locator('article',has=pg.locator('video')).locator('text=Apagar >> nth=0').click();W();assert files.count(('DELETE','/storage/v1/object/media'))==n+1 and not any(x.get('video_url') for x in db['posts'])
+    # mensagens privadas
+    db['messages'].append({'id':str(uuid.uuid4()),'sender_id':OTHER,'recipient_id':ME,'body':'<b>Olá</b> tudo bem?','created_at':NOW,'read_at':None})
+    pg.evaluate("checkUnread(true)");pg.wait_for_selector('#tabs button.dot')
+    me();pg.click('button:has-text("Mensagens")');pg.wait_for_selector('.thread >> text=<b>Olá</b> tudo bem?');pg.screenshot(path='/tmp/t/inbox.png')
+    pg.click('.thread');pg.wait_for_selector('.m >> text=tudo bem?');W();assert db['messages'][0]['read_at'] and pg.locator('#tabs button.dot').count()==0
+    pg.fill('#dm-t','Tudo ótimo');pg.press('#dm-t','Enter');pg.wait_for_selector('.m.me >> text=Tudo ótimo')
+    m=db['messages'][-1];assert m['sender_id']==ME and m['recipient_id']==OTHER and pg.input_value('#dm-t')==''
+    # chega uma resposta enquanto se escreve: aparece sem apagar o texto
+    pg.fill('#dm-t','a escrever');db['messages'].append({'id':str(uuid.uuid4()),'sender_id':OTHER,'recipient_id':ME,'body':'Que bom','created_at':NOW,'read_at':None})
+    pg.wait_for_selector('.m >> text=Que bom',timeout=9000);assert pg.input_value('#dm-t')=='a escrever';pg.screenshot(path='/tmp/t/chat.png')
+    pg.locator('.m',has_text='Que bom').locator('text=Denunciar').click();pg.click('text=Enviar denúncia');W();assert db['reports'][-1]['target_type']=='dm'
+    pg.locator('.m.me',has_text='Tudo ótimo').locator('text=Apagar').click();W();assert all(x['body']!='Tudo ótimo' for x in db['messages'])
+    me();pg.click('.stats >> text=Seguidos');pg.wait_for_selector('.prsn');pg.click('.person >> text=Bia');pg.click('.prow >> text=Mensagem');pg.wait_for_selector('#dm-t')
+    me();pg.click('[aria-label="Definições"]');pg.click('[data-act=dmwho][data-w=none]');W();assert db['message_settings'][-1]['who']=='none'
     me();pg.click('[aria-label="Definições"]');pg.wait_for_selector('text=Painel de administração');pg.screenshot(path='/tmp/t/set.png',full_page=True)
     assert pg.locator('a[href="termos.html"]').count()==1 and pg.locator('a[href="privacidade.html"]').count()==1
     pg.click('.langs >> text=English');pg.wait_for_selector('text=Welcome to your world',timeout=8000)

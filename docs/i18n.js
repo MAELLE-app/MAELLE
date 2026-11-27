@@ -501,6 +501,18 @@ Segue perfis para veres aqui as publicações.=Follow profiles to see their post
 Começaste a seguir=You are now following
 Deixaste de seguir=You unfollowed
 Seguidora removida=Follower removed
+Mensagens=Messages
+Quem sigo=People I follow
+Ninguém=No one
+As tuas conversas privadas.=Your private conversations.
+Ainda não tens mensagens. Abre um perfil para começar uma conversa.=No messages yet. Open a profile to start a conversation.
+Ainda não há mensagens nesta conversa.=No messages in this conversation yet.
+Só tu e a outra pessoa veem esta conversa. Se denunciares uma mensagem, a equipa vê essa mensagem.=Only you and the other person see this conversation. If you report a message, the team sees that message.
+Esta pessoa não aceita as tuas mensagens.=This person does not accept your messages.
+Quem te pode enviar mensagens=Who can send you messages
+Preferência guardada=Preference saved
+Mensagem privada=Private message
+Demasiadas tentativas. Espera um pouco e tenta de novo.=Too many attempts. Wait a moment and try again.
 `;
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
@@ -996,6 +1008,18 @@ Segue perfis para veres aqui as publicações.¦Suis des profils pour voir leurs
 Começaste a seguir¦Tu suis ce profil¦Ahora sigues este perfil¦Ora segui questo profilo
 Deixaste de seguir¦Tu ne suis plus ce profil¦Has dejado de seguir¦Non segui più questo profilo
 Seguidora removida¦Abonnée retirée¦Seguidora eliminada¦Follower rimosso
+Mensagens¦Messages¦Mensajes¦Messaggi
+Quem sigo¦Les personnes suivies¦A quienes sigo¦Chi seguo
+Ninguém¦Personne¦Nadie¦Nessuno
+As tuas conversas privadas.¦Tes conversations privées.¦Tus conversaciones privadas.¦Le tue conversazioni private.
+Ainda não tens mensagens. Abre um perfil para começar uma conversa.¦Pas encore de messages. Ouvre un profil pour lancer une conversation.¦Aún no tienes mensajes. Abre un perfil para empezar una conversación.¦Ancora nessun messaggio. Apri un profilo per iniziare una conversazione.
+Ainda não há mensagens nesta conversa.¦Pas encore de messages dans cette conversation.¦Aún no hay mensajes en esta conversación.¦Ancora nessun messaggio in questa conversazione.
+Só tu e a outra pessoa veem esta conversa. Se denunciares uma mensagem, a equipa vê essa mensagem.¦Seules toi et l'autre personne voyez cette conversation. Si tu signales un message, l'équipe voit ce message.¦Solo tú y la otra persona veis esta conversación. Si denuncias un mensaje, el equipo ve ese mensaje.¦Solo tu e l'altra persona vedete questa conversazione. Se segnali un messaggio, il team vede quel messaggio.
+Esta pessoa não aceita as tuas mensagens.¦Cette personne n'accepte pas tes messages.¦Esta persona no acepta tus mensajes.¦Questa persona non accetta i tuoi messaggi.
+Quem te pode enviar mensagens¦Qui peut t'envoyer des messages¦Quién puede enviarte mensajes¦Chi può inviarti messaggi
+Preferência guardada¦Préférence enregistrée¦Preferencia guardada¦Preferenza salvata
+Mensagem privada¦Message privé¦Mensaje privado¦Messaggio privato
+Demasiadas tentativas. Espera um pouco e tenta de novo.¦Trop de tentatives. Attends un peu et réessaie.¦Demasiados intentos. Espera un poco.¦Troppi tentativi. Attendi un po'.
 `;
 
 /* meses e frases com números ou nomes, por língua */

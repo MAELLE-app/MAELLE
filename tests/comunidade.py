@@ -6,7 +6,7 @@ class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8766),functools.partial(Q,directory=str(D)));threading.Thread(target=srv.serve_forever,daemon=True).start()
 ME=str(uuid.uuid4());OTHER=str(uuid.uuid4());NOW='2026-11-26T07:00:00+00:00'
-db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows'.split()}
+db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows messages message_settings'.split()}
 db['posts'].append({'id':str(uuid.uuid4()),'author_id':OTHER,'group_id':None,'body':'<img src=x onerror=alert(1)> olá','status':'visible','created_at':NOW})
 names={ME:'Admin',OTHER:'Bia'};calls=[]
 def A(i):return {'username':names[i]}
@@ -27,6 +27,7 @@ def shape(t,x):
     if t=='groups':x['group_members']=[m for m in db['group_members'] if m['group_id']==x['id']]
     if t=='listings':x['seller']=A(x['seller_id'])
     if t=='reports':x['reporter']=A(x['reporter_id'])
+    if t=='messages':x['sender']=A(x['sender_id']);x['recipient']=A(x['recipient_id']);x['author']=x['sender'];x['author_id']=x['sender_id']
     if t=='follows':x['follower']=A(x['follower_id']);x['followed']=A(x['followed_id'])
     if t=='blocks':x['who']=A(x['blocked_id'])
     return x
