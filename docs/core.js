@@ -86,7 +86,7 @@ const art=k=>`img/${TOPICS[k]?k:'moda'}.svg`;
 const SVC_ART={'Beleza':'beleza','Cabelo':'beleza','Maquilhagem':'beleza','Imagem e estilo':'moda','Organização':'organizacao'};
 const svcArt=c=>art(SVC_ART[c]||'criatividade');
 const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
-const itemPic=(x,fb)=>!x.img&&PIMG[x.id]?photoImg(PIMG[x.id],'',500):picture(x.img||fb);
+const itemPic=x=>x.img?picture(x.img):PIMG[x.id]?photoImg(PIMG[x.id],'',500):photoImg(TOPICS[x.c]?x.c:SVC_ART[x.c]||'criatividade','',500)+'<i class="ilus">Imagem ilustrativa</i>';
 /* fotografias CC0 do Wikimedia Commons (lista também em creditos.html); se não carregarem, aparece a ilustração */
 const PHOTOS={
  macacao:"Turquoise Jumpsuit (Unsplash).jpg",
@@ -140,9 +140,16 @@ const PHOTOS={
  convivio:'Coffee,_flowers_and_books_(Unsplash).jpg'
 };
 const PHOTO_ART={vestido:'moda',loja:'moda',convivio:'livros',macacao:'moda',mala:'moda',compras:'moda',inverno:'moda',rua:'moda',gorro:'moda',urbano:'moda',cabelo:'beleza',cafe:'beleza',olhar:'beleza',quarto:'decoracao',canto:'decoracao',plantas:'decoracao',vela:'decoracao',luz:'decoracao',casa:'decoracao',malas:'viagens',roteiro:'viagens',caminhada:'viagens',saco:'viagens',mochila:'viagens',cereais:'receitas',massa:'receitas',salada:'receitas',panquecas:'receitas',legumes:'receitas',brunch:'receitas',lapis:'criatividade',camara:'criatividade',aparas:'criatividade',caneta:'organizacao',mesa:'organizacao',secretaria:'organizacao',arquivo:'organizacao',caderno:'organizacao',leitora:'livros',colo:'livros',estante:'livros'};
-const photo=(k,w)=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(PHOTOS[k]).replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29')+'?width='+(w||960);
-const photoImg=(k,cls,w)=>`<img ${cls?`class="${cls}"`:''} src="${photo(k,w)}" data-fb="${art(PHOTO_ART[k]||k)}" alt="" referrerpolicy="no-referrer">`;
-document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.fb){t.src=t.dataset.fb;delete t.dataset.fb}},true);
+/* larguras que o Wikimedia aceita; pedir outra dá erro */
+const THUMBS=[120,250,330,500,960];
+const thumbW=w=>THUMBS.find(t=>t>=w)||960;
+const photo=(k,w)=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(PHOTOS[k]).replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29')+'?width='+thumbW(w||960);
+const photoImg=(k,cls,w)=>`<img ${cls?`class="${cls}"`:''} src="${photo(k,w)}" data-fb="${art(PHOTO_ART[k]||k)}" alt="" loading="lazy" referrerpolicy="no-referrer">`;
+const RETRY=[700,2200];
+document.addEventListener('error',e=>{const t=e.target;if(t.tagName!=='IMG'||!t.dataset.fb)return;
+ const n=+t.dataset.n||0,src=t.getAttribute('src');
+ if(n<RETRY.length&&src.indexOf('https:')===0){t.dataset.n=n+1;setTimeout(()=>{t.src=src.replace(/&retry=\d+$/,'')+'&retry='+(n+1)},RETRY[n]);return}
+ t.src=t.dataset.fb;delete t.dataset.fb},true);
 const banner=k=>photoImg(k,'banner');
 /* que fotografia vai em cada ideia, exemplo, menu e ecrã */
 const IMG={
@@ -202,7 +209,7 @@ function breathStop(){clearTimeout(bt);bt=null}
 /* ---------- peças partilhadas ---------- */
 const head=(title,sub,o)=>{o=o||{};return `<div class="bar">${o.noBack?'<span></span>':`<button class="icon-btn" data-act="back" aria-label="Voltar">${ic(P.back)}</button>`}<span class="bar-r">${o.right||''}</span></div><h1 class="h1">${title}</h1>${sub?`<p class="sub">${sub}</p>`:''}`};
 const avatar=sz=>S.profile.photo?`<span class="av" style="width:${sz}px;height:${sz}px"><img src="${S.profile.photo}" alt=""></span>`:initial(uname(),sz);
-const menu=(icon,t,p,act,feat)=>`<button class="menu ${feat?'feat':''}" ${act}><span class="ic ${MENUIMG[icon]?'foto':''}">${MENUIMG[icon]?photoImg(MENUIMG[icon],'',160):ic(P[icon],22)}</span><span class="tx"><span class="t">${t}</span><span class="p">${p}</span></span><span class="ch">${ic(P.next,18)}</span></button>`;
+const menu=(icon,t,p,act,feat)=>`<button class="menu ${feat?'feat':''}" ${act}><span class="ic ${MENUIMG[icon]?'foto':''}">${MENUIMG[icon]?photoImg(MENUIMG[icon],'',250):ic(P[icon],22)}</span><span class="tx"><span class="t">${t}</span><span class="p">${p}</span></span><span class="ch">${ic(P.next,18)}</span></button>`;
 const delBtn=(l,id)=>`<button class="del" data-act="del" data-l="${l}" data-id="${id}" aria-label="Apagar">${ic(P.trash,18)}</button>`;
 const chk=(on,l,id,f)=>`<button class="chk ${on?'on':''}" data-act="toggle" data-l="${l}" data-id="${id}" data-f="${f}" aria-pressed="${!!on}" aria-label="Marcar como feito">${ic(P.check,16)}</button>`;
 const ideaCard=i=>{const on=S.saved.includes(i.id);return `<article class="idea big">${photoImg(IMG[i.id]||i.k,'cover',500)}<div><h3>${i.t}</h3><p>${i.d}</p></div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
