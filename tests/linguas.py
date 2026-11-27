@@ -6,7 +6,7 @@ class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8769),functools.partial(Q,directory=str(D)));threading.Thread(target=srv.serve_forever,daemon=True).start()
 png=base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==')
-VIEWS='home saved boards myplace agenda tasks goals habits wishes beauty finder club challenges creative digital bookclub community posts groups qa edit shop brands sell favs me settings profile interests people follows'.split()
+VIEWS='home saved boards myplace agenda tasks goals habits wishes beauty finder club challenges creative digital bookclub community posts groups qa edit shop brands sell favs me settings profile interests people follows inbox'.split()
 SHEETS='age event goal habit board addprod addsvc newgroup invite'.split()
 HELLO={'pt':'Um universo criado para ti','en':'A world','fr':'Un univers créé pour toi','es':'Un universo creado para ti','it':'Un universo creato per te'}
 with sync_playwright() as pw:

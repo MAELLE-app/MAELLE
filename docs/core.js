@@ -121,6 +121,7 @@ function render(keep){
  $('#app').classList.toggle('has-tabs',!!def.tab);
  $('#tabs').innerHTML=TABS.map(t=>`<button data-act="tab" data-v="${t[0]}" class="${def.tab===t[0]?'on':''}" ${def.tab===t[0]?'aria-current="page"':''}>${ic(P[t[2]],22)}<span>${t[1]}</span></button>`).join('');
  el.scrollTop=keep?sc:0;
+ if(typeof paintBadge==='function')paintBadge();
  if(def.after)def.after(c.p||{});
 }
 let tt=null;
