@@ -482,6 +482,37 @@ Escreve a primeira mensagem.=Write the first message.
 Dá ao grupo um nome com pelo menos 3 letras.=Give the group a name with at least 3 letters.
 Confirma que vais garantir um espaço respeitoso.=Confirm you'll keep it a respectful space.
 Créditos das fotografias=Photo credits
+Vídeo=Video
+Retirar=Remove
+A enviar o vídeo…=Uploading the video…
+O vídeo é grande demais. O limite é 30 MB.=The video is too big. The limit is 30 MB.
+Este formato de vídeo não é suportado.=This video format is not supported.
+Seguidos=Following
+Seguidoras=Followers
+Remover=Remove
+Encontrar pessoas=Find people
+Descobre perfis e segue quem gostas.=Discover profiles and follow the ones you like.
+Procurar por nome=Search by name
+Ninguém encontrado.=No one found.
+Ainda sem seguidoras.=No followers yet.
+Ainda não segue ninguém.=Not following anyone yet.
+Todas=All
+Segue perfis para veres aqui as publicações.=Follow profiles to see their posts here.
+Começaste a seguir=You are now following
+Deixaste de seguir=You unfollowed
+Seguidora removida=Follower removed
+Mensagens=Messages
+Quem sigo=People I follow
+Ninguém=No one
+As tuas conversas privadas.=Your private conversations.
+Ainda não tens mensagens. Abre um perfil para começar uma conversa.=No messages yet. Open a profile to start a conversation.
+Ainda não há mensagens nesta conversa.=No messages in this conversation yet.
+Só tu e a outra pessoa veem esta conversa. Se denunciares uma mensagem, a equipa vê essa mensagem.=Only you and the other person see this conversation. If you report a message, the team sees that message.
+Esta pessoa não aceita as tuas mensagens.=This person does not accept your messages.
+Quem te pode enviar mensagens=Who can send you messages
+Preferência guardada=Preference saved
+Mensagem privada=Private message
+Demasiadas tentativas. Espera um pouco e tenta de novo.=Too many attempts. Wait a moment and try again.
 `;
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
@@ -958,6 +989,37 @@ Escreve a primeira mensagem.¦Écris le premier message.¦Escribe el primer mens
 Dá ao grupo um nome com pelo menos 3 letras.¦Donne au groupe un nom d'au moins 3 lettres.¦Pon al grupo un nombre de al menos 3 letras.¦Dai al gruppo un nome di almeno 3 lettere.
 Confirma que vais garantir um espaço respeitoso.¦Confirme que tu garantiras un espace respectueux.¦Confirma que garantizarás un espacio respetuoso.¦Conferma che garantirai uno spazio rispettoso.
 Créditos das fotografias¦Crédits photos¦Créditos de las fotos¦Crediti fotografici
+Vídeo¦Vidéo¦Vídeo¦Video
+Retirar¦Retirer¦Quitar¦Rimuovi
+A enviar o vídeo…¦Envoi de la vidéo…¦Subiendo el vídeo…¦Caricamento del video…
+O vídeo é grande demais. O limite é 30 MB.¦La vidéo est trop lourde. La limite est de 30 Mo.¦El vídeo es demasiado grande. El límite es de 30 MB.¦Il video è troppo grande. Il limite è di 30 MB.
+Este formato de vídeo não é suportado.¦Ce format vidéo n'est pas pris en charge.¦Este formato de vídeo no es compatible.¦Questo formato video non è supportato.
+Seguidos¦Abonnements¦Seguidos¦Seguiti
+Seguidoras¦Abonnées¦Seguidoras¦Follower
+Remover¦Retirer¦Quitar¦Rimuovi
+Encontrar pessoas¦Trouver des personnes¦Buscar personas¦Trova persone
+Descobre perfis e segue quem gostas.¦Découvre des profils et suis ceux que tu aimes.¦Descubre perfiles y sigue los que te gusten.¦Scopri profili e segui quelli che ti piacciono.
+Procurar por nome¦Chercher par nom¦Buscar por nombre¦Cerca per nome
+Ninguém encontrado.¦Personne trouvée.¦No se ha encontrado a nadie.¦Nessuno trovato.
+Ainda sem seguidoras.¦Pas encore d'abonnées.¦Aún sin seguidoras.¦Ancora nessun follower.
+Ainda não segue ninguém.¦Ne suit encore personne.¦Aún no sigue a nadie.¦Non segue ancora nessuno.
+Todas¦Toutes¦Todas¦Tutti
+Segue perfis para veres aqui as publicações.¦Suis des profils pour voir leurs publications ici.¦Sigue perfiles para ver aquí sus publicaciones.¦Segui dei profili per vedere qui i loro post.
+Começaste a seguir¦Tu suis ce profil¦Ahora sigues este perfil¦Ora segui questo profilo
+Deixaste de seguir¦Tu ne suis plus ce profil¦Has dejado de seguir¦Non segui più questo profilo
+Seguidora removida¦Abonnée retirée¦Seguidora eliminada¦Follower rimosso
+Mensagens¦Messages¦Mensajes¦Messaggi
+Quem sigo¦Les personnes suivies¦A quienes sigo¦Chi seguo
+Ninguém¦Personne¦Nadie¦Nessuno
+As tuas conversas privadas.¦Tes conversations privées.¦Tus conversaciones privadas.¦Le tue conversazioni private.
+Ainda não tens mensagens. Abre um perfil para começar uma conversa.¦Pas encore de messages. Ouvre un profil pour lancer une conversation.¦Aún no tienes mensajes. Abre un perfil para empezar una conversación.¦Ancora nessun messaggio. Apri un profilo per iniziare una conversazione.
+Ainda não há mensagens nesta conversa.¦Pas encore de messages dans cette conversation.¦Aún no hay mensajes en esta conversación.¦Ancora nessun messaggio in questa conversazione.
+Só tu e a outra pessoa veem esta conversa. Se denunciares uma mensagem, a equipa vê essa mensagem.¦Seules toi et l'autre personne voyez cette conversation. Si tu signales un message, l'équipe voit ce message.¦Solo tú y la otra persona veis esta conversación. Si denuncias un mensaje, el equipo ve ese mensaje.¦Solo tu e l'altra persona vedete questa conversazione. Se segnali un messaggio, il team vede quel messaggio.
+Esta pessoa não aceita as tuas mensagens.¦Cette personne n'accepte pas tes messages.¦Esta persona no acepta tus mensajes.¦Questa persona non accetta i tuoi messaggi.
+Quem te pode enviar mensagens¦Qui peut t'envoyer des messages¦Quién puede enviarte mensajes¦Chi può inviarti messaggi
+Preferência guardada¦Préférence enregistrée¦Preferencia guardada¦Preferenza salvata
+Mensagem privada¦Message privé¦Mensaje privado¦Messaggio privato
+Demasiadas tentativas. Espera um pouco e tenta de novo.¦Trop de tentatives. Attends un peu et réessaie.¦Demasiados intentos. Espera un poco.¦Troppi tentativi. Attendi un po'.
 `;
 
 /* meses e frases com números ou nomes, por língua */

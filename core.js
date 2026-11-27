@@ -15,7 +15,7 @@ const ageOf=s=>{const b=new Date(s),n=new Date();let a=n.getFullYear()-b.getFull
 const ic=(p,s)=>`<svg width="${s||22}" height="${s||22}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const star=(s,c)=>`<svg width="${s}" height="${Math.round(s*1.5)}" viewBox="0 0 40 60" aria-hidden="true"><path fill="${c||'var(--sand)'}" d="M20 0C21.5 18 24 24 40 30C24 36 21.5 42 20 60C18.5 42 16 36 0 30C16 24 18.5 18 20 0Z"/></svg>`;
 const P={
- user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>',
+ video:'<rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10l5-3v10l-5-3"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>',
  gear:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
  home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
  plan:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M9 15l2 2 4-4"/>',
@@ -101,6 +101,7 @@ const photo=(k,w)=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encode
 const photoImg=(k,cls,w)=>`<img ${cls?`class="${cls}"`:''} src="${photo(k,w)}" data-fb="${art(PHOTO_ART[k]||k)}" alt="" referrerpolicy="no-referrer">`;
 document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.fb){t.src=t.dataset.fb;delete t.dataset.fb}},true);
 const banner=k=>photoImg(k,'banner');
+const tileBg=(k,a)=>`background:linear-gradient(to top,rgba(64,55,47,.74),rgba(64,55,47,.18)),url(${photo(k,500)}) center/cover,url(${art(a)}) center/cover,#8A7766`;
 const grad=k=>TOPICS[k]?`linear-gradient(160deg,${TOPICS[k].tint[0]},${TOPICS[k].tint[1]})`:'linear-gradient(160deg,#EBE1D3,#D8C5AD)';
 
 /* ---------- navegação ---------- */
@@ -120,6 +121,7 @@ function render(keep){
  $('#app').classList.toggle('has-tabs',!!def.tab);
  $('#tabs').innerHTML=TABS.map(t=>`<button data-act="tab" data-v="${t[0]}" class="${def.tab===t[0]?'on':''}" ${def.tab===t[0]?'aria-current="page"':''}>${ic(P[t[2]],22)}<span>${t[1]}</span></button>`).join('');
  el.scrollTop=keep?sc:0;
+ if(typeof paintBadge==='function')paintBadge();
  if(def.after)def.after(c.p||{});
 }
 let tt=null;
@@ -136,7 +138,7 @@ const avatar=sz=>{const n=uname();return `<span class="av" style="width:${sz}px;
 const menu=(icon,t,p,act,feat)=>`<button class="menu ${feat?'feat':''}" ${act}><span class="ic">${ic(P[icon],22)}</span><span class="tx"><span class="t">${t}</span><span class="p">${p}</span></span><span class="ch">${ic(P.next,18)}</span></button>`;
 const delBtn=(l,id)=>`<button class="del" data-act="del" data-l="${l}" data-id="${id}" aria-label="Apagar">${ic(P.trash,18)}</button>`;
 const chk=(on,l,id,f)=>`<button class="chk ${on?'on':''}" data-act="toggle" data-l="${l}" data-id="${id}" data-f="${f}" aria-pressed="${!!on}" aria-label="Marcar como feito">${ic(P.check,16)}</button>`;
-const ideaCard=i=>{const on=S.saved.includes(i.id);return `<article class="idea"><div><h3>${i.t}</h3><p>${i.d}</p></div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
+const ideaCard=i=>{const on=S.saved.includes(i.id);return `<article class="idea">${photoImg(i.k,'thumb',330)}<div><h3>${i.t}</h3><p>${i.d}</p></div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
 const monthKey=()=>today().slice(0,7);
 function streak(h){let n=0;const d=new Date();if(h.days.indexOf(iso(d))<0)d.setDate(d.getDate()-1);while(h.days.indexOf(iso(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
 function nextEvent(){const t=today();return S.events.filter(e=>e.date>=t).sort((a,b)=>(a.date+(a.time||'99')).localeCompare(b.date+(b.time||'99')))[0]}
