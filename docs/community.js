@@ -118,7 +118,7 @@ function shared(name,html,after){
  const o=V[name];
  V[name]={tab:o.tab,html:p=>{checkOwner();return online()?html(p,o):o.html(p)},after:p=>{if(o.after)o.after(p);if(online()&&after)after(p)}};
 }
-shared('community',()=>`<div class="page">${head('COMMUNITY','Partilha, descobre e inspira-te.',{noBack:1})}
+shared('community',()=>`<div class="page">${head('COMMUNITY','Partilha, descobre e inspira-te.',{noBack:1})}${banner('convivio')}
  ${menu('chat','Publicações','O que se está a partilhar','data-act="go" data-v="posts"')}
  ${menu('users','Grupos','Encontra ou cria o teu grupo','data-act="go" data-v="groups"')}
  ${menu('help','Perguntas & Respostas','Pergunta à comunidade','data-act="go" data-v="qa"')}

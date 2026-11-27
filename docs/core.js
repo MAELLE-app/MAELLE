@@ -82,7 +82,25 @@ const art=k=>`img/${TOPICS[k]?k:'moda'}.svg`;
 const SVC_ART={'Beleza':'beleza','Cabelo':'beleza','Maquilhagem':'beleza','Imagem e estilo':'moda','Organização':'organizacao'};
 const svcArt=c=>art(SVC_ART[c]||'criatividade');
 const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
-const banner=k=>`<img class="banner" src="${art(k)}" alt="">`;
+/* fotografias CC0 do Wikimedia Commons (lista também em creditos.html); se não carregarem, aparece a ilustração */
+const PHOTOS={
+ moda:"Women's_clothes_store_(Unsplash).jpg",
+ beleza:'Makeup-beauty-lipstick-make-up_(24030573540).jpg',
+ decoracao:'Living_room_(Unsplash).jpg',
+ viagens:'Woman_on_sandy_beach_(Unsplash).jpg',
+ receitas:'Healthy_Trendy_Brunch_(Unsplash).jpg',
+ criatividade:'Watercolor_Flowers_(Unsplash).jpg',
+ organizacao:'Coffee,_notebooks_and_pen_(Unsplash).jpg',
+ livros:'Open_book_(Unsplash).jpg',
+ vestido:'Woman_in_a_dress_(Unsplash).jpg',
+ loja:'Little_Black_Dress_(Unsplash).jpg',
+ convivio:'Coffee,_flowers_and_books_(Unsplash).jpg'
+};
+const PHOTO_ART={vestido:'moda',loja:'moda',convivio:'livros'};
+const photo=(k,w)=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(PHOTOS[k]).replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29')+'?width='+(w||960);
+const photoImg=(k,cls,w)=>`<img ${cls?`class="${cls}"`:''} src="${photo(k,w)}" data-fb="${art(PHOTO_ART[k]||k)}" alt="" referrerpolicy="no-referrer">`;
+document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.fb){t.src=t.dataset.fb;delete t.dataset.fb}},true);
+const banner=k=>photoImg(k,'banner');
 const grad=k=>TOPICS[k]?`linear-gradient(160deg,${TOPICS[k].tint[0]},${TOPICS[k].tint[1]})`:'linear-gradient(160deg,#EBE1D3,#D8C5AD)';
 
 /* ---------- navegação ---------- */
