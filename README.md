@@ -15,7 +15,7 @@ Aplicação para maiores de 18 anos. Código em `docs/` (HTML, CSS e JavaScript,
 - Perfil próprio e perfis de outras utilizadoras, com publicações (texto e foto), gostos e comentários
 
 ## Fotografias
-Fotografias CC0 carregadas do Wikimedia Commons (`PHOTOS` em `docs/core.js`, créditos em `docs/creditos.html`). Se alguma não carregar, a app mostra a ilustração de `docs/img/`. Para as lojas de apps convém guardar cópias das fotografias no projeto. Os anúncios nunca usam fotografias de banco como se fossem do artigo.
+Capas de livros pela Open Library (`docs/capas.js`). Fotografias CC0 carregadas do Wikimedia Commons (`PHOTOS` em `docs/core.js`, créditos em `docs/creditos.html`). Se alguma não carregar, a app mostra a ilustração de `docs/img/`. Para as lojas de apps convém guardar cópias das fotografias no projeto. Os anúncios nunca usam fotografias de banco como se fossem do artigo.
 
 ## Perfis
 Publicações com texto, fotografia ou vídeo (MP4, MOV ou WebM até 30 MB), gostos, comentários, seguir perfis, encontrar pessoas pelo nome e separador "Seguidos". Tabela `follows` com RLS; bloquear alguém apaga o "seguir" nos dois sentidos. Antes de abrir ao público: o plano gratuito do Supabase tem pouco espaço e tráfego para vídeo.
