@@ -15,6 +15,8 @@ const ageOf=s=>{const b=new Date(s),n=new Date();let a=n.getFullYear()-b.getFull
 const ic=(p,s)=>`<svg width="${s||22}" height="${s||22}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const star=(s,c)=>`<svg width="${s}" height="${Math.round(s*1.5)}" viewBox="0 0 40 60" aria-hidden="true"><path fill="${c||'var(--sand)'}" d="M20 0C21.5 18 24 24 40 30C24 36 21.5 42 20 60C18.5 42 16 36 0 30C16 24 18.5 18 20 0Z"/></svg>`;
 const P={
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>',
+ gear:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
  home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
  plan:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M9 15l2 2 4-4"/>',
  club:'<path d="M12 3c.8 5 2.6 7.2 8 9-5.4 1.8-7.2 4-8 9-.8-5-2.6-7.2-8-9 5.4-1.8 7.2-4 8-9z"/>',
@@ -80,7 +82,25 @@ const art=k=>`img/${TOPICS[k]?k:'moda'}.svg`;
 const SVC_ART={'Beleza':'beleza','Cabelo':'beleza','Maquilhagem':'beleza','Imagem e estilo':'moda','Organização':'organizacao'};
 const svcArt=c=>art(SVC_ART[c]||'criatividade');
 const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
-const banner=k=>`<img class="banner" src="${art(k)}" alt="">`;
+/* fotografias CC0 do Wikimedia Commons (lista também em creditos.html); se não carregarem, aparece a ilustração */
+const PHOTOS={
+ moda:"Women's_clothes_store_(Unsplash).jpg",
+ beleza:'Makeup-beauty-lipstick-make-up_(24030573540).jpg',
+ decoracao:'Living_room_(Unsplash).jpg',
+ viagens:'Woman_on_sandy_beach_(Unsplash).jpg',
+ receitas:'Healthy_Trendy_Brunch_(Unsplash).jpg',
+ criatividade:'Watercolor_Flowers_(Unsplash).jpg',
+ organizacao:'Coffee,_notebooks_and_pen_(Unsplash).jpg',
+ livros:'Open_book_(Unsplash).jpg',
+ vestido:'Woman_in_a_dress_(Unsplash).jpg',
+ loja:'Little_Black_Dress_(Unsplash).jpg',
+ convivio:'Coffee,_flowers_and_books_(Unsplash).jpg'
+};
+const PHOTO_ART={vestido:'moda',loja:'moda',convivio:'livros'};
+const photo=(k,w)=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(PHOTOS[k]).replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29')+'?width='+(w||960);
+const photoImg=(k,cls,w)=>`<img ${cls?`class="${cls}"`:''} src="${photo(k,w)}" data-fb="${art(PHOTO_ART[k]||k)}" alt="" referrerpolicy="no-referrer">`;
+document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.fb){t.src=t.dataset.fb;delete t.dataset.fb}},true);
+const banner=k=>photoImg(k,'banner');
 const grad=k=>TOPICS[k]?`linear-gradient(160deg,${TOPICS[k].tint[0]},${TOPICS[k].tint[1]})`:'linear-gradient(160deg,#EBE1D3,#D8C5AD)';
 
 /* ---------- navegação ---------- */
@@ -90,7 +110,7 @@ const cur=()=>stack[stack.length-1];
 function go(v,p){stack.push({v:v,p:p||{}});render()}
 function back(){if(stack.length>1)stack.pop();render()}
 function tab(v){stack=[{v:v,p:{}}];render()}
-const TABS=[['home','Início','home'],['myplace','My Place','plan'],['club','Club','club'],['community','Comunidade','chat'],['edit','The Edit','bag']];
+const TABS=[['home','Início','home'],['myplace','My Place','plan'],['club','Club','club'],['community','Comunidade','chat'],['edit','The Edit','bag'],['me','Perfil','user']];
 function render(keep){
  const c=cur(),el=$('#view'),sc=el.scrollTop;
  let def=V[c.v];

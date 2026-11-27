@@ -5,7 +5,7 @@ const SHEETS={
  age(){sheet(`<h2 class="h2">Só para maiores de 18</h2><p class="sub">A MAELLE é um espaço para maiores de 18 anos. Confirma a tua idade para explorar.</p><form data-form="age" class="stack" novalidate><label class="agree"><input type="checkbox" name="ok" id="age-ok"><span>Tenho 18 anos ou mais.</span></label><p class="err" role="alert"></p><button class="btn" type="submit">Entrar</button><button class="btn ghost" type="button" data-act="close">Cancelar</button></form>`)},
  forgot(){sheet(`<h2 class="h2">Nova palavra-passe</h2><p class="sub">Enviamos-te um e-mail com uma ligação para escolheres uma nova.</p><form data-form="forgot" class="stack" novalidate><input class="field" id="fg-email" name="email" type="email" placeholder="O teu e-mail" aria-label="O teu e-mail"><p class="err" role="alert"></p><button class="btn" type="submit">Enviar e-mail</button></form>`)},
  newpw(){sheet(`<h2 class="h2">Escolhe a nova palavra-passe</h2><form data-form="newpw" class="stack mt" novalidate><input class="field" id="np-pw" name="pw" type="password" placeholder="Nova palavra-passe" aria-label="Nova palavra-passe" autocomplete="new-password"><p class="err" role="alert"></p><button class="btn" type="submit">Guardar</button></form>`)},
- delaccount(){sheet(`<h2 class="h2">Apagar a conta?</h2><p class="sub">A tua conta, perfil e listas são apagados. Não é possível desfazer.</p><form data-form="delaccount" class="stack" novalidate><p class="err" role="alert"></p><button class="btn" type="submit">Apagar a minha conta</button><button class="btn ghost" type="button" data-act="close">Cancelar</button></form>`)},
+ delaccount(){sheet(`<h2 class="h2">Apagar a conta?</h2><p class="sub">A tua conta, perfil, listas e fotos são apagados. Não é possível desfazer.</p><form data-form="delaccount" class="stack" novalidate><p class="err" role="alert"></p><button class="btn" type="submit">Apagar a minha conta</button><button class="btn ghost" type="button" data-act="close">Cancelar</button></form>`)},
  wipe(){sheet(`<h2 class="h2">Apagar tudo?</h2><p class="sub">Vamos apagar a conta, o perfil, as listas, os moodboards e as publicações guardadas neste dispositivo. Não é possível desfazer.</p><div class="stack"><button class="btn" data-act="wipe">Apagar tudo</button><button class="btn ghost" data-act="close">Cancelar</button></div>`)},
  event(){sheet(`<h2 class="h2">Novo evento</h2><form data-form="event" class="stack mt" novalidate><input class="field" id="ev-t" name="t" placeholder="Título" maxlength="80" aria-label="Título"><input class="field" id="ev-d" name="date" type="date" value="${AG.sel}" aria-label="Data"><input class="field" id="ev-h" name="time" type="time" aria-label="Hora (opcional)"><input class="field" id="ev-n" name="note" placeholder="Nota (opcional)" maxlength="120" aria-label="Nota"><p class="err" role="alert"></p><button class="btn" type="submit">Guardar evento</button></form>`)},
  goal(){sheet(`<h2 class="h2">Novo objetivo</h2><form data-form="goal" class="stack mt" novalidate><input class="field" id="go-t" name="t" placeholder="O que queres conquistar?" maxlength="90" aria-label="Objetivo"><label class="lbl" for="gd">Data (opcional)</label><input class="field" id="gd" name="date" type="date"><p class="err" role="alert"></p><button class="btn" type="submit">Guardar objetivo</button></form>`)},
@@ -33,6 +33,7 @@ const ACT={
  back:()=>back(), tab:d=>tab(d.v), close:()=>closeSheet(),
  bg:(d,t,e)=>{if(e.target===t)closeSheet()},
  sheet:d=>SHEETS[d.s](d),
+ lang:d=>setLang(d.l),
  logout:()=>{if(online())return signOut();S.session=false;save();stack=[{v:'welcome',p:{}}];render()},
  wipe:()=>{try{localStorage.removeItem(KEY)}catch(e){}const keepBlock=S.blocked18;S=D();S.blocked18=keepBlock;seed();closeSheet();stack=[{v:'welcome',p:{}}];render()},
  int:d=>{const i=S.interests.indexOf(d.k);if(i>=0)S.interests.splice(i,1);else S.interests.push(d.k);save();render(true)},
@@ -136,7 +137,7 @@ const FORM={
  look(fd){const t=fd.get('t').trim();if(!t)return;S.looks.unshift({id:uid(),t:t,date:today()});commit('Look guardado')},
  journal(fd,f){const t=fd.get('t').trim();if(!t)return ferr(f,'Escreve algumas linhas antes de guardar.');S.journal.push({id:uid(),date:today(),p:f.dataset.p,t:t});commit('Página guardada')},
  words(fd){S.words[monthKey()]=[fd.get('w1').trim(),fd.get('w2').trim(),fd.get('w3').trim()];commit('Palavras guardadas')},
- post(fd,f){const t=fd.get('t').trim();if(!t)return;postsOf(f.dataset.sc).unshift({id:uid(),me:true,a:uname(),ago:'agora',l:0,t:t,c:[]});commit('Publicado')},
+ post(fd,f){const t=fd.get('t').trim(),img=postImg;if(!t&&!img)return;const l=postsOf(f.dataset.sc);l.unshift({id:uid(),me:true,a:uname(),ago:'agora',l:0,t:t,img:img,c:[]});if(!save()){l.shift();return toast('A foto é grande demais para guardar. Escolhe outra.')}postImg='';commit('Publicado')},
  comment(fd,f){const t=fd.get('t').trim();if(!t)return;const p=postsOf(f.dataset.sc).find(x=>x.id===f.dataset.id);if(p){p.c.push({a:uname(),t:t,me:true});commit()}},
  ask(fd){const q=fd.get('q').trim();if(!q)return;S.qa.unshift({id:uid(),q:q,a:[]});commit('Pergunta publicada')},
  answer(fd,f){const t=fd.get('t').trim();if(!t)return;S.qa.find(q=>q.id===f.dataset.id).a.push({by:uname(),t:t});commit()},
@@ -146,6 +147,7 @@ const CHANGE={
  photo:el=>{const f=el.files[0];if(!f)return;readImg(f,360,.82).then(d=>{photoTmp=d;$('#avatar').innerHTML=`<img src="${d}" alt="A tua foto"><em>${ic(P.cam,18)}</em>`}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  boardimg:el=>{const f=el.files[0];if(!f)return;readImg(f,640,.76).then(d=>{S.boards.find(b=>b.id===el.dataset.id).items.unshift({id:uid(),type:'img',src:d});commit()}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  tmpimg:el=>{const f=el.files[0];if(!f)return;readImg(f,640,.76).then(d=>{tmpImg=d;$('#pimgprev').innerHTML=`<img src="${d}" alt="" style="width:100%;height:100%;object-fit:cover">`}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
+ postimg:el=>{const f=el.files[0];if(!f)return;readImg(f,900,.76).then(d=>{postImg=d;el.form.querySelector('.postprev').innerHTML=`<img class="postimg" src="${d}" alt="">`}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  cover:el=>{const f=el.files[0];if(!f)return;readImg(f,520,.74).then(d=>{S.covers[el.dataset.k]=d;commit('Capa atualizada')}).catch(()=>toast('Não foi possível abrir essa imagem.'))},
  goalp:el=>{const g=S.goals.find(x=>x.id===el.dataset.id);g.p=Number(el.value);commit(g.p>=100?'Objetivo conquistado!':'')}
 };

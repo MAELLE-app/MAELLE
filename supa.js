@@ -158,7 +158,18 @@ async function signOut(){
  try{await api('/auth/v1/logout?scope=local',{method:'POST'})}catch(e){}
  resetLocal();save();stack=[{v:'welcome',p:{}}];render();
 }
+/* apaga todas as fotos da pasta da utilizadora; se falhar, a conta não é apagada */
+async function deletePhotos(){
+ const folder=S.auth.uid;
+ for(;;){
+  const files=await api('/storage/v1/object/list/media',{method:'POST',body:{prefix:folder,limit:100,offset:0}});
+  if(!files||!files.length)return;
+  const gone=await api('/storage/v1/object/media',{method:'DELETE',body:{prefixes:files.map(f=>folder+'/'+f.name)}});
+  if(!gone||!gone.length)throw new Error('Não foi possível apagar as fotos');
+ }
+}
 async function deleteAccount(){
+ await deletePhotos();
  await api('/rest/v1/rpc/delete_my_account',{method:'POST',body:{}});
  resetLocal();save();
 }

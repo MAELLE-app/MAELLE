@@ -3,7 +3,7 @@
    Sem sessão, a app continua a mostrar os exemplos locais.
    Quem pode ver ou fazer o quê é decidido na base de dados (RLS). */
 const isStaff=()=>online()&&(S.role==='admin'||S.role==='moderator');
-const emptyC=owner=>({owner:owner,posts:{},msgs:{},shop:null,rooms:null,groups:null,qa:null,blocks:[],admin:null,at:{},seq:{},err:{}});
+const emptyC=owner=>({owner:owner,posts:{},msgs:{},member:{},shop:null,rooms:null,groups:null,qa:null,blocks:[],admin:null,at:{},seq:{},err:{}});
 let C=emptyC(null);
 const SAMPLES=[BOOKS,PRODUCTS,SERVICES,BRANDS].map(a=>[a,a.slice()]);
 const fill=(a,l)=>a.splice(0,a.length,...l);
@@ -15,7 +15,7 @@ const rest=(path,o)=>api('/rest/v1/'+path,o);
 const add=(t,body,prefer)=>rest(t,{method:'POST',headers:{Prefer:prefer||'return=minimal'},body:body});
 const patch=(path,body)=>rest(path,{method:'PATCH',headers:{Prefer:'return=representation'},body:body}).then(r=>{if(!r||!r.length)throw new Error('Sem permissão')});
 const remove=path=>rest(path,{method:'DELETE',headers:{Prefer:'return=representation'}}).then(r=>{if(!r||!r.length)throw new Error('Sem permissão')});
-const AUTHOR=t=>'author:profiles!'+t+'_author_id_fkey(username)';
+const AUTHOR=t=>'author:profiles!'+t+'_author_id_fkey(username,avatar_url)';
 const who=r=>(r.author&&r.author.username)||'Utilizadora';
 const byDate=(a,b)=>String(a.created_at).localeCompare(String(b.created_at));
 function ago(s){const m=Math.floor((Date.now()-new Date(s))/60000);if(m<1)return 'agora';if(m<60)return m+' min';if(m<1440)return Math.floor(m/60)+' h';const d=Math.floor(m/1440);return d===1?'ontem':'há '+d+' dias'}
@@ -23,11 +23,12 @@ function ago(s){const m=Math.floor((Date.now()-new Date(s))/60000);if(m<1)return
 /* ---------- carregar ---------- */
 const LOAD={
  async posts(sc){
-  const f=sc==='main'?'group_id=is.null':'group_id=eq.'+encodeURIComponent(sc);
-  return rest('posts?select=id,body,status,created_at,author_id,group_id,'+AUTHOR('posts')+',comments(id,body,created_at,author_id,'+AUTHOR('comments')+'),post_likes(user_id)&'+f+'&order=created_at.desc&limit=60');
+  const f=sc==='main'?'group_id=is.null':sc.startsWith('u-')?'group_id=is.null&author_id=eq.'+encodeURIComponent(sc.slice(2)):'group_id=eq.'+encodeURIComponent(sc);
+  return rest('posts?select=id,body,image_url,status,created_at,author_id,group_id,'+AUTHOR('posts')+',comments(id,body,created_at,author_id,'+AUTHOR('comments')+'),post_likes(user_id)&'+f+'&order=created_at.desc&limit=60');
  },
  groups:()=>rest('groups?select=id,name,description,topic,rules,status,owner_id,group_members(user_id)&order=created_at.desc&limit=200'),
  qa:()=>rest('questions?select=id,body,created_at,author_id,'+AUTHOR('questions')+',answers(id,body,created_at,author_id,'+AUTHOR('answers')+')&order=created_at.desc&limit=60'),
+ member:id=>rest('profiles?select=id,username,bio,avatar_url,interests&id=eq.'+encodeURIComponent(id)),
  blocks:()=>rest('blocks?select=blocked_id,who:profiles!blocks_blocked_id_fkey(username)&blocker_id=eq.'+S.auth.uid),
  async books(){const [books,shelves]=await Promise.all([rest('books?select=id,title,author,tag,blurb,approved&order=created_at.asc&limit=300'),rest('shelves?select=book_id,status&user_id=eq.'+S.auth.uid)]);return {books:books,shelves:shelves}},
  async shop(){const me=S.auth.uid;const [listings,brands,favs,follows]=await Promise.all([
@@ -100,12 +101,14 @@ async function act(fn,msg,keys){
 /* ---------- peças ---------- */
 const waiting=key=>`<div class="empty">${C.err[key]?esc(C.err[key])+`<br><button class="link" data-act="retry" data-k="${key}">Tentar de novo</button>`:'A carregar…'}</div>`;
 const mod=(type,id,authorId,name)=>`<button class="mini" data-act="sheet" data-s="srvreport" data-type="${type}" data-id="${id}">Denunciar</button>${authorId?`<button class="mini" data-act="sheet" data-s="srvblock" data-id="${authorId}" data-who="${esc(name)}">Bloquear</button>`:''}`;
+const face=(a,sz)=>{const img=safeImg(a&&a.avatar_url),n=(a&&a.username)||'Utilizadora';return `<span class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.45)}px">${img?`<img src="${img}" alt="">`:esc(n.charAt(0).toUpperCase())}</span>`};
+/* nome que abre o perfil da pessoa */
+const person=(id,inner)=>`<button class="person" data-act="go" ${id===S.auth.uid?'data-v="me"':`data-v="user" data-id="${esc(id)}"`}>${inner}</button>`;
 function srvPost(p,sc,manage){
- const me=S.auth.uid,mine=p.author_id===me,likes=p.post_likes||[],on=likes.some(l=>l.user_id===me),name=who(p);
- return `<article class="post"><div class="who">${mine?avatar(36):`<span class="av" style="width:36px;height:36px;font-size:16px">${esc(name.charAt(0).toUpperCase())}</span>`}<b>${esc(name)}</b><span>${ago(p.created_at)}</span></div>${p.status==='hidden'?'<span class="tg rose">Oculta pela equipa</span>':''}<p>${esc(p.body)}</p><div class="acts"><button class="like ${on?'on':''}" data-act="srvlike" data-sc="${sc}" data-id="${p.id}" aria-pressed="${on}">${ic(P.heart,16)} ${likes.length}</button>${mine||manage||isStaff()?`<button class="mini" data-act="srvdel" data-t="posts" data-sc="${sc}" data-id="${p.id}">Apagar</button>`:''}${mine?'':mod('post',p.id,p.author_id,name)}</div>${(p.comments||[]).slice().sort(byDate).map(c=>`<div class="cm"><b>${esc(who(c))}</b> ${esc(c.body)} ${c.author_id===me||isStaff()?`<button class="mini" data-act="srvdel" data-t="comments" data-sc="${sc}" data-id="${c.id}">Apagar</button>`:mod('comment',c.id,c.author_id,who(c))}</div>`).join('')}<form class="cmform" data-form="comment" data-sc="${sc}" data-id="${p.id}"><input class="field" id="cm-${p.id}" name="t" placeholder="Comentar" maxlength="200" aria-label="Comentar" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar comentário">${ic(P.send,18)}</button></form></article>`;
+ const me=S.auth.uid,mine=p.author_id===me,likes=p.post_likes||[],on=likes.some(l=>l.user_id===me),name=who(p),img=safeImg(p.image_url);
+ return `<article class="post"><div class="who">${person(p.author_id,(mine?avatar(36):face(p.author,36))+`<b data-nt>${esc(name)}</b>`)}<span>${ago(p.created_at)}</span></div>${p.status==='hidden'?'<span class="tg rose">Oculta pela equipa</span>':''}${p.body?`<p data-nt>${esc(p.body)}</p>`:''}${img?`<img class="postimg" src="${img}" alt="">`:''}<div class="acts"><button class="like ${on?'on':''}" data-act="srvlike" data-sc="${sc}" data-id="${p.id}" aria-pressed="${on}">${ic(P.heart,16)} ${likes.length}</button>${mine||manage||isStaff()?`<button class="mini" data-act="srvdel" data-t="posts" data-sc="${sc}" data-id="${p.id}">Apagar</button>`:''}${mine?'':mod('post',p.id,p.author_id,name)}</div>${(p.comments||[]).slice().sort(byDate).map(c=>`<div class="cm">${person(c.author_id,`<b data-nt>${esc(who(c))}</b>`)} <span data-nt>${esc(c.body)}</span> ${c.author_id===me||isStaff()?`<button class="mini" data-act="srvdel" data-t="comments" data-sc="${sc}" data-id="${c.id}">Apagar</button>`:mod('comment',c.id,c.author_id,who(c))}</div>`).join('')}<form class="cmform" data-form="comment" data-sc="${sc}" data-id="${p.id}"><input class="field" id="cm-${p.id}" name="t" placeholder="Comentar" maxlength="200" aria-label="Comentar" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar comentário">${ic(P.send,18)}</button></form></article>`;
 }
 const feed=(sc,manage,none)=>{const l=C.posts[sc];return l?(l.map(p=>srvPost(p,sc,manage)).join('')||`<div class="empty">${none}</div>`):waiting('posts:'+sc)};
-const composer=(sc,id,ph)=>`<form data-form="post" data-sc="${sc}" class="stack" style="margin-bottom:18px"><textarea class="field" id="${id}" name="t" placeholder="${ph}" maxlength="400" aria-label="Nova publicação" style="min-height:92px"></textarea><button class="btn small" type="submit" style="align-self:flex-end">Publicar</button></form>`;
 const isMember=g=>(g.group_members||[]).some(m=>m.user_id===S.auth.uid);
 const groupCard=g=>{const on=isMember(g),n=(g.group_members||[]).length,mine=g.owner_id===S.auth.uid;return `<button class="menu" data-act="go" data-v="group" data-id="${g.id}"><span class="ic">${ic(P.users,22)}</span><span class="tx"><span class="t">${esc(g.name)}</span><span class="p">${esc(g.description||'')}</span><span style="display:block;margin-top:6px"><span class="tg">${TOPICS[g.topic]?TOPICS[g.topic].label:'Geral'}</span><span class="tg">${n} ${n===1?'membro':'membros'}</span>${mine?'<span class="tg rose">Criado por ti</span>':on?'<span class="tg rose">Estás no grupo</span>':''}</span></span><span class="ch">${ic(P.next,18)}</span></button>`};
 const adminLink=()=>isStaff()?menu('shield','Painel de administração','Denúncias, livros e contas','data-act="go" data-v="admin"',1):'';
@@ -115,7 +118,7 @@ function shared(name,html,after){
  const o=V[name];
  V[name]={tab:o.tab,html:p=>{checkOwner();return online()?html(p,o):o.html(p)},after:p=>{if(o.after)o.after(p);if(online()&&after)after(p)}};
 }
-shared('community',()=>`<div class="page">${head('COMMUNITY','Partilha, descobre e inspira-te.',{noBack:1})}
+shared('community',()=>`<div class="page">${head('COMMUNITY','Partilha, descobre e inspira-te.',{noBack:1})}${banner('convivio')}
  ${menu('chat','Publicações','O que se está a partilhar','data-act="go" data-v="posts"')}
  ${menu('users','Grupos','Encontra ou cria o teu grupo','data-act="go" data-v="groups"')}
  ${menu('help','Perguntas & Respostas','Pergunta à comunidade','data-act="go" data-v="qa"')}
@@ -134,7 +137,15 @@ shared('group',p=>{
  ${on?composer(g.id,'gp-t','Escreve para o grupo'):'<div class="empty" style="margin-bottom:16px">Entra no grupo para publicares.</div>'}
  ${feed(g.id,mine,'Ainda sem publicações. Sê a primeira.')}</div>`},p=>{load('groups');load('posts:'+p.id)});
 shared('qa',()=>`<div class="page">${head('Perguntas & Respostas','')}<form data-form="ask" class="addrow"><input class="field" id="qa-q" name="q" placeholder="Faz uma pergunta" maxlength="140" aria-label="Nova pergunta" autocomplete="off"><button class="btn" type="submit" aria-label="Publicar pergunta">${ic(P.plus,22)}</button></form>${C.qa?(C.qa.map(q=>{const mine=q.author_id===S.auth.uid;return `<div class="card"><span class="meta">${esc(who(q))}</span><h3 style="font:500 21px/1.25 var(--serif);margin:4px 0 8px">${esc(q.body)}</h3><div class="acts" style="margin-bottom:8px">${mine||isStaff()?`<button class="mini" data-act="srvdel" data-t="questions" data-id="${q.id}">Apagar</button>`:mod('question',q.id,q.author_id,who(q))}</div>${(q.answers||[]).slice().sort(byDate).map(a=>`<div class="cm"><b>${esc(who(a))}</b> ${esc(a.body)} ${a.author_id===S.auth.uid||isStaff()?`<button class="mini" data-act="srvdel" data-t="answers" data-id="${a.id}">Apagar</button>`:mod('answer',a.id,a.author_id,who(a))}</div>`).join('')||'<p style="margin:0 0 8px;font-size:13px;color:var(--muted)">Ainda sem respostas.</p>'}<form class="cmform" data-form="answer" data-id="${q.id}"><input class="field" id="an-${q.id}" name="t" placeholder="Responder" maxlength="240" aria-label="Responder" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar resposta">${ic(P.send,18)}</button></form></div>`}).join('')||'<div class="empty">Ainda não há perguntas.</div>'):waiting('qa')}</div>`,()=>load('qa'));
-shared('profile',(p,o)=>{const h=o.html(p);return p.edit&&isStaff()?h.replace('<h2 class="sec s">SEGURANÇA</h2>',()=>adminLink()+'<h2 class="sec s">SEGURANÇA</h2>'):h},p=>{if(p.edit)load('blocks')});
+shared('settings',(p,o)=>o.html(p).replace('<h2 class="sec s">SEGURANÇA</h2>',m=>adminLink()+m),()=>load('blocks'));
+const myKey=()=>'u-'+S.auth.uid;
+shared('me',(p,o)=>{const sc=myKey();return o.html(p).replace(/(<h2 class="sec s">AS MINHAS PUBLICAÇÕES<\/h2>)[\s\S]*<\/div>$/,(m,h)=>h+composer(sc,'me-t','Partilha algo no teu perfil')+feed(sc,false,'Ainda não publicaste nada.')+'</div>')},()=>load('posts:'+myKey()));
+V.user={tab:'community',html:p=>{checkOwner();if(!online())return `<div class="page">${head('Perfil','')}<div class="empty">Entra na tua conta para veres perfis.</div></div>`;
+ const l=C.member[p.id],u=l&&l[0];
+ if(!u)return `<div class="page">${head('Perfil','')}${l?'<div class="empty">Este perfil não está disponível.</div>':waiting('member:'+p.id)}</div>`;
+ if(C.blocks.some(b=>b.id===p.id))return `<div class="page">${head('Perfil','')}<div class="empty">Bloqueaste esta conta.</div></div>`;
+ return `<div class="page">${head('Perfil','')}${profileHead(u.username,face(u,96),u.bio,u.interests)}<div class="c" style="margin:10px 0 18px">${mod('profile',u.id,u.id,u.username)}</div><h2 class="sec s">PUBLICAÇÕES</h2>${feed('u-'+p.id,false,'Ainda sem publicações.')}</div>`},
+ after:p=>{if(online()){load('member:'+p.id);load('posts:u-'+p.id);load('blocks')}}};
 
 
 /* ---------- painel de administração ---------- */
@@ -168,7 +179,8 @@ function both(obj,name,fn){const o=obj[name];obj[name]=function(){return online(
 const pkey=sc=>'posts:'+sc;
 /* limpa o campo só depois de o envio resultar */
 const send=(f,fn,msg,keys)=>act(fn,msg,keys).then(ok=>{if(ok)f.reset()});
-both(FORM,'post',(fd,f)=>{const t=fd.get('t').trim(),sc=f.dataset.sc;if(t)send(f,()=>add('posts',{author_id:S.auth.uid,group_id:sc==='main'?null:sc,body:t}),'Publicado',[pkey(sc)])});
+both(FORM,'post',(fd,f)=>{const t=fd.get('t').trim(),sc=f.dataset.sc,img=postImg;if(!t&&!img)return;
+ send(f,async()=>{const body={author_id:S.auth.uid,group_id:sc==='main'||sc.startsWith('u-')?null:sc,body:t};if(img)body.image_url=await uploadImage(img,'post');await add('posts',body);postImg=''},'Publicado',[pkey(sc)])});
 both(FORM,'comment',(fd,f)=>{const t=fd.get('t').trim();if(t)send(f,()=>add('comments',{author_id:S.auth.uid,post_id:f.dataset.id,body:t}),'',[pkey(f.dataset.sc)])});
 both(FORM,'ask',(fd,f)=>{const t=fd.get('q').trim();if(t)send(f,()=>add('questions',{author_id:S.auth.uid,body:t}),'Pergunta publicada',['qa'])});
 both(FORM,'answer',(fd,f)=>{const t=fd.get('t').trim();if(t)send(f,()=>add('answers',{author_id:S.auth.uid,question_id:f.dataset.id,body:t}),'',['qa'])});
@@ -182,7 +194,9 @@ both(ACT,'unblock',d=>{const b=C.blocks.find(x=>x.name===d.n);if(b)act(()=>remov
 ACT.srvblock=d=>act(()=>add('blocks',{blocker_id:S.auth.uid,blocked_id:d.id}),'Conta bloqueada',['blocks']).then(ok=>{if(ok){C.posts={};C.qa=null;render(true)}});
 ACT.srvlike=d=>{const p=(C.posts[d.sc]||[]).find(x=>x.id===d.id);if(!p)return;const on=p.post_likes.some(l=>l.user_id===S.auth.uid);
  act(()=>on?remove('post_likes?post_id=eq.'+d.id+'&user_id=eq.'+S.auth.uid):add('post_likes',{post_id:d.id,user_id:S.auth.uid}),'',[pkey(d.sc)])};
-ACT.srvdel=d=>act(()=>remove(d.t+'?id=eq.'+d.id),'Apagado',[d.sc?pkey(d.sc):'qa']);
+ACT.srvdel=d=>act(async()=>{const p=d.t==='posts'&&(C.posts[d.sc]||[]).find(x=>x.id===d.id),img=p&&p.author_id===S.auth.uid&&safeImg(p.image_url);await remove(d.t+'?id=eq.'+d.id);
+ /* a foto de uma publicação apagada também sai do armazenamento */
+ if(img)await api('/storage/v1/object/media',{method:'DELETE',body:{prefixes:[img.split('/public/media/')[1]]}}).catch(e=>console.warn(e.message))},'Apagado',[d.sc?pkey(d.sc):'qa']);
 ACT.retry=d=>load(d.k,true);
 ACT.admhide=d=>act(async()=>{await patch(d.t+'?id=eq.'+d.id,{status:'hidden'});await closeReport(d.r,'actioned')},'Conteúdo ocultado',['admin']);
 ACT.admshow=d=>act(()=>patch(d.t+'?id=eq.'+d.id,{status:d.t==='posts'?'visible':'active'}),'Conteúdo reposto',['admin']);
