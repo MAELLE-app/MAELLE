@@ -319,3 +319,7 @@ a.menu{text-decoration:none;color:inherit}
 .bigcv{display:flex;justify-content:center;margin-bottom:14px}
 .bigcv .cv{position:relative;display:block;width:130px;height:196px;border-radius:8px 16px 16px 8px;overflow:hidden;background:var(--cream)}
 .bigcv .cv b{font-size:12px}
+
+.prod .img,.pimg,.svc .pt{position:relative}
+.ilus{position:absolute;left:6px;bottom:6px;padding:3px 8px;border-radius:10px;background:rgba(255,255,255,.88);color:var(--ink);font:500 9px var(--sans);font-style:normal}
+.svc .pt .ilus{display:none}
