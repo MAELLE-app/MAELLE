@@ -513,6 +513,19 @@ Quem te pode enviar mensagens=Who can send you messages
 Preferência guardada=Preference saved
 Mensagem privada=Private message
 Demasiadas tentativas. Espera um pouco e tenta de novo.=Too many attempts. Wait a moment and try again.
+Código de convite=Invitation code
+Escreve o teu código de convite.=Enter your invitation code.
+Não foi possível criar a conta. Confirma o código de convite.=We couldn't create the account. Check the invitation code.
+Todos os direitos reservados.=All rights reserved.
+Fotos e vídeos=Photos and videos
+Vídeos=Videos
+Texto=Text
+Abrir publicação=Open post
+Publicação=Post
+Ainda sem textos.=No text posts yet.
+Ainda sem vídeos.=No videos yet.
+Ainda sem fotos ou vídeos.=No photos or videos yet.
+Esta publicação já não está disponível.=This post is no longer available.
 `;
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
@@ -1020,6 +1033,19 @@ Quem te pode enviar mensagens¦Qui peut t'envoyer des messages¦Quién puede env
 Preferência guardada¦Préférence enregistrée¦Preferencia guardada¦Preferenza salvata
 Mensagem privada¦Message privé¦Mensaje privado¦Messaggio privato
 Demasiadas tentativas. Espera um pouco e tenta de novo.¦Trop de tentatives. Attends un peu et réessaie.¦Demasiados intentos. Espera un poco.¦Troppi tentativi. Attendi un po'.
+Código de convite¦Code d'invitation¦Código de invitación¦Codice di invito
+Escreve o teu código de convite.¦Saisis ton code d'invitation.¦Escribe tu código de invitación.¦Inserisci il tuo codice di invito.
+Não foi possível criar a conta. Confirma o código de convite.¦Impossible de créer le compte. Vérifie le code d'invitation.¦No se pudo crear la cuenta. Revisa el código de invitación.¦Impossibile creare l'account. Controlla il codice di invito.
+Todos os direitos reservados.¦Tous droits réservés.¦Todos los derechos reservados.¦Tutti i diritti riservati.
+Fotos e vídeos¦Photos et vidéos¦Fotos y vídeos¦Foto e video
+Vídeos¦Vidéos¦Vídeos¦Video
+Texto¦Texte¦Texto¦Testo
+Abrir publicação¦Ouvrir la publication¦Abrir publicación¦Apri post
+Publicação¦Publication¦Publicación¦Post
+Ainda sem textos.¦Pas encore de textes.¦Aún sin textos.¦Ancora nessun testo.
+Ainda sem vídeos.¦Pas encore de vidéos.¦Aún sin vídeos.¦Ancora nessun video.
+Ainda sem fotos ou vídeos.¦Pas encore de photos ni de vidéos.¦Aún sin fotos ni vídeos.¦Ancora nessuna foto o video.
+Esta publicação já não está disponível.¦Cette publication n'est plus disponible.¦Esta publicación ya no está disponible.¦Questo post non è più disponibile.
 `;
 
 /* meses e frases com números ou nomes, por língua */

@@ -273,6 +273,17 @@ body.legalpage{display:block;height:auto;min-height:100%}
 #tabs button.dot{position:relative}#tabs button.dot::after{content:"";position:absolute;top:8px;right:calc(50% - 16px);width:9px;height:9px;border-radius:50%;background:var(--ink)}
 .thread{width:100%;border:0;font:inherit;color:inherit;cursor:pointer;text-align:left;justify-content:flex-start}.thread .tx{flex:1}
 .meta2{display:flex;gap:10px;align-items:center;font:400 10px var(--sans);color:var(--muted);margin-top:4px}.meta2 .mini{display:inline;margin:0}
+.note.rights{margin-top:0}
+.avwrap{position:relative;display:inline-block;margin-top:4px}
+.pencil{position:absolute;top:-6px;right:-14px;width:40px;height:40px;border-radius:50%;border:2px solid var(--white);background:var(--sand);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.ptabs{display:flex;margin:4px -22px 2px;border-top:1px solid rgba(64,55,47,.14)}
+.ptabs button{flex:1;display:grid;place-items:center;height:48px;border:0;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent}
+.ptabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;margin:0 -22px}
+.gcell{position:relative;aspect-ratio:1/1;border:0;padding:0;background:var(--cream);overflow:hidden;cursor:pointer}
+.gcell img,.gcell video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.gcell.dim{opacity:.45}.gcell .play{position:absolute;top:6px;right:6px;color:#fff;display:flex;filter:drop-shadow(0 0 3px rgba(0,0,0,.6))}
+.plist,.ptabs+.empty{margin-top:14px}
 .picks{display:flex;gap:8px;flex-wrap:wrap}.postprev .mini{margin-bottom:8px}
 .prow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px}
 .stats{display:flex;justify-content:center;gap:10px;margin-top:14px}.stats>*{flex:1;max-width:110px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--white);border:0;border-radius:18px;padding:10px 4px;font:inherit;color:inherit}.stats button{cursor:pointer}.stats b{font:500 24px/1 var(--serif)}.stats span{font:500 9px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}

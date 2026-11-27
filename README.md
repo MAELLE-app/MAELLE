@@ -23,6 +23,9 @@ Publicações com texto, fotografia ou vídeo (MP4, MOV ou WebM até 30 MB), gos
 ## Mensagens privadas
 `docs/messages.js`, tabelas `messages` e `message_settings` com RLS. Cada pessoa escolhe quem lhe pode escrever (todas, quem segue ou ninguém); bloquear esconde a conversa; limite de 30 mensagens por minuto; a equipa só lê uma mensagem denunciada por quem a recebeu. Sem notificações no telemóvel nem tempo real (a conversa aberta atualiza a cada 5 segundos) e sem cifra de ponta a ponta.
 
+## Acesso e proteção
+Registo só com convite (`invites`, imposto na base de dados; a administração cria um por pessoa no painel, copia o link e pode anulá-lo). `app_config.invite_required` desliga a exigência quando a app abrir ao público. Páginas com `noindex`. Direitos reservados em `LICENSE`. Verificação de conteúdo malicioso em `tests/seguranca.py`.
+
 ## Línguas
 Português, inglês, francês, espanhol e italiano (`docs/i18n.js`; francês, espanhol e italiano ainda sem revisão por falantes nativas). Ainda em português: ideias e conteúdos do The Club e Beauty & Style, painel de administração, Termos e Política de Privacidade.
 
@@ -44,4 +47,4 @@ Moodboards, coleções, Beauty & Style e The Club. Não há pagamentos na app. E
 - Termos de Utilização publicados em versão provisória (`docs/termos.html`): falta revisão jurídica e confirmar o registo no Livro de Reclamações Eletrónico
 
 ## Testes
-`python3 tests/e2e.py` `python3 tests/comunidade.py` e `python3 tests/loja.py` `python3 tests/perfil.py` `python3 tests/linguas.py` (precisa de Playwright; usa um servidor simulado).
+`python3 tests/e2e.py` `python3 tests/comunidade.py` e `python3 tests/loja.py` `python3 tests/perfil.py` `python3 tests/linguas.py` `python3 tests/seguranca.py` (precisa de Playwright; usa um servidor simulado).

@@ -6,7 +6,7 @@ class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
 srv=http.server.ThreadingHTTPServer(('127.0.0.1',8768),functools.partial(Q,directory=str(D)));threading.Thread(target=srv.serve_forever,daemon=True).start()
 ME=str(uuid.uuid4());OTHER=str(uuid.uuid4());NOW='2026-11-26T07:00:00+00:00'
-db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows messages message_settings'.split()}
+db={k:[] for k in 'tasks events goals habits wishlist journal habit_logs posts comments post_likes groups group_members questions answers reports blocks books shelves listings favorites brands brand_follows book_rooms room_messages follows messages message_settings invites app_config'.split()}
 db['posts'].append({'id':str(uuid.uuid4()),'author_id':OTHER,'group_id':None,'body':'<img src=x onerror=alert(1)> olá','status':'visible','created_at':NOW})
 names={ME:'Admin',OTHER:'Bia'};calls=[];files=[]
 def A(i):return {'username':names[i]}
@@ -72,15 +72,17 @@ with sync_playwright() as pw:
     png=base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==')
     assert pg.locator('.top button').count()==0
     me=lambda:pg.click('#tabs >> text=Perfil')
-    me();pg.wait_for_selector('text=Ainda não publicaste nada.')
+    me();pg.wait_for_selector('text=Ainda não publicaste nada.');assert pg.locator('text=Editar perfil').count()==0 and pg.locator('.pencil').count()==1 and pg.locator('form[data-form=post]').count()==0
+    pg.click('.pencil');pg.wait_for_selector('#pf-name, input[name=username]');pg.click('[aria-label="Voltar"]');pg.click('[data-act=newpost]')
     pg.set_input_files('#me-t-img',files=[{'name':'a.png','mimeType':'image/png','buffer':png}]);pg.wait_for_selector('.postprev img')
-    pg.fill('#me-t','Do meu perfil');pg.click('button:has-text("Publicar")');pg.wait_for_selector('article >> text=Do meu perfil')
+    pg.fill('#me-t','Do meu perfil');pg.click('button:has-text("Publicar")');pg.wait_for_selector('.pgrid .gcell img');pg.screenshot(path='/tmp/t/grid.png')
+    pg.click('.gcell');pg.wait_for_selector('article >> text=Do meu perfil')
     p=db['posts'][-1];assert p['group_id'] is None and '/media/'+ME+'/post-' in p['image_url'];assert pg.locator('article .postimg').count()==1
     art=pg.locator('article',has_text='Do meu perfil');art.locator('.like').click();W();assert len(db['post_likes'])==1
     art.locator('input').fill('Comentar aqui');art.locator('input').press('Enter');pg.wait_for_selector('.cm >> text=Comentar aqui');W()
     pg.screenshot(path='/tmp/t/me.png')
     art.locator('text=Apagar >> nth=0').click();W();assert len(db['posts'])==1 and ('DELETE','/storage/v1/object/media') in files
-    tab();pg.click('text=Publicações');pg.click('.person >> text=Bia');pg.wait_for_selector('text=Gosto de ler');pg.wait_for_selector('article >> text=olá')
+    tab();pg.click('text=Publicações');pg.click('.person >> text=Bia');pg.wait_for_selector('text=Gosto de ler');pg.click('.ptabs [data-t=text]');pg.wait_for_selector('article >> text=olá')
     pg.locator('article input').fill('Olá Bia');pg.locator('article input').press('Enter');pg.wait_for_selector('.cm >> text=Olá Bia');W();pg.screenshot(path='/tmp/t/user.png')
     # seguir, listas, pesquisa e separador "Seguidos"
     db['follows'].append({'follower_id':OTHER,'followed_id':ME})
@@ -90,11 +92,11 @@ with sync_playwright() as pw:
     tab();pg.click('text=Publicações');pg.click('.seg >> text=Seguidos');pg.wait_for_selector('article >> text=olá');assert pg.locator('form[data-form=post]').count()==0
     me();pg.wait_for_selector('.stats');W();pg.click('.stats >> text=Seguidoras');pg.wait_for_selector('.prsn >> text=Bia');pg.click('[data-act=unfollower]');W();assert len(db['follows'])==1
     # vídeo: formato, tamanho, publicação e apagamento
-    me();pg.wait_for_selector('#me-t-vid',state='attached')
+    me();pg.click('[data-act=newpost]');pg.wait_for_selector('#me-t-vid',state='attached')
     pg.set_input_files('#me-t-vid',files=[{'name':'a.avi','mimeType':'video/x-msvideo','buffer':b'x'}]);pg.wait_for_selector('text=Este formato de vídeo não é suportado.')
     pg.evaluate("CHANGE.postvid({files:[{type:'video/mp4',size:VIDEO_MAX+1}],value:'',form:document.querySelector('form[data-form=post]')})");pg.wait_for_selector('text=O vídeo é grande demais')
     pg.set_input_files('#me-t-vid',files=[{'name':'a.mp4','mimeType':'video/mp4','buffer':b'0000ftypmp42'}]);pg.wait_for_selector('.postprev video')
-    pg.click('button:has-text("Publicar")');pg.wait_for_selector('article video')
+    pg.click('button:has-text("Publicar")');pg.wait_for_selector('.gcell video');pg.click('.gcell:has(video)');pg.wait_for_selector('article video')
     v=db['posts'][-1];assert '/media/'+ME+'/video-' in v['video_url'] and v['video_url'].endswith('.mp4') and v['body']=='' and 'image_url' not in v
     pg.screenshot(path='/tmp/t/video.png',full_page=True)
     n=files.count(('DELETE','/storage/v1/object/media'));pg.locator('article',has=pg.locator('video')).locator('text=Apagar >> nth=0').click();W();assert files.count(('DELETE','/storage/v1/object/media'))==n+1 and not any(x.get('video_url') for x in db['posts'])
@@ -112,6 +114,13 @@ with sync_playwright() as pw:
     pg.locator('.m.me',has_text='Tudo ótimo').locator('text=Apagar').click();W();assert all(x['body']!='Tudo ótimo' for x in db['messages'])
     me();pg.click('.stats >> text=Seguidos');pg.wait_for_selector('.prsn');pg.click('.person >> text=Bia');pg.click('.prow >> text=Mensagem');pg.wait_for_selector('#dm-t')
     me();pg.click('[aria-label="Definições"]');pg.click('[data-act=dmwho][data-w=none]');W();assert db['message_settings'][-1]['who']=='none'
+    # convites no painel de administração
+    db['app_config'].append({'id':True,'invite_required':True})
+    me();pg.click('[aria-label="Definições"]');pg.click('text=Painel de administração');pg.fill('#iv-l','Rita');pg.press('#iv-l','Enter');pg.wait_for_selector('text=Convite criado')
+    db['invites'][-1].update(code='ABC123DEF456',used_at=None,revoked=False);pg.click('button:has-text("Atualizar")');pg.wait_for_selector('text=Por usar')
+    assert pg.evaluate("inviteLink('ABC123DEF456')").endswith('/?convite=ABC123DEF456')
+    pg.click('text=Anular');pg.wait_for_selector('text=Anulado');assert db['invites'][-1]['revoked']
+    pg.click('text=Abrir a todas');pg.wait_for_selector('text=Voltar a exigir convite');assert db['app_config'][0]['invite_required'] is False
     me();pg.click('[aria-label="Definições"]');pg.wait_for_selector('text=Painel de administração');pg.screenshot(path='/tmp/t/set.png',full_page=True)
     assert pg.locator('a[href="termos.html"]').count()==1 and pg.locator('a[href="privacidade.html"]').count()==1
     pg.click('.langs >> text=English');pg.wait_for_selector('text=Welcome to your world',timeout=8000)
