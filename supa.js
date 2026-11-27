@@ -39,6 +39,7 @@ function authMsg(e){
  if(c==='invalid_credentials'||m.includes('invalid login'))return 'E-mail ou palavra-passe não coincidem.';
  if(c==='user_already_exists'||m.includes('already registered'))return 'Já existe uma conta com este e-mail.';
  if(c==='weak_password'||m.includes('password should'))return 'Escolhe uma palavra-passe mais forte.';
+ if(m.includes('database error saving new user'))return 'Não foi possível criar a conta. Confirma o código de convite.';
  if(e.status===429)return 'Demasiadas tentativas. Espera um pouco e volta a tentar.';
  return 'Não foi possível concluir. Tenta novamente.';
 }
@@ -132,8 +133,13 @@ async function startSession(j){
 }
 const makeUsername=name=>{const b=name.replace(/\s+/g,' ').trim().slice(0,23)||'maelle';return b+'_'+Math.random().toString(36).slice(2,7)};
 const appURL=()=>location.origin+location.pathname;
-async function signUp(name,email,pw,dob){
- const j=await sbFetch('/auth/v1/signup?redirect_to='+encodeURIComponent(appURL()),{method:'POST',body:{email:email,password:pw,data:{name:name,username:makeUsername(name),birth_date:dob}}});
+/* acesso só com convite: a regra é imposta na base de dados; aqui só se pede o código */
+let inviteRequired=true;
+const urlInvite=(new URLSearchParams(location.search).get('convite')||'').replace(/[^A-Za-z0-9]/g,'').slice(0,20).toUpperCase();
+async function loadConfig(){try{const l=await sbFetch('/rest/v1/app_config?select=invite_required');if(l&&l[0])inviteRequired=l[0].invite_required!==false}catch(e){console.warn(e.message)}
+ const w=document.getElementById('su-invite-box');if(w)w.hidden=!inviteRequired}
+async function signUp(name,email,pw,dob,invite){
+ const j=await sbFetch('/auth/v1/signup?redirect_to='+encodeURIComponent(appURL()),{method:'POST',body:{email:email,password:pw,data:{name:name,username:makeUsername(name),birth_date:dob,invite:invite||''}}});
  if(j&&j.access_token){await startSession(j);return true}
  return false;
 }

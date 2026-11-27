@@ -54,7 +54,8 @@ const LOAD={
    S.role==='admin'?rest('rpc/admin_list_banned',{method:'POST',body:{}}):[],
    rest('profiles?select=id&limit=1000'),
    rest('listings?select=id,title,'+SELLER+'&status=eq.hidden&limit=50')]);
-  return {reports:reports,targets:targets,books:books,posts:posts,groups:groups,banned:banned,members:members.length,listings:listings};
+  const [invites,config]=S.role==='admin'?await Promise.all([rest('invites?select=code,label,used_at,revoked&order=created_at.desc&limit=200'),rest('app_config?select=invite_required')]):[[],[]];
+  return {invites:invites,inviteRequired:!config[0]||config[0].invite_required!==false,reports:reports,targets:targets,books:books,posts:posts,groups:groups,banned:banned,members:members.length,listings:listings};
  }
 };
 function applyShop(d){
@@ -169,12 +170,18 @@ shared('group',p=>{
 shared('qa',()=>`<div class="page">${head('Perguntas & Respostas','')}<form data-form="ask" class="addrow"><input class="field" id="qa-q" name="q" placeholder="Faz uma pergunta" maxlength="140" aria-label="Nova pergunta" autocomplete="off"><button class="btn" type="submit" aria-label="Publicar pergunta">${ic(P.plus,22)}</button></form>${C.qa?(C.qa.map(q=>{const mine=q.author_id===S.auth.uid;return `<div class="card"><span class="meta">${esc(who(q))}</span><h3 style="font:500 21px/1.25 var(--serif);margin:4px 0 8px">${esc(q.body)}</h3><div class="acts" style="margin-bottom:8px">${mine||isStaff()?`<button class="mini" data-act="srvdel" data-t="questions" data-id="${q.id}">Apagar</button>`:mod('question',q.id,q.author_id,who(q))}</div>${(q.answers||[]).slice().sort(byDate).map(a=>`<div class="cm"><b>${esc(who(a))}</b> ${esc(a.body)} ${a.author_id===S.auth.uid||isStaff()?`<button class="mini" data-act="srvdel" data-t="answers" data-id="${a.id}">Apagar</button>`:mod('answer',a.id,a.author_id,who(a))}</div>`).join('')||'<p style="margin:0 0 8px;font-size:13px;color:var(--muted)">Ainda sem respostas.</p>'}<form class="cmform" data-form="answer" data-id="${q.id}"><input class="field" id="an-${q.id}" name="t" placeholder="Responder" maxlength="240" aria-label="Responder" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar resposta">${ic(P.send,18)}</button></form></div>`}).join('')||'<div class="empty">Ainda não há perguntas.</div>'):waiting('qa')}</div>`,()=>load('qa'));
 shared('settings',(p,o)=>o.html(p).replace('<h2 class="sec s">SEGURANÇA</h2>',m=>adminLink()+m+`<div class="card"><span class="meta">Quem te pode enviar mensagens</span><div style="margin-top:10px">${dmPref()}</div></div>`),()=>{load('blocks');load('dmpref')});
 const myKey=()=>'u-'+S.auth.uid;
-shared('me',(p,o)=>{const sc=myKey();return o.html(p).replace('Editar perfil</button>',m=>m+'<button class="btn small" data-act="go" data-v="people">Encontrar pessoas</button>'+msgButton()).replace('<div class="prow">',m=>stats(S.auth.uid)+m).replace(/(<h2 class="sec s">AS MINHAS PUBLICAÇÕES<\/h2>)[\s\S]*<\/div>$/,(m,h)=>h+composer(sc,'me-t','Partilha algo no teu perfil')+feed(sc,false,'Ainda não publicaste nada.')+'</div>')},()=>{load('posts:'+myKey());load('social:'+S.auth.uid);checkUnread()});
+shared('me',()=>{const sc=myKey();return mePage(sc,stats(S.auth.uid),'<button class="btn small ghost" data-act="go" data-v="people">Encontrar pessoas</button>'+msgButton(),profilePosts(sc,C.posts[sc],p=>srvPost(p,sc),'Ainda não publicaste nada.'))},()=>{load('posts:'+myKey());load('social:'+S.auth.uid);checkUnread()});
+/* uma publicação aberta a partir da grelha */
+V.post={tab:'me',html:p=>{checkOwner();let body;
+ if(p.sc==='main'){const x=postsOf('main').find(x=>String(x.id)===p.id);body=x?postCard(x,'main'):''}
+ else{if(!online())return needsLogin('Publicação');const l=C.posts[p.sc],x=l&&l.find(x=>x.id===p.id);body=x?srvPost(x,p.sc):l?'':waiting('posts:'+p.sc)}
+ return `<div class="page">${head('Publicação','')}${body||'<div class="empty">Esta publicação já não está disponível.</div>'}</div>`},
+ after:p=>{if(online()&&p.sc!=='main'){load('posts:'+p.sc);load('blocks')}}};
 V.user={tab:'community',html:p=>{checkOwner();if(!online())return `<div class="page">${head('Perfil','')}<div class="empty">Entra na tua conta para veres perfis.</div></div>`;
  const l=C.member[p.id],u=l&&l[0];
  if(!u)return `<div class="page">${head('Perfil','')}${l?'<div class="empty">Este perfil não está disponível.</div>':waiting('member:'+p.id)}</div>`;
  if(C.blocks.some(b=>b.id===p.id))return `<div class="page">${head('Perfil','')}<div class="empty">Bloqueaste esta conta.</div></div>`;
- return `<div class="page">${head('Perfil','')}${profileHead(u.username,face(u,96),u.bio,u.interests)}${stats(u.id)}<div class="prow">${u.id===S.auth.uid?'':followBtn(u.id)+`<button class="btn small ghost" data-act="go" data-v="chat" data-id="${esc(u.id)}">${ic(P.chat,16)} Mensagem</button>`}</div><div class="c" style="margin:0 0 18px">${u.id===S.auth.uid?'':mod('profile',u.id,u.id,u.username)}</div><h2 class="sec s">PUBLICAÇÕES</h2>${feed('u-'+p.id,false,'Ainda sem publicações.')}</div>`},
+ return `<div class="page">${head('Perfil','')}${profileHead(u.username,face(u,96),u.bio,u.interests)}${stats(u.id)}<div class="prow">${u.id===S.auth.uid?'':followBtn(u.id)+`<button class="btn small ghost" data-act="go" data-v="chat" data-id="${esc(u.id)}">${ic(P.chat,16)} Mensagem</button>`}</div><div class="c" style="margin:0 0 18px">${u.id===S.auth.uid?'':mod('profile',u.id,u.id,u.username)}</div>${profilePosts('u-'+p.id,C.posts['u-'+p.id],x=>srvPost(x,'u-'+p.id),'Ainda sem publicações.')}</div>`},
  after:p=>{if(online()){load('member:'+p.id);load('posts:u-'+p.id);load('social:'+p.id);load('social:'+S.auth.uid);load('blocks')}}};
 
 
@@ -186,12 +193,15 @@ function reportCard(r,d){
  const table={post:'posts',comment:'comments',group:'groups',question:'questions',answer:'answers',listing:'listings',message:'room_messages',dm:'messages'}[r.target_type];
  return `<div class="card"><span class="meta">${TYPES[r.target_type]||r.target_type} · ${ago(r.created_at)} · por ${esc((r.reporter&&r.reporter.username)||'?')}</span><p style="margin:8px 0 4px"><b>${esc(r.reason)}</b></p><p class="p14" style="overflow-wrap:anywhere">${t?esc((t.author?t.author.username+': ':'')+(t.body||t.name||t.title||t.username||'')):'O conteúdo já não existe.'}</p>${t?mediaHTML(t):''}<div class="acts" style="flex-wrap:wrap">${t&&table?`<button class="mini" data-act="${hide?'admhide':'admremove'}" data-t="${table}" data-id="${t.id}" data-r="${r.id}">${hide?'Ocultar':'Apagar conteúdo'}</button>`:''}${author&&S.role==='admin'&&author!==S.auth.uid?`<button class="mini" data-act="sheet" data-s="suspend" data-id="${author}" data-r="${r.id}">Suspender conta</button>`:''}<button class="mini" data-act="admclose" data-r="${r.id}">Arquivar</button></div></div>`;
 }
+const inviteLink=code=>appURL()+'?convite='+code;
+const invitesHTML=d=>`<h2 class="sec s">CONVITES</h2><div class="card"><p class="p14" style="margin:0 0 10px">${d.inviteRequired?'Só entra quem tiver convite.':'Qualquer pessoa com o link pode criar conta.'}</p><button class="btn small ghost" data-act="invreq" data-v="${d.inviteRequired?'0':'1'}">${d.inviteRequired?'Abrir a todas':'Voltar a exigir convite'}</button></div><form data-form="invite" class="addrow"><input class="field" id="iv-l" name="l" placeholder="Nome da amiga" maxlength="60" aria-label="Nome da amiga" autocomplete="off"><button class="btn" type="submit" aria-label="Criar convite">${ic(P.plus,22)}</button></form>${d.invites.map(i=>{const free=!i.used_at&&!i.revoked;return `<div class="item"><span class="tx">${esc(i.label)}<small data-nt>${esc(i.code)}</small><small>${i.revoked?'Anulado':i.used_at?'Usado':'Por usar'}</small></span>${free?`<button class="mini" data-act="invcopy" data-code="${esc(i.code)}">Copiar link</button><button class="mini" data-act="invrevoke" data-code="${esc(i.code)}">Anular</button>`:''}</div>`}).join('')||'<div class="empty">Ainda não criaste convites.</div>'}`;
 V.admin={tab:'community',html:()=>{
  checkOwner();if(!isStaff())return `<div class="page">${head('Administração','')}<div class="empty">Esta área é só para a equipa.</div></div>`;
  const d=C.admin;if(!d)return `<div class="page">${head('Administração','')}${waiting('admin')}</div>`;
  const sec=(t,l,none)=>`<h2 class="sec s">${t}</h2>${l.join('')||`<div class="empty">${none}</div>`}`;
  return `<div class="page">${head('Administração','O controlo da MAELLE.')}<div class="summary"><div><b>${d.members}</b><span>Contas</span></div><div><b>${d.reports.length}</b><span>Denúncias</span></div><div><b>${d.books.length}</b><span>Livros</span></div></div>
  <button class="btn small ghost" data-act="retry" data-k="admin">Atualizar</button>
+ ${S.role==='admin'?invitesHTML(d):''}
  ${sec('DENÚNCIAS POR TRATAR',d.reports.map(r=>reportCard(r,d)),'Sem denúncias por tratar.')}
  ${sec('LIVROS POR APROVAR',d.books.map(b=>`<div class="card"><h3 class="h3">${esc(b.title)}</h3><span class="meta">${esc(b.author)}</span><p class="p14">${esc(b.blurb||'')}</p><div class="acts"><button class="mini" data-act="admbook" data-id="${b.id}">Aprovar</button><button class="mini" data-act="admremove" data-t="books" data-id="${b.id}">Rejeitar</button></div></div>`),'Nenhum livro à espera.')}
  ${sec('CONTEÚDO OCULTO',d.posts.map(x=>`<div class="item"><span class="tx">${esc(x.body)}<small>${esc(who(x))}</small>${mediaHTML(x)}</span><button class="mini" data-act="admshow" data-t="posts" data-id="${x.id}">Repor</button></div>`).concat(d.groups.map(g=>`<div class="item"><span class="tx">${esc(g.name)}<small>Grupo</small></span><button class="mini" data-act="admshow" data-t="groups" data-id="${g.id}">Repor</button></div>`),(d.listings||[]).map(x=>`<div class="item"><span class="tx">${esc(x.title)}<small>Anúncio</small></span><button class="mini" data-act="admshow" data-t="listings" data-id="${x.id}">Repor</button></div>`)),'Nada oculto.')}
@@ -212,7 +222,7 @@ const send=(f,fn,msg,keys)=>act(fn,msg,keys).then(ok=>{if(ok)f.reset()});
 both(FORM,'post',(fd,f)=>{const t=fd.get('t').trim(),sc=f.dataset.sc,mine=draft.sc===sc,img=mine?draft.img:'',vid=mine?draft.vid:null;if(!t&&!img&&!vid)return;
  if(vid&&!working)toast('A enviar o vídeo…');
  send(f,async()=>{const body={author_id:S.auth.uid,group_id:sc==='main'||sc.startsWith('u-')?null:sc,body:t};if(img)body.image_url=await uploadImage(img,'post');if(vid)body.video_url=await uploadVideo(vid);
-  try{await add('posts',body)}catch(e){await dropMedia([body.image_url,body.video_url]);throw e}clearDraft()},'Publicado',[pkey(sc)])});
+  try{await add('posts',body)}catch(e){await dropMedia([body.image_url,body.video_url]);throw e}clearDraft();if(sc===myKey()){newPost=false;PTABS[sc]=img||vid?'grid':'text'}},'Publicado',[pkey(sc)])});
 both(FORM,'comment',(fd,f)=>{const t=fd.get('t').trim();if(t)send(f,()=>add('comments',{author_id:S.auth.uid,post_id:f.dataset.id,body:t}),'',[pkey(f.dataset.sc)])});
 both(FORM,'ask',(fd,f)=>{const t=fd.get('q').trim();if(t)send(f,()=>add('questions',{author_id:S.auth.uid,body:t}),'Pergunta publicada',['qa'])});
 both(FORM,'answer',(fd,f)=>{const t=fd.get('t').trim();if(t)send(f,()=>add('answers',{author_id:S.auth.uid,question_id:f.dataset.id,body:t}),'',['qa'])});
@@ -229,11 +239,15 @@ ACT.srvlike=d=>{const p=(C.posts[d.sc]||[]).find(x=>x.id===d.id);if(!p)return;co
 /* ficheiros de uma publicação saem também do armazenamento */
 async function dropMedia(urls){const l=urls.map(safeImg).filter(Boolean).map(u=>u.split('/public/media/')[1]);if(l.length)await api('/storage/v1/object/media',{method:'DELETE',body:{prefixes:l}}).catch(e=>console.warn(e.message))}
 ACT.srvdel=d=>act(async()=>{const p=d.t==='posts'&&(C.posts[d.sc]||[]).find(x=>x.id===d.id);await remove(d.t+'?id=eq.'+d.id);
- if(p&&p.author_id===S.auth.uid)await dropMedia([p.image_url,p.video_url])},'Apagado',[d.sc?pkey(d.sc):'qa']);
+ if(p&&p.author_id===S.auth.uid)await dropMedia([p.image_url,p.video_url])},'Apagado',[d.sc?pkey(d.sc):'qa']).then(ok=>{if(ok!==false&&cur().v==='post')back()});
 ACT.feedtab=d=>{FEED=d.t;render();load('posts:'+FEED)};
 const socialKeys=id=>['social:'+S.auth.uid,'social:'+id].concat(cur().v==='posts'?['posts:following']:[]);
 ACT.follow=d=>{const me=S.auth.uid,on=iFollow(d.id);act(()=>on?remove('follows?follower_id=eq.'+me+'&followed_id=eq.'+d.id):add('follows',{follower_id:me,followed_id:d.id}),on?'Deixaste de seguir':'Começaste a seguir',socialKeys(d.id)).then(paintPeople)};
 ACT.unfollower=d=>act(()=>remove('follows?follower_id=eq.'+d.id+'&followed_id=eq.'+S.auth.uid),'Seguidora removida',socialKeys(d.id));
+FORM.invite=(fd,f)=>{const l=fd.get('l').trim();if(!l)return toast('Escreve o nome da amiga.');send(f,()=>add('invites',{label:l}),'Convite criado',['admin'])};
+ACT.invrevoke=d=>act(()=>patch('invites?code=eq.'+encodeURIComponent(d.code),{revoked:true}),'Convite anulado',['admin']);
+ACT.invreq=d=>act(()=>patch('app_config?id=is.true',{invite_required:d.v==='1'}),'Guardado',['admin']);
+ACT.invcopy=d=>{const link=inviteLink(d.code),manual=()=>sheet(`<h2 class="h2">Convite</h2><p class="p14" style="overflow-wrap:anywhere;user-select:all" data-nt>${esc(link)}</p><button class="btn ghost" data-act="close">Fechar</button>`);if(!navigator.clipboard)return manual();navigator.clipboard.writeText(link).then(()=>toast('Link copiado'),manual)};
 ACT.retry=d=>load(d.k,true);
 ACT.admhide=d=>act(async()=>{await patch(d.t+'?id=eq.'+d.id,{status:'hidden'});await closeReport(d.r,'actioned')},'Conteúdo ocultado',['admin']);
 ACT.admshow=d=>act(()=>patch(d.t+'?id=eq.'+d.id,{status:d.t==='posts'?'visible':'active'}),'Conteúdo reposto',['admin']);

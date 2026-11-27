@@ -29,6 +29,8 @@ const SHEETS={
 };
 let ACT_BUSY=false;
 const ACT={
+ ptab:d=>{PTABS[d.sc]=d.t;render(true)},
+ newpost:()=>{newPost=!newPost;if(!newPost)clearDraft();render(true)},
  draftclear:(d,el)=>{const box=el.closest('.postprev');clearDraft();box.innerHTML=''},
  go:d=>go(d.v,Object.assign({},d)),
  back:()=>back(), tab:d=>tab(d.v), close:()=>closeSheet(),
@@ -90,15 +92,16 @@ async function busy(f,fn){if(f.dataset.busy)return;f.dataset.busy='1';const b=f.
  try{await fn()}catch(e){ferr(f,e.code==='23505'?'Esse nome de utilizador já está em uso.':authMsg(e))}finally{delete f.dataset.busy;if(b)b.disabled=false}}
 const FORM={
  age(fd,f){if(!fd.get('ok'))return ferr(f,'Confirma que tens 18 anos ou mais para continuar.');enterAsGuest()},
- async signup(fd,f){const name=fd.get('name').trim(),email=fd.get('email').trim().toLowerCase(),pw=fd.get('pw'),dob=fd.get('dob');
+ async signup(fd,f){const name=fd.get('name').trim(),email=fd.get('email').trim().toLowerCase(),pw=fd.get('pw'),dob=fd.get('dob'),invite=String(fd.get('invite')||'').trim().toUpperCase();
   if(!name)return ferr(f,'Diz-nos o teu nome.');
   if(!/^\S+@\S+\.\S+$/.test(email))return ferr(f,'Confirma o e-mail. Falta alguma coisa.');
   if(pw.length<8)return ferr(f,'A palavra-passe precisa de pelo menos 8 caracteres.');
   if(!dob)return ferr(f,'Indica a tua data de nascimento.');
   const age=ageOf(dob);if(isNaN(age)||age<0||age>120)return ferr(f,'Confirma a data de nascimento.');
   if(age<18){S.blocked18=true;save();render();return}
+  if(inviteRequired&&!invite)return ferr(f,'Escreve o teu código de convite.');
   if(!fd.get('agree'))return ferr(f,'Confirma que aceitas os Termos e que leste a Política de Privacidade.');
-  await busy(f,async()=>{if(!await signUp(name,email,pw,dob)){go('login');toast('Enviámos um e-mail. Confirma-o e depois entra.')}})},
+  await busy(f,async()=>{if(!await signUp(name,email,pw,dob,invite)){go('login');toast('Enviámos um e-mail. Confirma-o e depois entra.')}})},
  async login(fd,f){const email=fd.get('email').trim().toLowerCase(),pw=fd.get('pw');
   if(!email||!pw)return ferr(f,'Preenche o e-mail e a palavra-passe.');
   await busy(f,()=>signIn(email,pw))},
@@ -138,7 +141,7 @@ const FORM={
  look(fd){const t=fd.get('t').trim();if(!t)return;S.looks.unshift({id:uid(),t:t,date:today()});commit('Look guardado')},
  journal(fd,f){const t=fd.get('t').trim();if(!t)return ferr(f,'Escreve algumas linhas antes de guardar.');S.journal.push({id:uid(),date:today(),p:f.dataset.p,t:t});commit('Página guardada')},
  words(fd){S.words[monthKey()]=[fd.get('w1').trim(),fd.get('w2').trim(),fd.get('w3').trim()];commit('Palavras guardadas')},
- post(fd,f){const t=fd.get('t').trim(),img=draft.sc===f.dataset.sc?draft.img:'';if(!t&&!img)return;const l=postsOf(f.dataset.sc);l.unshift({id:uid(),me:true,a:uname(),ago:'agora',l:0,t:t,img:img,c:[]});if(!save()){l.shift();return toast('A foto é grande demais para guardar. Escolhe outra.')}clearDraft();commit('Publicado')},
+ post(fd,f){const t=fd.get('t').trim(),img=draft.sc===f.dataset.sc?draft.img:'';if(!t&&!img)return;const l=postsOf(f.dataset.sc);l.unshift({id:uid(),me:true,a:uname(),ago:'agora',l:0,t:t,img:img,c:[]});if(!save()){l.shift();return toast('A foto é grande demais para guardar. Escolhe outra.')}clearDraft();if(f.dataset.sc==='main'&&cur().v==='me'){newPost=false;PTABS.main=img?'grid':'text'}commit('Publicado')},
  comment(fd,f){const t=fd.get('t').trim();if(!t)return;const p=postsOf(f.dataset.sc).find(x=>x.id===f.dataset.id);if(p){p.c.push({a:uname(),t:t,me:true});commit()}},
  ask(fd){const q=fd.get('q').trim();if(!q)return;S.qa.unshift({id:uid(),q:q,a:[]});commit('Pergunta publicada')},
  answer(fd,f){const t=fd.get('t').trim();if(!t)return;S.qa.find(q=>q.id===f.dataset.id).a.push({by:uname(),t:t});commit()},
