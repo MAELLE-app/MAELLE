@@ -14,8 +14,11 @@ Aplicação para maiores de 18 anos. Código em `docs/` (HTML, CSS e JavaScript,
 
 - Perfil próprio e perfis de outras utilizadoras, com publicações (texto e foto), gostos e comentários
 
+## Fotografias
+Fotografias CC0 carregadas do Wikimedia Commons (`PHOTOS` em `docs/core.js`, créditos em `docs/creditos.html`). Se alguma não carregar, a app mostra a ilustração de `docs/img/`. Para as lojas de apps convém guardar cópias das fotografias no projeto. Os anúncios nunca usam fotografias de banco como se fossem do artigo.
+
 ## Línguas
-Português e inglês (`docs/i18n.js`). Ainda em português: ideias e conteúdos do The Club e Beauty & Style, painel de administração, Termos e Política de Privacidade.
+Português, inglês, francês, espanhol e italiano (`docs/i18n.js`; francês, espanhol e italiano ainda sem revisão por falantes nativas). Ainda em português: ideias e conteúdos do The Club e Beauty & Style, painel de administração, Termos e Política de Privacidade.
 
 ## Ainda só no dispositivo
 Moodboards, coleções, Beauty & Style e The Club. Não há pagamentos na app. Estes dados apagam-se ao terminar sessão.
@@ -35,4 +38,4 @@ Moodboards, coleções, Beauty & Style e The Club. Não há pagamentos na app. E
 - Termos de Utilização publicados em versão provisória (`docs/termos.html`): falta revisão jurídica e confirmar o registo no Livro de Reclamações Eletrónico
 
 ## Testes
-`python3 tests/e2e.py` `python3 tests/comunidade.py` e `python3 tests/loja.py` `python3 tests/perfil.py` (precisa de Playwright; usa um servidor simulado).
+`python3 tests/e2e.py` `python3 tests/comunidade.py` e `python3 tests/loja.py` `python3 tests/perfil.py` `python3 tests/linguas.py` (precisa de Playwright; usa um servidor simulado).
