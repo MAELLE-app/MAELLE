@@ -10,6 +10,9 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+Publicações de exemplo, de pessoas fictícias.=Sample posts from fictional people.
+Ideias em imagens. Toca numa fotografia para veres o tema e guarda no coração o que gostares.=Ideas in pictures. Tap a photo to see the topic and tap the heart to save what you like.
+As imagens são ilustrativas. As ligações abrem sites externos. A MAELLE não é afiliada a estas marcas.=Images are for illustration. Links open external sites. MAELLE is not affiliated with these brands.
 Início=Home
 Comunidade=Community
 Perfil=Profile
@@ -530,6 +533,9 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+Publicações de exemplo, de pessoas fictícias.¦Publications d’exemple, de personnes fictives.¦Publicaciones de ejemplo, de personas ficticias.¦Post di esempio, di persone fittizie.
+Ideias em imagens. Toca numa fotografia para veres o tema e guarda no coração o que gostares.¦Des idées en images. Touche une photo pour voir le thème et garde avec le cœur ce que tu aimes.¦Ideas en imágenes. Toca una foto para ver el tema y guarda con el corazón lo que te guste.¦Idee in immagini. Tocca una foto per vedere il tema e salva con il cuore ciò che ti piace.
+As imagens são ilustrativas. As ligações abrem sites externos. A MAELLE não é afiliada a estas marcas.¦Les images sont illustratives. Les liens ouvrent des sites externes. MAELLE n’est pas affiliée à ces marques.¦Las imágenes son ilustrativas. Los enlaces abren sitios externos. MAELLE no está afiliada a estas marcas.¦Le immagini sono illustrative. I link aprono siti esterni. MAELLE non è affiliata a questi marchi.
 Início¦Accueil¦Inicio¦Home
 Comunidade¦Communauté¦Comunidad¦Community
 Perfil¦Profil¦Perfil¦Profilo

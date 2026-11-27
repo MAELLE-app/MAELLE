@@ -86,8 +86,47 @@ const art=k=>`img/${TOPICS[k]?k:'moda'}.svg`;
 const SVC_ART={'Beleza':'beleza','Cabelo':'beleza','Maquilhagem':'beleza','Imagem e estilo':'moda','Organização':'organizacao'};
 const svcArt=c=>art(SVC_ART[c]||'criatividade');
 const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
+const itemPic=(x,fb)=>!x.img&&PIMG[x.id]?photoImg(PIMG[x.id],'',500):picture(x.img||fb);
 /* fotografias CC0 do Wikimedia Commons (lista também em creditos.html); se não carregarem, aparece a ilustração */
 const PHOTOS={
+ macacao:"Turquoise Jumpsuit (Unsplash).jpg",
+ mala:"Checking Her Purse (Unsplash).jpg",
+ compras:"Shopping freak (Unsplash).jpg",
+ inverno:"Woman in winter (Unsplash).jpg",
+ rua:"Young woman standing at San Francisco crossroads (Unsplash).jpg",
+ gorro:"Hooded woman in snow (Unsplash).jpg",
+ urbano:"Swag girl (Unsplash).jpg",
+ cabelo:"Ombre Hair (Unsplash).jpg",
+ cafe:"Red shirt woman in a cafe (Unsplash).jpg",
+ olhar:"Woman looking into distance (Unsplash).jpg",
+ quarto:"NY loft bedroom (Unsplash).jpg",
+ canto:"Getting cozy with a book (Unsplash).jpg",
+ plantas:"Cozy greenhouse (Unsplash).jpg",
+ vela:"Candle in candle holder (Unsplash).jpg",
+ luz:"My little Candlelight (Unsplash).jpg",
+ casa:"Cozy white house (Unsplash).jpg",
+ malas:"Pack A Bag (Unsplash).jpg",
+ roteiro:"Plan a lifetime adventure (Unsplash).jpg",
+ caminhada:"Hiker with a large backpack (Unsplash).jpg",
+ saco:"Leather duffel bag on the ground (Unsplash).jpg",
+ mochila:"Fjallraven Kanken backpack (Unsplash).jpg",
+ cereais:"Bowl of Cereal (Unsplash).jpg",
+ massa:"Pasta in Bed (Unsplash).jpg",
+ salada:"Healthy Lentil Salad (Unsplash).jpg",
+ panquecas:"Breakfast table with pancakes (Unsplash).jpg",
+ legumes:"Vegetable Salad (Unsplash).jpg",
+ brunch:"Brunching with Friends (Unsplash).jpg",
+ lapis:"Taking notes with a pencil (Unsplash).jpg",
+ camara:"The Photographers Backpack (Unsplash).jpg",
+ aparas:"Pencil shavings on a notebook (Unsplash).jpg",
+ caneta:"Pen on a notebook (Unsplash).jpg",
+ mesa:"White work table with notes, smartphone and laptop (Unsplash).jpg",
+ secretaria:"Ruler and laptop on a desk (Unsplash).jpg",
+ arquivo:"Archive storage (Unsplash).jpg",
+ caderno:"New text notebook (Unsplash).jpg",
+ leitora:"Woman reading a book (Unsplash).jpg",
+ colo:"Woman reading a book on lap (Unsplash).jpg",
+ estante:"Bookshelf (Unsplash).jpg",
  moda:"Women's_clothes_store_(Unsplash).jpg",
  beleza:'Makeup-beauty-lipstick-make-up_(24030573540).jpg',
  decoracao:'Living_room_(Unsplash).jpg',
@@ -100,11 +139,33 @@ const PHOTOS={
  loja:'Little_Black_Dress_(Unsplash).jpg',
  convivio:'Coffee,_flowers_and_books_(Unsplash).jpg'
 };
-const PHOTO_ART={vestido:'moda',loja:'moda',convivio:'livros'};
+const PHOTO_ART={vestido:'moda',loja:'moda',convivio:'livros',macacao:'moda',mala:'moda',compras:'moda',inverno:'moda',rua:'moda',gorro:'moda',urbano:'moda',cabelo:'beleza',cafe:'beleza',olhar:'beleza',quarto:'decoracao',canto:'decoracao',plantas:'decoracao',vela:'decoracao',luz:'decoracao',casa:'decoracao',malas:'viagens',roteiro:'viagens',caminhada:'viagens',saco:'viagens',mochila:'viagens',cereais:'receitas',massa:'receitas',salada:'receitas',panquecas:'receitas',legumes:'receitas',brunch:'receitas',lapis:'criatividade',camara:'criatividade',aparas:'criatividade',caneta:'organizacao',mesa:'organizacao',secretaria:'organizacao',arquivo:'organizacao',caderno:'organizacao',leitora:'livros',colo:'livros',estante:'livros'};
 const photo=(k,w)=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(PHOTOS[k]).replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29')+'?width='+(w||960);
 const photoImg=(k,cls,w)=>`<img ${cls?`class="${cls}"`:''} src="${photo(k,w)}" data-fb="${art(PHOTO_ART[k]||k)}" alt="" referrerpolicy="no-referrer">`;
 document.addEventListener('error',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.fb){t.src=t.dataset.fb;delete t.dataset.fb}},true);
 const banner=k=>photoImg(k,'banner');
+/* que fotografia vai em cada ideia, exemplo, menu e ecrã */
+const IMG={
+ m1:'moda',m2:'macacao',m3:'mala',m4:'compras',b1:'beleza',b2:'cabelo',b3:'cafe',b4:'quarto',d1:'canto',d2:'decoracao',d3:'plantas',d4:'vela',
+ v1:'malas',v2:'rua',v3:'roteiro',v4:'caminhada',r1:'cereais',r2:'massa',r3:'salada',r4:'panquecas',c1:'lapis',c2:'criatividade',c3:'camara',c4:'aparas',
+ o1:'caneta',o2:'mesa',o3:'secretaria',o4:'arquivo',l1:'leitora',l2:'livros',l3:'colo',l4:'estante'};
+const PIMG={p1:'compras',p2:'rua',p3:'beleza',p4:'cabelo',p5:'vela',p6:'quarto',p7:'malas',p8:'saco',p9:'caderno',p10:'caneta',p11:'criatividade',p12:'legumes',
+ s1:'beleza',s2:'camara',s3:'macacao',s4:'criatividade',s5:'secretaria',s6:'moda'};
+const OIMG={o1:'rua',o2:'vestido',o3:'urbano',o4:'olhar',o5:'macacao',o6:'inverno',o7:'mochila',o8:'cafe',o9:'loja',o10:'compras',o11:'gorro',o12:'viagens',o13:'mala'};
+const BRIMG={lumi:'moda',nua:'beleza',aurea:'vela',mare:'saco',folha:'caderno',olivia:'legumes'};
+const CHIMG={agua:'brunch',ler:'colo',grat:'lapis',andar:'caminhada'};
+const EVIMG={e1:'cabelo',e2:'criatividade',e3:'caneta'};
+const BTIMG={skincare:'beleza',hair:'cabelo',makeup:'cafe',outfits:'moda',trends:'macacao'};
+const MENUIMG={hanger:'vestido',book:'livros',spark:'beleza',plan:'caneta',list:'mesa',target:'roteiro',repeat:'brunch',gift:'compras',flower:'criatividade',
+ cal:'panquecas',pen:'lapis',chat:'cafe',user:'olhar',send:'caderno',users:'convivio',help:'leitora',heart:'luz',bag:'loja',tag:'mala',store:'moda'};
+const BANNERS={signup:'convivio',login:'casa',interests:'convivio',saved:'luz',boards:'criatividade',board:'aparas',agenda:'caneta',tasks:'mesa',goals:'roteiro',habits:'brunch',wishes:'compras',
+ recs:'mala',shop:'loja',brands:'moda',sell:'secretaria',favs:'luz',challenges:'caminhada',creative:'lapis',digital:'plantas',cevents:'panquecas',
+ posts:'convivio',people:'olhar',follows:'olhar',inbox:'caderno',groups:'brunch',qa:'leitora',room:'estante'};
+const photoOf=(k,cls,w)=>PHOTOS[k]?photoImg(k,cls,w):'';
+/* fotografia por trás da inicial de quem ainda não tem foto */
+const AVBG=['criatividade','luz','plantas','livros','casa','vela'];
+const avBg=n=>{let h=0;for(const ch of String(n))h=(h*31+ch.codePointAt(0))>>>0;return AVBG[h%AVBG.length]};
+const initial=(n,sz)=>`<span class="av ini" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.45)}px">${photoImg(avBg(n),'',120)}<b>${esc(String(n).charAt(0).toUpperCase())}</b></span>`;
 const tileBg=(k,a)=>`background:linear-gradient(to top,rgba(64,55,47,.74),rgba(64,55,47,.18)),url(${photo(k,500)}) center/cover,url(${art(a)}) center/cover,#8A7766`;
 const grad=k=>TOPICS[k]?`linear-gradient(160deg,${TOPICS[k].tint[0]},${TOPICS[k].tint[1]})`:'linear-gradient(160deg,#EBE1D3,#D8C5AD)';
 
@@ -124,6 +185,8 @@ function render(keep){
  el.innerHTML=def.html(c.p||{});
  $('#app').classList.toggle('has-tabs',!!def.tab);
  $('#tabs').innerHTML=TABS.map(t=>`<button data-act="tab" data-v="${t[0]}" class="${def.tab===t[0]?'on':''}" ${def.tab===t[0]?'aria-current="page"':''}>${ic(P[t[2]],22)}<span>${t[1]}</span></button>`).join('');
+ const bk=BANNERS[c.v],h1=bk&&!el.querySelector('.banner')&&el.querySelector('h1');
+ if(h1){const next=h1.nextElementSibling;(next&&next.classList.contains('sub')?next:h1).insertAdjacentHTML('afterend',banner(bk))}
  el.scrollTop=keep?sc:0;
  if(typeof paintBadge==='function')paintBadge();
  if(def.after)def.after(c.p||{});
@@ -138,11 +201,11 @@ function breathStop(){clearTimeout(bt);bt=null}
 
 /* ---------- peças partilhadas ---------- */
 const head=(title,sub,o)=>{o=o||{};return `<div class="bar">${o.noBack?'<span></span>':`<button class="icon-btn" data-act="back" aria-label="Voltar">${ic(P.back)}</button>`}<span class="bar-r">${o.right||''}</span></div><h1 class="h1">${title}</h1>${sub?`<p class="sub">${sub}</p>`:''}`};
-const avatar=sz=>{const n=uname();return `<span class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.45)}px">${S.profile.photo?`<img src="${S.profile.photo}" alt="">`:esc(n.charAt(0).toUpperCase())}</span>`};
-const menu=(icon,t,p,act,feat)=>`<button class="menu ${feat?'feat':''}" ${act}><span class="ic">${ic(P[icon],22)}</span><span class="tx"><span class="t">${t}</span><span class="p">${p}</span></span><span class="ch">${ic(P.next,18)}</span></button>`;
+const avatar=sz=>S.profile.photo?`<span class="av" style="width:${sz}px;height:${sz}px"><img src="${S.profile.photo}" alt=""></span>`:initial(uname(),sz);
+const menu=(icon,t,p,act,feat)=>`<button class="menu ${feat?'feat':''}" ${act}><span class="ic ${MENUIMG[icon]?'foto':''}">${MENUIMG[icon]?photoImg(MENUIMG[icon],'',160):ic(P[icon],22)}</span><span class="tx"><span class="t">${t}</span><span class="p">${p}</span></span><span class="ch">${ic(P.next,18)}</span></button>`;
 const delBtn=(l,id)=>`<button class="del" data-act="del" data-l="${l}" data-id="${id}" aria-label="Apagar">${ic(P.trash,18)}</button>`;
 const chk=(on,l,id,f)=>`<button class="chk ${on?'on':''}" data-act="toggle" data-l="${l}" data-id="${id}" data-f="${f}" aria-pressed="${!!on}" aria-label="Marcar como feito">${ic(P.check,16)}</button>`;
-const ideaCard=i=>{const on=S.saved.includes(i.id);return `<article class="idea">${photoImg(i.k,'thumb',330)}<div><h3>${i.t}</h3><p>${i.d}</p></div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
+const ideaCard=i=>{const on=S.saved.includes(i.id);return `<article class="idea big">${photoImg(IMG[i.id]||i.k,'cover',500)}<div><h3>${i.t}</h3><p>${i.d}</p></div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
 const monthKey=()=>today().slice(0,7);
 function streak(h){let n=0;const d=new Date();if(h.days.indexOf(iso(d))<0)d.setDate(d.getDate()-1);while(h.days.indexOf(iso(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
 function nextEvent(){const t=today();return S.events.filter(e=>e.date>=t).sort((a,b)=>(a.date+(a.time||'99')).localeCompare(b.date+(b.time||'99')))[0]}

@@ -187,7 +187,7 @@ input[type=range]{width:100%;accent-color:var(--sand-deep);margin:6px 0 0}
 .post{background:var(--white);border-radius:22px;padding:16px;margin-bottom:12px}
 .post .who{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .post .who b{font:600 13px var(--sans)}
-.post .who span{font:400 12px var(--sans);color:var(--muted);margin-left:auto}
+.post .who span:not(.av){font:400 12px var(--sans);color:var(--muted);margin-left:auto}
 .post p{margin:0 0 12px;font:400 15px/1.55 var(--sans);overflow-wrap:anywhere}
 .post .acts{display:flex;gap:2px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
 .like{display:flex;align-items:center;gap:6px;border:0;background:var(--bg);border-radius:18px;padding:8px 14px;font:500 12px var(--sans);cursor:pointer;min-height:38px;margin-right:6px}
@@ -295,3 +295,27 @@ a.menu{text-decoration:none;color:inherit}
 .langs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
 .langs .btn{padding-left:12px;padding-right:12px;letter-spacing:.08em}
 #tabs button{min-width:0;flex:1}#tabs span{font-size:9px;letter-spacing:0;white-space:nowrap}
+
+/* imagens em todos os ecrãs */
+.menu .ic.foto{width:58px;height:58px;border-radius:16px;overflow:hidden}
+.menu .ic.foto img{width:100%;height:100%;object-fit:cover}
+.cover{display:block;width:100%;height:150px;object-fit:cover;border-radius:16px;margin-bottom:12px;background:var(--cream)}
+.idea.big{flex-wrap:wrap}.idea.big .cover{margin:0}
+.av.ini{position:relative}
+.av.ini img{position:absolute;inset:0}
+.av.ini::after{content:'';position:absolute;inset:0;background:rgba(64,55,47,.38)}
+.av.ini b{position:relative;z-index:1;color:#fff;font-weight:600}
+.book .cv,.menu .cv{position:relative;width:64px;height:96px;padding:0;border-radius:6px 12px 12px 6px;overflow:hidden;flex:none;display:block;background:var(--cream)}
+.menu .ic.cvs{width:48px;height:72px;border-radius:8px;overflow:hidden}
+.menu .ic.cvs>img{width:100%;height:100%;object-fit:cover}
+.menu .cv{width:48px;height:72px;border-radius:4px 8px 8px 4px}
+.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cv img.real{z-index:2;opacity:0}.cv.has img.real{opacity:1}
+.cv b{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:14px 4px 5px;background:linear-gradient(to top,rgba(64,55,47,.82),rgba(64,55,47,0));color:#fff;font:600 8px/1.2 var(--sans);letter-spacing:.05em;text-transform:uppercase}
+.inspo{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:18px;border-radius:18px;overflow:hidden}
+.inspo button{padding:0;border:0;aspect-ratio:1;background:var(--cream);cursor:pointer}
+.inspo img{display:block;width:100%;height:100%;object-fit:cover}
+.pill .pillimg{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:none}
+.bigcv{display:flex;justify-content:center;margin-bottom:14px}
+.bigcv .cv{position:relative;display:block;width:130px;height:196px;border-radius:8px 16px 16px 8px;overflow:hidden;background:var(--cream)}
+.bigcv .cv b{font-size:12px}
