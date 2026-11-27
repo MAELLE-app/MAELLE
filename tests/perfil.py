@@ -64,7 +64,7 @@ def route(r):
 with sync_playwright() as pw:
     b=pw.chromium.launch();pg=b.new_page(viewport={'width':390,'height':800});errs=[];dialogs=[]
     pg.set_default_timeout(6000);pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:(dialogs.append(1),d.dismiss()))
-    pg.route(re.compile(r'https://fonts\..*'),lambda r:r.abort());pg.route(re.compile(r'https://commons\.wikimedia\.org/.*'),lambda r:r.abort());pg.route(re.compile(r'https://bgfnsnxaugvsscdctwse\.supabase\.co/.*'),route)
+    pg.route(re.compile(r'https://fonts\..*'),lambda r:r.abort());pg.route(re.compile(r'https://(commons\.wikimedia|openlibrary|covers\.openlibrary)\.org/.*'),lambda r:r.abort());pg.route(re.compile(r'https://bgfnsnxaugvsscdctwse\.supabase\.co/.*'),route)
     W=lambda:pg.wait_for_timeout(700)
     tab=lambda:pg.click('#tabs >> text=Comunidade')
     pg.goto('http://127.0.0.1:8768/');pg.click('text=Já tenho conta');pg.fill('#li-email','a@b.pt');pg.fill('#li-pw','segredo123');pg.click('button:has-text("Entrar")');pg.wait_for_selector('text=Bem-vinda ao teu universo')

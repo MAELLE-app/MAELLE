@@ -106,7 +106,7 @@ async function act(fn,msg,keys){
 /* ---------- peças ---------- */
 const waiting=key=>`<div class="empty">${C.err[key]?esc(C.err[key])+`<br><button class="link" data-act="retry" data-k="${key}">Tentar de novo</button>`:'A carregar…'}</div>`;
 const mod=(type,id,authorId,name)=>`<button class="mini" data-act="sheet" data-s="srvreport" data-type="${type}" data-id="${id}">Denunciar</button>${authorId?`<button class="mini" data-act="sheet" data-s="srvblock" data-id="${authorId}" data-who="${esc(name)}">Bloquear</button>`:''}`;
-const face=(a,sz)=>{const img=safeImg(a&&a.avatar_url),n=(a&&a.username)||'Utilizadora';return `<span class="av" style="width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.45)}px">${img?`<img src="${img}" alt="">`:esc(n.charAt(0).toUpperCase())}</span>`};
+const face=(a,sz)=>{const img=safeImg(a&&a.avatar_url),n=(a&&a.username)||'Utilizadora';return img?`<span class="av" style="width:${sz}px;height:${sz}px"><img src="${img}" alt=""></span>`:initial(n,sz)};
 /* nome que abre o perfil da pessoa */
 const person=(id,inner)=>`<button class="person" data-act="go" ${id===S.auth.uid?'data-v="me"':`data-v="user" data-id="${esc(id)}"`}>${inner}</button>`;
 const mediaHTML=p=>{const img=safeImg(p.image_url),vid=safeImg(p.video_url);return (img?`<img class="postimg" src="${img}" alt="">`:'')+(vid?`<video class="postimg postvid" src="${vid}#t=0.1" controls playsinline preload="metadata"></video>`:'')};
@@ -116,7 +116,7 @@ function srvPost(p,sc,manage){
 }
 const feed=(sc,manage,none)=>{const l=C.posts[sc];return l?(l.map(p=>srvPost(p,sc,manage)).join('')||`<div class="empty">${none}</div>`):waiting('posts:'+sc)};
 const isMember=g=>(g.group_members||[]).some(m=>m.user_id===S.auth.uid);
-const groupCard=g=>{const on=isMember(g),n=(g.group_members||[]).length,mine=g.owner_id===S.auth.uid;return `<button class="menu" data-act="go" data-v="group" data-id="${g.id}"><span class="ic">${ic(P.users,22)}</span><span class="tx"><span class="t">${esc(g.name)}</span><span class="p">${esc(g.description||'')}</span><span style="display:block;margin-top:6px"><span class="tg">${TOPICS[g.topic]?TOPICS[g.topic].label:'Geral'}</span><span class="tg">${n} ${n===1?'membro':'membros'}</span>${mine?'<span class="tg rose">Criado por ti</span>':on?'<span class="tg rose">Estás no grupo</span>':''}</span></span><span class="ch">${ic(P.next,18)}</span></button>`};
+const groupCard=g=>{const on=isMember(g),n=(g.group_members||[]).length,mine=g.owner_id===S.auth.uid;return `<button class="menu" data-act="go" data-v="group" data-id="${g.id}"><span class="ic foto">${photoImg(TOPICS[g.topic]?g.topic:'convivio','',160)}</span><span class="tx"><span class="t">${esc(g.name)}</span><span class="p">${esc(g.description||'')}</span><span style="display:block;margin-top:6px"><span class="tg">${TOPICS[g.topic]?TOPICS[g.topic].label:'Geral'}</span><span class="tg">${n} ${n===1?'membro':'membros'}</span>${mine?'<span class="tg rose">Criado por ti</span>':on?'<span class="tg rose">Estás no grupo</span>':''}</span></span><span class="ch">${ic(P.next,18)}</span></button>`};
 const adminLink=()=>isStaff()?menu('shield','Painel de administração','Denúncias, livros e contas','data-act="go" data-v="admin"',1):'';
 
 /* ---------- ecrãs (com sessão usam dados partilhados) ---------- */
@@ -162,7 +162,7 @@ shared('group',p=>{
  if(!C.groups)return `<div class="page">${head('Grupo','')}${waiting('groups')}</div>`;
  const g=C.groups.find(x=>x.id===p.id);if(!g)return `<div class="page">${head('Grupo','')}<div class="empty">Este grupo já não existe.</div></div>`;
  const on=isMember(g),mine=g.owner_id===S.auth.uid,n=g.group_members.length;
- return `<div class="page">${head(esc(g.name),esc(g.description||''))}<div style="margin-bottom:14px"><span class="tg">${TOPICS[g.topic]?TOPICS[g.topic].label:'Geral'}</span><span class="tg">${n} ${n===1?'membro':'membros'}</span>${mine?'<span class="tg rose">Criado por ti</span>':''}</div>
+ return `<div class="page">${head(esc(g.name),esc(g.description||''))}${banner(TOPICS[g.topic]?g.topic:'convivio')}<div style="margin-bottom:14px"><span class="tg">${TOPICS[g.topic]?TOPICS[g.topic].label:'Geral'}</span><span class="tg">${n} ${n===1?'membro':'membros'}</span>${mine?'<span class="tg rose">Criado por ti</span>':''}</div>
  ${g.rules?`<div class="card cream"><span class="meta">Regras do grupo</span><p class="p14" style="margin:6px 0 0;white-space:pre-wrap">${esc(g.rules)}</p></div>`:''}
  ${mine?`<div style="margin-bottom:16px"><button class="btn small ghost" data-act="sheet" data-s="delgroup" data-id="${g.id}">Eliminar grupo</button></div>`:`<button class="btn ${on?'ghost':''}" data-act="group" data-id="${g.id}" style="margin-bottom:10px">${on?'Estás no grupo. Sair':'Entrar no grupo'}</button><div class="c" style="margin-bottom:12px">${mod('group',g.id)}</div>`}
  ${on?composer(g.id,'gp-t','Escreve para o grupo'):'<div class="empty" style="margin-bottom:16px">Entra no grupo para publicares.</div>'}
@@ -295,7 +295,7 @@ const findRoom=id=>C.rooms&&C.rooms.rooms.find(r=>r.id===id||r.book_id===id);
 shared('bookclub',(p,o)=>{
  if(BK!=='chat'){const key=BK==='sale'?'shop':'books',h=noSamples(o.html(p));return C[key]?h:h.replace(/<\/div>$/,()=>waiting(key)+'</div>')}
  const seg=`<div class="seg">${[['rec','Indicações'],['sale','À venda'],['chat','Conversas']].map(x=>`<button class="${BK===x[0]?'on':''}" data-act="bk" data-t="${x[0]}">${x[1]}</button>`).join('')}</div>`;
- const body=C.rooms?C.rooms.rooms.map(r=>{const last=C.rooms.last.find(m=>m.room_id===r.id);return `<button class="menu" data-act="go" data-v="room" data-id="${r.id}"><span class="ic">${ic(P.chat,22)}</span><span class="tx"><span class="t">${esc(r.title)}</span><span class="p">${last?esc(who(last)+': '+last.body.slice(0,56)):'Sê a primeira a escrever'}</span></span></button>`}).join(''):waiting('rooms');
+ const body=C.rooms?C.rooms.rooms.map(r=>{const last=C.rooms.last.find(m=>m.room_id===r.id);return `<button class="menu" data-act="go" data-v="room" data-id="${r.id}"><span class="ic cvs">${r.book_id?bookCover(r.title,''):photoImg('convivio','',160)}</span><span class="tx"><span class="t">${esc(r.title)}</span><span class="p">${last?esc(who(last)+': '+last.body.slice(0,56)):'Sê a primeira a escrever'}</span></span></button>`}).join(''):waiting('rooms');
  return `<div class="page">${head('Clube de Livros','Descobre, troca e conversa sobre livros.')}${banner('livros')}${seg}<button class="btn" data-act="sheet" data-s="newroom" style="margin-bottom:16px">${ic(P.plus,18)} Começar uma conversa</button>${body}</div>`},
  ()=>load({rec:'books',sale:'shop',chat:'rooms'}[BK]));
 shared('room',p=>{

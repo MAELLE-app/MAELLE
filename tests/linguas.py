@@ -20,6 +20,7 @@ with sync_playwright() as pw:
             if ok:r.fulfill(status=200,content_type='image/png',body=png)
             else:r.abort()
         pg.route(re.compile(r'https://commons\.wikimedia\.org/.*'),foto)
+        pg.route(re.compile(r'https://(covers\.)?openlibrary\.org/.*'),lambda r:r.abort())
         pg.goto('http://127.0.0.1:8769/');pg.wait_for_selector('.arches img')
         pg.wait_for_function('ok=>[...document.querySelectorAll(".arches img")].every(e=>e.complete&&e.naturalWidth>0&&e.getAttribute("src").startsWith(ok?"https://commons":"img/"))',arg=ok)
         src=pg.eval_on_selector_all('.arches img','l=>l.map(e=>e.getAttribute("src"))')
@@ -51,7 +52,7 @@ with sync_playwright() as pw:
                 pg.evaluate("()=>{stack=[{v:'home',p:{}}];render()}");pg.wait_for_timeout(200);pg.screenshot(path=f'/tmp/t/home-{l}.png')
                 pg.evaluate("()=>{stack=[{v:'welcome',p:{}}];render()}");pg.wait_for_selector('.langs');pg.screenshot(path=f'/tmp/t/welcome-{l}.png')
             assert pg.evaluate('Object.keys(PHOTOS).every(k=>photo(k).startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/")&&!/[\'()]/.test(photo(k)))')
-            r=pg.goto('http://127.0.0.1:8769/creditos.html');assert r.ok and pg.locator('main li a').count()==11
+            pg_n=pg.evaluate('Object.keys(PHOTOS).length');r=pg.goto('http://127.0.0.1:8769/creditos.html');assert r.ok and pg.locator('main li a').count()==pg_n
         else:
             for v in ['beauty','finder','myplace','club','community','edit']:
                 pg.evaluate("v=>{stack=[{v:v,p:{}}];render()}",v);pg.wait_for_function('document.querySelector(".banner")&&document.querySelector(".banner").getAttribute("src").startsWith("img/")&&document.querySelector(".banner").naturalWidth>0')
