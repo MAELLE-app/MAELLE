@@ -36,7 +36,7 @@ with sync_playwright() as pw:
     pg.route(re.compile(r'https://fonts\..*'),lambda r:r.abort())
     pg.route(re.compile(r'https://bgfnsnxaugvsscdctwse\.supabase\.co/.*'),route)
     pg.goto('http://127.0.0.1:8765/');pg.wait_for_selector('text=Começar',timeout=8000)
-    pg.click('text=Começar');pg.fill('#su-name','Ana');pg.fill('#su-email','a@b.pt');pg.fill('#su-pw','segredo123');pg.fill('#su-dob','1998-05-02');pg.check('#su-agree');pg.click('text=Criar conta >> nth=-1')
+    pg.click('text=Começar');pg.fill('#su-name','Ana');pg.fill('#su-email','a@b.pt');pg.fill('#su-pw','segredo123');pg.fill('#su-dob','1998-05-02');pg.check('#su-agree');pg.click('text=Criar conta >> nth=-1');pg.wait_for_selector('text=Escreve o teu código de convite.');pg.fill('#su-invite','abc123');pg.click('text=Criar conta >> nth=-1')
     pg.wait_for_selector('#pf-user');pg.fill('#pf-bio','Olá');pg.click('text=Guardar perfil')
     pg.click('button.pill >> nth=0');pg.click('text=Continuar');pg.wait_for_timeout(1000)
     assert prof['bio']=='Olá' and len(prof['interests'])==1,(prof,calls,errs,pg.evaluate('[S.interests,S.snap.interests,S.onboarded,cur().v,pending()]'))
