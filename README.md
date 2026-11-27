@@ -17,6 +17,9 @@ Aplicação para maiores de 18 anos. Código em `docs/` (HTML, CSS e JavaScript,
 ## Fotografias
 Fotografias CC0 carregadas do Wikimedia Commons (`PHOTOS` em `docs/core.js`, créditos em `docs/creditos.html`). Se alguma não carregar, a app mostra a ilustração de `docs/img/`. Para as lojas de apps convém guardar cópias das fotografias no projeto. Os anúncios nunca usam fotografias de banco como se fossem do artigo.
 
+## Perfis
+Publicações com texto, fotografia ou vídeo (MP4, MOV ou WebM até 30 MB), gostos, comentários, seguir perfis, encontrar pessoas pelo nome e separador "Seguidos". Tabela `follows` com RLS; bloquear alguém apaga o "seguir" nos dois sentidos. Antes de abrir ao público: o plano gratuito do Supabase tem pouco espaço e tráfego para vídeo.
+
 ## Línguas
 Português, inglês, francês, espanhol e italiano (`docs/i18n.js`; francês, espanhol e italiano ainda sem revisão por falantes nativas). Ainda em português: ideias e conteúdos do The Club e Beauty & Style, painel de administração, Termos e Política de Privacidade.
 
