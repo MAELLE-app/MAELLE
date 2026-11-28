@@ -106,6 +106,13 @@ with sync_playwright() as pw:
     ok(db['posts'][-1]['kind']=='travel');pg.click('.scard');pg.wait_for_selector('article .steps');ok(pg.locator('article .steps li').count()==2);noscroll()
     for i in ('v1','v2','v3','v4'):
         go('viagens');pg.click(f'article button.link[data-id="{i}"]');pg.wait_for_selector('.hero img');ok(pg.locator('.steps li').count()>=4 and pg.locator('.ings li').count()>=4,i);noscroll()
+    go('beleza');pg.wait_for_selector('text=Ainda não há rotinas partilhadas');pg.click('[data-s=share]')
+    pg.set_input_files('#pimgin',files=[{'name':'a.png','mimeType':'image/png','buffer':jpg}]);pg.wait_for_selector('#pimgprev img')
+    pg.fill('#sh-t','Rotina da Bia');pg.fill('#sh-s','Limpar\nHidratar');send();pg.wait_for_selector('.scard >> text=Rotina da Bia');ok(db['posts'][-1]['kind']=='beauty')
+    pg.evaluate("()=>{stack=[{v:'home',p:{}},{v:'beauty',p:{}}];render()}");pg.wait_for_selector('.scard >> text=Rotina da Bia');noscroll()
+    pg.click('article button.link[data-id="b3"]');pg.wait_for_selector('.web a');ok(pg.locator('.steps li').count()==5 and pg.locator('.ings li').count()==4);noscroll();pg.screenshot(path='/tmp/t/pag-b3.png',full_page=True)
+    for i in ('b1','b2','b4'):
+        go('beleza');pg.click(f'article button.link[data-id="{i}"]');pg.wait_for_selector('.hero img');ok(pg.locator('.steps li').count()>=4 and pg.locator('.ings li').count()>=3,i);noscroll()
     # no feed aparece com o nome e os passos recolhidos
     pg.click('#tabs >> text=Comunidade');pg.click('text=Publicações');pg.wait_for_selector('article >> text=Parede de quadros');ok(not pg.locator('article .steps').first.is_visible())
     pg.locator('article summary').first.click();ok(pg.locator('article .steps li').first.is_visible());noscroll()
