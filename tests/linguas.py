@@ -53,6 +53,7 @@ with sync_playwright() as pw:
                     assert pg.evaluate('document.documentElement.scrollWidth<=390'),(l,i)
                 pg.evaluate("()=>{FG='m';stack=[{v:'home',p:{}},{v:'finder',p:{}}];render()}");pg.wait_for_timeout(60);check('finder homem');pg.evaluate("FG='w'")
                 pg.evaluate("()=>{stack=[{v:'home',p:{}},{v:'topic',p:{k:'moda'}}];render()}");pg.wait_for_timeout(60);check('moda')
+                pg.evaluate("()=>{HELP=FAQ.map(f=>({f:f.id,t:null})).concat({f:null,t:'xyz'});stack=[{v:'home',p:{}},{v:'help',p:{}}];render()}");pg.wait_for_timeout(60);check('ajuda')
                 for s in SHEETS:
                     pg.evaluate("s=>{if(SHEETS[s])SHEETS[s]({})}",s);pg.wait_for_timeout(60);check(s);pg.evaluate('closeSheet()')
                 got=pg.evaluate("()=>{stack=[{v:'myplace',p:{}}];render();return new Promise(r=>setTimeout(()=>r(document.getElementById('view').innerText),100))}")
