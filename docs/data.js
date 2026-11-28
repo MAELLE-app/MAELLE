@@ -153,9 +153,9 @@ const FASHION_BRANDS=[
  {n:'Massimo Dutti',d:'Alfaiataria e peças de aspeto cuidado.',tags:'moda roupa alfaiataria trabalho festa'},
  {n:'Uniqlo',d:'Básicos e malhas para o dia a dia.',tags:'moda roupa basicos malhas inverno'},
  {n:'Arket',d:'Essenciais modernos em tons calmos.',tags:'moda roupa neutro essenciais'},
- {n:'& Other Stories',d:'Moda feminina com um toque de estilo próprio.',tags:'moda roupa festa acessorios'},
- {n:'Sézane',d:'Peças femininas de inspiração francesa.',tags:'moda roupa vestidos'},
- {n:'Lanidor',d:'Marca portuguesa de moda feminina.',tags:'moda roupa portuguesa'},
+ {n:'& Other Stories',w:1,d:'Moda feminina com um toque de estilo próprio.',tags:'moda roupa festa acessorios'},
+ {n:'Sézane',w:1,d:'Peças femininas de inspiração francesa.',tags:'moda roupa vestidos'},
+ {n:'Lanidor',w:1,d:'Marca portuguesa de moda feminina.',tags:'moda roupa portuguesa'},
  {n:'Sacoor',d:'Marca portuguesa de roupa e acessórios.',tags:'moda roupa portuguesa trabalho'},
  {n:'Salsa Jeans',d:'Marca portuguesa conhecida pelas calças de ganga.',tags:'moda jeans ganga portuguesa'},
  {n:'Parfois',d:'Malas e acessórios.',tags:'acessorios malas bijuteria viagem'},
@@ -183,3 +183,15 @@ const DETAIL={
  d4:{meta:'Um fim de semana',photos:['quarto','luz','decoracao'],items:['Uma manta ou almofadas de linho','Uma peça de cerâmica','Um objeto de madeira clara','Uma vela'],
   steps:['Tira o que não usas das superfícies.','Junta três texturas diferentes em cada zona.','Deixa espaço livre entre as peças.','Nunca deixes velas acesas sem vigilância.']}
 };
+
+/* moda masculina */
+const OUTFITS_M=[
+ {id:'h1',t:'Fato azul e camisa branca',tags:['Trabalho','Festa'],pieces:['Blazer azul-escuro','Calças a condizer','Camisa branca','Sapatos de pele'],pal:['#2F3A4A','#FFFFFF','#40372F']},
+ {id:'h2',t:'Blazer e calças chino',tags:['Trabalho','Dia a dia'],pieces:['Blazer sem forro','Calças chino bege','Camisa clara','Mocassins'],pal:['#40372F','#D8C5AD','#F5F0E9']},
+ {id:'h3',t:'Casaco de ganga e jeans',tags:['Dia a dia','Fim de semana'],pieces:['Casaco de ganga','T-shirt lisa','Jeans retos','Ténis brancos','Mala de lona'],pal:['#5B718C','#F5F0E9','#40372F']},
+ {id:'h4',t:'Casaco com cor e jeans',tags:['Inverno','Viagem'],pieces:['Casaco quente vermelho','Jeans escuros','Mala em pele','Botas'],pal:['#9E4B3F','#40372F','#A99A8B']},
+ {id:'h5',t:'Hoodie e casaco de ganga',tags:['Fim de semana','Dia a dia'],pieces:['Camisola com capuz','Casaco de ganga','Calças escuras','Ténis'],pal:['#A99A8B','#5B718C','#40372F']},
+ {id:'h6',t:'Boné e casaco leve',tags:['Verão','Fim de semana'],pieces:['Boné cinzento','Casaco leve','T-shirt branca','Calças confortáveis'],pal:['#A99A8B','#FFFFFF','#40372F']},
+ {id:'h7',t:'Mochila e camadas para viajar',tags:['Viagem'],pieces:['Casaco de ganga','Mochila','Boné','Calças práticas','Sapatilhas confortáveis'],pal:['#5B718C','#D8C5AD','#40372F']},
+ {id:'h8',t:'Alfaiataria com cor',tags:['Festa'],pieces:['Fato em cor viva','Camisa lisa','Lenço de bolso','Sapatos de pele'],pal:['#9E4B3F','#5B718C','#D8C5AD']}
+];

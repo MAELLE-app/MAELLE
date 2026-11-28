@@ -10,6 +10,50 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+Ex.: camisa, jeans, blazer=E.g. shirt, jeans, blazer
+Mulher=Women
+Homem=Men
+Moda masculina=Men’s fashion
+Ideias de outfits para homem=Outfit ideas for men
+Fato azul e camisa branca=Navy suit and white shirt
+Blazer azul-escuro=Navy blazer
+Calças a condizer=Matching trousers
+Camisa branca=White shirt
+Sapatos de pele=Leather shoes
+Blazer e calças chino=Blazer and chinos
+Blazer sem forro=Unlined blazer
+Calças chino bege=Beige chinos
+Camisa clara=Light shirt
+Mocassins=Loafers
+Casaco de ganga e jeans=Denim jacket and jeans
+Casaco de ganga=Denim jacket
+T-shirt lisa=Plain T-shirt
+Jeans retos=Straight jeans
+Ténis brancos=White trainers
+Mala de lona=Canvas bag
+Casaco com cor e jeans=Colourful jacket and jeans
+Casaco quente vermelho=Warm red jacket
+Jeans escuros=Dark jeans
+Mala em pele=Leather bag
+Botas=Boots
+Hoodie e casaco de ganga=Hoodie and denim jacket
+Camisola com capuz=Hooded sweatshirt
+Calças escuras=Dark trousers
+Ténis=Trainers
+Boné e casaco leve=Cap and light jacket
+Boné cinzento=Grey cap
+Casaco leve=Light jacket
+T-shirt branca=White T-shirt
+Calças confortáveis=Comfortable trousers
+Mochila e camadas para viajar=Backpack and travel layers
+Mochila=Backpack
+Boné=Cap
+Calças práticas=Practical trousers
+Sapatilhas confortáveis=Comfortable sneakers
+Alfaiataria com cor=Colourful tailoring
+Fato em cor viva=Bold-colour suit
+Camisa lisa=Plain shirt
+Lenço de bolso=Pocket square
 5 minutos · 1 pessoa · uma noite no frio=5 minutes · 1 serving · overnight in the fridge
 5 colheres de sopa de flocos de aveia=5 tablespoons rolled oats
 100 ml de leite ou bebida vegetal=100 ml milk or plant drink
@@ -641,6 +685,50 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+Ex.: camisa, jeans, blazer¦Ex. : chemise, jean, blazer¦Ej.: camisa, vaqueros, blazer¦Es.: camicia, jeans, blazer
+Mulher¦Femme¦Mujer¦Donna
+Homem¦Homme¦Hombre¦Uomo
+Moda masculina¦Mode homme¦Moda masculina¦Moda uomo
+Ideias de outfits para homem¦Idées de tenues pour homme¦Ideas de looks para hombre¦Idee di outfit per uomo
+Fato azul e camisa branca¦Costume bleu et chemise blanche¦Traje azul y camisa blanca¦Completo blu e camicia bianca
+Blazer azul-escuro¦Blazer bleu marine¦Blazer azul marino¦Blazer blu scuro
+Calças a condizer¦Pantalon assorti¦Pantalón a juego¦Pantaloni coordinati
+Camisa branca¦Chemise blanche¦Camisa blanca¦Camicia bianca
+Sapatos de pele¦Chaussures en cuir¦Zapatos de piel¦Scarpe in pelle
+Blazer e calças chino¦Blazer et pantalon chino¦Blazer y pantalón chino¦Blazer e pantaloni chino
+Blazer sem forro¦Blazer non doublé¦Blazer sin forro¦Blazer sfoderato
+Calças chino bege¦Chino beige¦Chinos beige¦Chino beige
+Camisa clara¦Chemise claire¦Camisa clara¦Camicia chiara
+Mocassins¦Mocassins¦Mocasines¦Mocassini
+Casaco de ganga e jeans¦Veste en jean et jean¦Cazadora vaquera y vaqueros¦Giubbotto di jeans e jeans
+Casaco de ganga¦Veste en jean¦Cazadora vaquera¦Giubbotto di jeans
+T-shirt lisa¦T-shirt uni¦Camiseta lisa¦T-shirt tinta unita
+Jeans retos¦Jean droit¦Vaqueros rectos¦Jeans dritti
+Ténis brancos¦Baskets blanches¦Zapatillas blancas¦Sneakers bianche
+Mala de lona¦Sac en toile¦Bolsa de lona¦Borsa di tela
+Casaco com cor e jeans¦Veste colorée et jean¦Abrigo de color y vaqueros¦Giacca colorata e jeans
+Casaco quente vermelho¦Veste chaude rouge¦Abrigo rojo cálido¦Giacca calda rossa
+Jeans escuros¦Jean foncé¦Vaqueros oscuros¦Jeans scuri
+Mala em pele¦Sac en cuir¦Bolso de piel¦Borsa in pelle
+Botas¦Bottes¦Botas¦Stivali
+Hoodie e casaco de ganga¦Sweat à capuche et veste en jean¦Sudadera y cazadora vaquera¦Felpa e giubbotto di jeans
+Camisola com capuz¦Sweat à capuche¦Sudadera con capucha¦Felpa con cappuccio
+Calças escuras¦Pantalon foncé¦Pantalón oscuro¦Pantaloni scuri
+Ténis¦Baskets¦Zapatillas¦Sneakers
+Boné e casaco leve¦Casquette et veste légère¦Gorra y chaqueta ligera¦Cappellino e giacca leggera
+Boné cinzento¦Casquette grise¦Gorra gris¦Cappellino grigio
+Casaco leve¦Veste légère¦Chaqueta ligera¦Giacca leggera
+T-shirt branca¦T-shirt blanc¦Camiseta blanca¦T-shirt bianca
+Calças confortáveis¦Pantalon confortable¦Pantalón cómodo¦Pantaloni comodi
+Mochila e camadas para viajar¦Sac à dos et couches pour voyager¦Mochila y capas para viajar¦Zaino e strati per viaggiare
+Mochila¦Sac à dos¦Mochila¦Zaino
+Boné¦Casquette¦Gorra¦Cappellino
+Calças práticas¦Pantalon pratique¦Pantalón práctico¦Pantaloni pratici
+Sapatilhas confortáveis¦Baskets confortables¦Zapatillas cómodas¦Scarpe da ginnastica comode
+Alfaiataria com cor¦Costume en couleur¦Sastrería con color¦Sartoria a colori
+Fato em cor viva¦Costume de couleur vive¦Traje de color vivo¦Completo dal colore acceso
+Camisa lisa¦Chemise unie¦Camisa lisa¦Camicia tinta unita
+Lenço de bolso¦Pochette de costume¦Pañuelo de bolsillo¦Fazzoletto da taschino
 5 minutos · 1 pessoa · uma noite no frio¦5 minutes · 1 personne · une nuit au frais¦5 minutos · 1 persona · una noche en la nevera¦5 minuti · 1 persona · una notte in frigo
 5 colheres de sopa de flocos de aveia¦5 cuillères à soupe de flocons d’avoine¦5 cucharadas de copos de avena¦5 cucchiai di fiocchi d’avena
 100 ml de leite ou bebida vegetal¦100 ml de lait ou de boisson végétale¦100 ml de leche o bebida vegetal¦100 ml di latte o bevanda vegetale
