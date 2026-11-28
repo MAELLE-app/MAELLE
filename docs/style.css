@@ -343,3 +343,9 @@ textarea.field#sh-i,textarea.field#sh-s{min-height:110px}
 .inspo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
 .inspo button{padding:0;border:0;background:none;cursor:pointer;min-width:0}
 .inspo img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;background:var(--cream)}
+/* ajuda da loja */
+.botlist{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.botlist .b{max-width:86%;padding:12px 15px;border-radius:18px;font:400 14px/1.5 var(--sans);color:var(--ink);overflow-wrap:anywhere}
+.botlist .b p{margin:0 0 8px}.botlist .b p:last-child{margin:0}
+.botlist .bot{align-self:flex-start;background:var(--white)}
+.botlist .me{align-self:flex-end;background:var(--cream);scroll-margin-top:12px}

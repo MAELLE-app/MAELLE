@@ -10,6 +10,48 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+Ajuda da loja=Shop help
+Compras, envios e vendas=Buying, shipping and selling
+Precisas de ajuda?=Need help?
+Dúvidas sobre compras, envios e vendas.=Questions about buying, shipping and selling.
+Assistente automático com respostas já escritas. A conversa não é enviada nem guardada.=Automated assistant with prewritten answers. The chat is not sent or saved.
+Olá! Em que posso ajudar?=Hi! How can I help?
+Escreve a tua dúvida=Type your question
+Escrever à equipa=Email the team
+Ainda não sei responder a isso.=I can’t answer that yet.
+Escolhe uma pergunta em baixo ou escreve à equipa.=Choose a question below or email the team.
+Suspeito de uma burla=I suspect a scam
+Guarda as mensagens, o anúncio e os comprovativos.=Keep the messages, the listing and receipts.
+Abre o anúncio e toca em «Denunciar». Se foi uma pessoa, também podes bloqueá-la.=Open the listing and tap “Report”. You can also block the person.
+Se já pagaste, contacta logo o teu banco ou o serviço de pagamento e apresenta queixa às autoridades.=If you have paid, contact your bank or payment service at once and report it to the authorities.
+Onde está a minha encomenda?=Where is my order?
+A MAELLE ainda não faz envios nem acompanha encomendas.=MAELLE does not yet ship or track orders.
+Contacta quem te vendeu, pelo contacto do anúncio, e pede a data de envio e o número de seguimento.=Contact the seller through the listing and ask for the shipping date and tracking number.
+Guarda o comprovativo de pagamento e o que combinaram.=Keep proof of payment and what you agreed.
+Posso devolver uma compra?=Can I return a purchase?
+Se compraste à distância a um vendedor profissional, em regra tens 14 dias para desistir. Há exceções, como produtos feitos à tua medida.=If you bought remotely from a business seller, you generally have 14 days to withdraw. There are exceptions, such as made-to-measure items.
+Entre particulares aplicam-se regras diferentes.=Different rules apply between private individuals.
+Pede por escrito a quem vendeu. Para mais informação: www.consumidor.gov.pt.=Ask the seller in writing. More information: www.consumidor.gov.pt.
+Como pago em segurança?=How do I pay safely?
+A MAELLE ainda não recebe pagamentos: combinas com quem vende.=MAELLE does not take payments yet: you arrange it with the seller.
+Prefere um método com proteção ao comprador.=Prefer a method with buyer protection.
+Nunca partilhes palavras-passe nem códigos recebidos por mensagem.=Never share passwords or codes sent to you.
+Desconfia de preços bons demais e de quem te apressa.=Be wary of prices too good to be true and of pressure.
+Como compro um produto?=How do I buy a product?
+Abre o produto na Shop.=Open the product in the Shop.
+Usa o contacto ou o link da loja que aparece no anúncio.=Use the contact or shop link in the listing.
+Confirma o preço total, os portes e o prazo antes de pagar.=Confirm the total price, shipping and timing before paying.
+Como reservo um serviço?=How do I book a service?
+Abre o serviço e usa o contacto de quem o oferece.=Open the service and contact the provider.
+Combina por escrito o dia, o local, o preço e o que está incluído.=Agree date, place, price and what is included in writing.
+No primeiro encontro, escolhe um local seguro e avisa alguém.=For a first meeting, choose a safe place and tell someone.
+Como vendo na MAELLE?=How do I sell on MAELLE?
+Em The Edit, toca em «Vender na MAELLE».=In The Edit, tap “Sell on MAELLE”.
+Junta uma foto, o preço, a descrição e um contacto ou o link da tua loja.=Add a photo, price, description and a contact or your shop link.
+Hoje não cobramos comissão. Antes de haver pagamentos ou planos pagos, avisamos.=We charge no commission today. We will tell you before any payments or paid plans.
+O que não posso vender?=What can’t I sell?
+Contrafações, produtos ilegais ou perigosos, produtos para adultos, medicamentos e produtos de venda restrita.=Counterfeits, illegal or dangerous goods, adult products, medicines and restricted goods.
+Os anúncios que não cumpram podem ser removidos.=Listings that break the rules may be removed.
 Uma tarde para organizar=An afternoon to organise
 2 tops neutros=2 neutral tops
 1 camisa e 1 camisola=1 shirt and 1 jumper
@@ -945,6 +987,48 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+Ajuda da loja¦Aide boutique¦Ayuda de la tienda¦Assistenza negozio
+Compras, envios e vendas¦Achats, envois et ventes¦Compras, envíos y ventas¦Acquisti, spedizioni e vendite
+Precisas de ajuda?¦Besoin d’aide ?¦¿Necesitas ayuda?¦Hai bisogno di aiuto?
+Dúvidas sobre compras, envios e vendas.¦Questions sur les achats, envois et ventes.¦Dudas sobre compras, envíos y ventas.¦Domande su acquisti, spedizioni e vendite.
+Assistente automático com respostas já escritas. A conversa não é enviada nem guardada.¦Assistant automatique aux réponses préécrites. La conversation n’est ni envoyée ni enregistrée.¦Asistente automático con respuestas ya escritas. La conversación no se envía ni se guarda.¦Assistente automatico con risposte già scritte. La conversazione non viene inviata né salvata.
+Olá! Em que posso ajudar?¦Bonjour ! Comment puis-je aider ?¦¡Hola! ¿En qué puedo ayudar?¦Ciao! Come posso aiutare?
+Escreve a tua dúvida¦Écris ta question¦Escribe tu duda¦Scrivi la tua domanda
+Escrever à equipa¦Écrire à l’équipe¦Escribir al equipo¦Scrivi al team
+Ainda não sei responder a isso.¦Je ne sais pas encore répondre à ça.¦Todavía no sé responder a eso.¦Non so ancora rispondere.
+Escolhe uma pergunta em baixo ou escreve à equipa.¦Choisis une question ci-dessous ou écris à l’équipe.¦Elige una pregunta abajo o escribe al equipo.¦Scegli una domanda qui sotto o scrivi al team.
+Suspeito de uma burla¦Je soupçonne une arnaque¦Sospecho de una estafa¦Sospetto una truffa
+Guarda as mensagens, o anúncio e os comprovativos.¦Garde les messages, l’annonce et les justificatifs.¦Guarda los mensajes, el anuncio y los justificantes.¦Conserva messaggi, annuncio e ricevute.
+Abre o anúncio e toca em «Denunciar». Se foi uma pessoa, também podes bloqueá-la.¦Ouvre l’annonce et touche « Signaler ». Tu peux aussi bloquer la personne.¦Abre el anuncio y toca «Denunciar». También puedes bloquear a la persona.¦Apri l’annuncio e tocca «Segnala». Puoi anche bloccare la persona.
+Se já pagaste, contacta logo o teu banco ou o serviço de pagamento e apresenta queixa às autoridades.¦Si tu as payé, contacte vite ta banque ou le service de paiement et porte plainte.¦Si ya pagaste, contacta enseguida con tu banco o servicio de pago y denuncia ante las autoridades.¦Se hai già pagato, contatta subito la banca o il servizio di pagamento e sporgi denuncia.
+Onde está a minha encomenda?¦Où est ma commande ?¦¿Dónde está mi pedido?¦Dov’è il mio ordine?
+A MAELLE ainda não faz envios nem acompanha encomendas.¦MAELLE n’expédie ni ne suit encore les commandes.¦MAELLE todavía no envía ni sigue pedidos.¦MAELLE non spedisce né traccia ancora gli ordini.
+Contacta quem te vendeu, pelo contacto do anúncio, e pede a data de envio e o número de seguimento.¦Contacte le vendeur via l’annonce et demande la date d’envoi et le numéro de suivi.¦Contacta con quien te vendió desde el anuncio y pide la fecha de envío y el número de seguimiento.¦Contatta chi vende tramite l’annuncio e chiedi data di spedizione e numero di tracciamento.
+Guarda o comprovativo de pagamento e o que combinaram.¦Garde la preuve de paiement et ce que vous avez convenu.¦Guarda el justificante de pago y lo acordado.¦Conserva la ricevuta e quanto concordato.
+Posso devolver uma compra?¦Puis-je retourner un achat ?¦¿Puedo devolver una compra?¦Posso restituire un acquisto?
+Se compraste à distância a um vendedor profissional, em regra tens 14 dias para desistir. Há exceções, como produtos feitos à tua medida.¦Pour un achat à distance auprès d’un professionnel, tu as en général 14 jours pour te rétracter. Il y a des exceptions, comme le sur-mesure.¦Si compraste a distancia a un vendedor profesional, normalmente tienes 14 días para desistir. Hay excepciones, como productos a medida.¦Per acquisti a distanza da un venditore professionale hai in genere 14 giorni per recedere. Ci sono eccezioni, come i prodotti su misura.
+Entre particulares aplicam-se regras diferentes.¦Entre particuliers, les règles sont différentes.¦Entre particulares se aplican otras reglas.¦Tra privati valgono regole diverse.
+Pede por escrito a quem vendeu. Para mais informação: www.consumidor.gov.pt.¦Demande par écrit au vendeur. Plus d’informations : www.consumidor.gov.pt.¦Pídelo por escrito a quien vendió. Más información: www.consumidor.gov.pt.¦Chiedi per iscritto a chi ha venduto. Informazioni: www.consumidor.gov.pt.
+Como pago em segurança?¦Comment payer en sécurité ?¦¿Cómo pago con seguridad?¦Come pago in sicurezza?
+A MAELLE ainda não recebe pagamentos: combinas com quem vende.¦MAELLE ne reçoit pas encore de paiements : tu t’arranges avec le vendeur.¦MAELLE aún no recibe pagos: lo acuerdas con quien vende.¦MAELLE non riceve ancora pagamenti: ti accordi con chi vende.
+Prefere um método com proteção ao comprador.¦Préfère un moyen avec protection de l’acheteur.¦Prefiere un método con protección al comprador.¦Preferisci un metodo con protezione acquirenti.
+Nunca partilhes palavras-passe nem códigos recebidos por mensagem.¦Ne partage jamais mots de passe ni codes reçus.¦Nunca compartas contraseñas ni códigos recibidos.¦Non condividere mai password o codici ricevuti.
+Desconfia de preços bons demais e de quem te apressa.¦Méfie-toi des prix trop beaux et de la pression.¦Desconfía de precios demasiado buenos y de las prisas.¦Diffida dei prezzi troppo belli e di chi ti mette fretta.
+Como compro um produto?¦Comment acheter un produit ?¦¿Cómo compro un producto?¦Come compro un prodotto?
+Abre o produto na Shop.¦Ouvre le produit dans la boutique.¦Abre el producto en la Shop.¦Apri il prodotto nello Shop.
+Usa o contacto ou o link da loja que aparece no anúncio.¦Utilise le contact ou le lien de la boutique dans l’annonce.¦Usa el contacto o el enlace de la tienda del anuncio.¦Usa il contatto o il link del negozio nell’annuncio.
+Confirma o preço total, os portes e o prazo antes de pagar.¦Confirme le prix total, les frais et le délai avant de payer.¦Confirma precio total, envío y plazo antes de pagar.¦Conferma prezzo totale, spedizione e tempi prima di pagare.
+Como reservo um serviço?¦Comment réserver un service ?¦¿Cómo reservo un servicio?¦Come prenoto un servizio?
+Abre o serviço e usa o contacto de quem o oferece.¦Ouvre le service et contacte le prestataire.¦Abre el servicio y usa el contacto de quien lo ofrece.¦Apri il servizio e contatta chi lo offre.
+Combina por escrito o dia, o local, o preço e o que está incluído.¦Convenez par écrit du jour, du lieu, du prix et du contenu.¦Acordad por escrito día, lugar, precio y qué incluye.¦Concordate per iscritto data, luogo, prezzo e cosa è incluso.
+No primeiro encontro, escolhe um local seguro e avisa alguém.¦Pour une première rencontre, choisis un lieu sûr et préviens quelqu’un.¦En el primer encuentro, elige un lugar seguro y avisa a alguien.¦Al primo incontro scegli un luogo sicuro e avvisa qualcuno.
+Como vendo na MAELLE?¦Comment vendre sur MAELLE ?¦¿Cómo vendo en MAELLE?¦Come vendo su MAELLE?
+Em The Edit, toca em «Vender na MAELLE».¦Dans The Edit, touche « Vendre sur MAELLE ».¦En The Edit, toca «Vender en MAELLE».¦In The Edit, tocca «Vendi su MAELLE».
+Junta uma foto, o preço, a descrição e um contacto ou o link da tua loja.¦Ajoute une photo, le prix, la description et un contact ou ton lien.¦Añade foto, precio, descripción y un contacto o el enlace de tu tienda.¦Aggiungi foto, prezzo, descrizione e un contatto o il link del negozio.
+Hoje não cobramos comissão. Antes de haver pagamentos ou planos pagos, avisamos.¦Aucune commission aujourd’hui. Nous préviendrons avant tout paiement ou offre payante.¦Hoy no cobramos comisión. Avisaremos antes de que haya pagos o planes de pago.¦Oggi non applichiamo commissioni. Ti avviseremo prima di pagamenti o piani a pagamento.
+O que não posso vender?¦Que ne puis-je pas vendre ?¦¿Qué no puedo vender?¦Cosa non posso vendere?
+Contrafações, produtos ilegais ou perigosos, produtos para adultos, medicamentos e produtos de venda restrita.¦Contrefaçons, produits illégaux ou dangereux, produits pour adultes, médicaments et produits réglementés.¦Falsificaciones, productos ilegales o peligrosos, productos para adultos, medicamentos y de venta restringida.¦Contraffazioni, prodotti illegali o pericolosi, per adulti, medicinali e a vendita limitata.
+Os anúncios que não cumpram podem ser removidos.¦Les annonces non conformes peuvent être supprimées.¦Los anuncios que incumplan pueden eliminarse.¦Gli annunci non conformi possono essere rimossi.
 Uma tarde para organizar¦Un après-midi pour trier¦Una tarde para organizar¦Un pomeriggio per riordinare
 2 tops neutros¦2 hauts neutres¦2 tops neutros¦2 top neutri
 1 camisa e 1 camisola¦1 chemise et 1 pull¦1 camisa y 1 jersey¦1 camicia e 1 maglione
