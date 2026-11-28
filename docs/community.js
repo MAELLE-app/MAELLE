@@ -101,7 +101,7 @@ let working=false;
 async function act(fn,msg,keys){
  if(working)return false;working=true;
  try{await fn();closeSheet();if(document.activeElement)document.activeElement.blur();if(msg)toast(msg);C.at={};render(true);(keys||[]).forEach(k=>load(k,true));return true}
- catch(e){toast(e.offline?e.message:e.code==='23505'?'Já estava registado.':'Não foi possível concluir.');console.warn(e.message);return false}
+ catch(e){toast(e.offline||e.blocked?e.message:e.code==='23505'?'Já estava registado.':'Não foi possível concluir.');console.warn(e.message);return false}
  finally{working=false}
 }
 

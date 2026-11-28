@@ -195,3 +195,15 @@ const OUTFITS_M=[
  {id:'h7',t:'Mochila e camadas para viajar',tags:['Viagem'],pieces:['Casaco de ganga','Mochila','Boné','Calças práticas','Sapatilhas confortáveis'],pal:['#5B718C','#D8C5AD','#40372F']},
  {id:'h8',t:'Alfaiataria com cor',tags:['Festa'],pieces:['Fato em cor viva','Camisa lisa','Lenço de bolso','Sapatos de pele'],pal:['#9E4B3F','#5B718C','#D8C5AD']}
 ];
+
+/* páginas completas das ideias de viagem */
+Object.assign(DETAIL,{
+ v1:{meta:'30 minutos antes de partir',items:['Uma mala de cabine','Peças em cores que combinam entre si','Um saco para os líquidos','Um par de sapatos confortáveis'],
+  steps:['Confirma as medidas e o peso aceites pela transportadora.','Escolhe peças que dão vários conjuntos.','Enrola a roupa e põe os sapatos no fundo.','Calça e veste as peças mais volumosas na viagem.']},
+ v2:{meta:'2 dias',items:['Um mapa com os sítios guardados','Sapatos para andar','Uma garrafa de água reutilizável','Bateria portátil'],
+  steps:['Escolhe um bairro para cada dia.','Junta os sítios que ficam perto uns dos outros.','Confirma horários e reservas.','Deixa uma manhã livre para improvisar.']},
+ v3:{meta:'Na véspera',items:['Cartão de cidadão ou passaporte','Bilhetes e reservas','Carregador do telemóvel','Medicação habitual','Cópias digitais dos documentos'],
+  steps:['Confirma a validade dos documentos.','Carrega o telemóvel e a bateria portátil.','Guarda a medicação na mala de mão.','Verifica a hora e o local de partida.']},
+ v4:{meta:'Antes de partir',items:['Primeira noite reservada','Contactos de emergência','Itinerário partilhado com alguém de confiança','Um seguro de viagem'],
+  steps:['Escolhe um alojamento bem localizado.','Chega de preferência durante o dia.','Combina quando vais dar notícias.','Não digas a desconhecidos onde estás alojada.','Confia no teu instinto e muda de planos se precisares.']}
+});
