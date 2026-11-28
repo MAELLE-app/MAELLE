@@ -89,6 +89,14 @@ const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
 const itemPic=x=>x.img?picture(x.img):PIMG[x.id]?photoImg(PIMG[x.id],'',500):photoImg(TOPICS[x.c]?x.c:SVC_ART[x.c]||'criatividade','',500)+'<i class="ilus">Imagem ilustrativa</i>';
 /* fotografias CC0 do Wikimedia Commons (lista também em creditos.html); se não carregarem, aparece a ilustração */
 const PHOTOS={
+ hfato:"Blazer Jackets on Rack (Unsplash).jpg",
+ hcafe:"Man working on laptop outside (Unsplash).jpg",
+ hganga:"Man with a red and blue bag (Unsplash).jpg",
+ hcasaco:"Man-red-coat-mountains (Unsplash).jpg",
+ hcapuz:"Hooded man near green thicket (Unsplash).jpg",
+ hbone:"Man leaning against his hand (Unsplash).jpg",
+ hmochila:"Man looking out (Unsplash).jpg",
+ hcores:"Men in colorful suits (Unsplash).jpg",
  bolo:"Blueberry Dessert (Unsplash).jpg",
  macacao:"Turquoise Jumpsuit (Unsplash).jpg",
  mala:"Checking Her Purse (Unsplash).jpg",
@@ -140,7 +148,7 @@ const PHOTOS={
  loja:'Little_Black_Dress_(Unsplash).jpg',
  convivio:'Coffee,_flowers_and_books_(Unsplash).jpg'
 };
-const PHOTO_ART={bolo:'receitas',vestido:'moda',loja:'moda',convivio:'livros',macacao:'moda',mala:'moda',compras:'moda',inverno:'moda',rua:'moda',gorro:'moda',urbano:'moda',cabelo:'beleza',cafe:'beleza',olhar:'beleza',quarto:'decoracao',canto:'decoracao',plantas:'decoracao',vela:'decoracao',luz:'decoracao',casa:'decoracao',malas:'viagens',roteiro:'viagens',caminhada:'viagens',saco:'viagens',mochila:'viagens',cereais:'receitas',massa:'receitas',salada:'receitas',panquecas:'receitas',legumes:'receitas',brunch:'receitas',lapis:'criatividade',camara:'criatividade',aparas:'criatividade',caneta:'organizacao',mesa:'organizacao',secretaria:'organizacao',arquivo:'organizacao',caderno:'organizacao',leitora:'livros',colo:'livros',estante:'livros'};
+const PHOTO_ART={hfato:'moda',hcafe:'moda',hganga:'moda',hcasaco:'moda',hcapuz:'moda',hbone:'moda',hmochila:'moda',hcores:'moda',bolo:'receitas',vestido:'moda',loja:'moda',convivio:'livros',macacao:'moda',mala:'moda',compras:'moda',inverno:'moda',rua:'moda',gorro:'moda',urbano:'moda',cabelo:'beleza',cafe:'beleza',olhar:'beleza',quarto:'decoracao',canto:'decoracao',plantas:'decoracao',vela:'decoracao',luz:'decoracao',casa:'decoracao',malas:'viagens',roteiro:'viagens',caminhada:'viagens',saco:'viagens',mochila:'viagens',cereais:'receitas',massa:'receitas',salada:'receitas',panquecas:'receitas',legumes:'receitas',brunch:'receitas',lapis:'criatividade',camara:'criatividade',aparas:'criatividade',caneta:'organizacao',mesa:'organizacao',secretaria:'organizacao',arquivo:'organizacao',caderno:'organizacao',leitora:'livros',colo:'livros',estante:'livros'};
 /* larguras que o Wikimedia aceita; pedir outra dá erro */
 const THUMBS=[120,250,330,500,960];
 const thumbW=w=>THUMBS.find(t=>t>=w)||960;
@@ -159,12 +167,12 @@ const IMG={
  o1:'caneta',o2:'mesa',o3:'secretaria',o4:'arquivo',l1:'leitora',l2:'livros',l3:'colo',l4:'estante'};
 const PIMG={p1:'compras',p2:'rua',p3:'beleza',p4:'cabelo',p5:'vela',p6:'quarto',p7:'malas',p8:'saco',p9:'caderno',p10:'caneta',p11:'criatividade',p12:'legumes',
  s1:'beleza',s2:'camara',s3:'macacao',s4:'criatividade',s5:'secretaria',s6:'moda'};
-const OIMG={o1:'rua',o2:'vestido',o3:'urbano',o4:'olhar',o5:'macacao',o6:'inverno',o7:'mochila',o8:'cafe',o9:'loja',o10:'compras',o11:'gorro',o12:'viagens',o13:'mala'};
+const OIMG={h1:'hfato',h2:'hcafe',h3:'hganga',h4:'hcasaco',h5:'hcapuz',h6:'hbone',h7:'hmochila',h8:'hcores',o1:'rua',o2:'vestido',o3:'urbano',o4:'olhar',o5:'macacao',o6:'inverno',o7:'mochila',o8:'cafe',o9:'loja',o10:'compras',o11:'gorro',o12:'viagens',o13:'mala'};
 const BRIMG={lumi:'moda',nua:'beleza',aurea:'vela',mare:'saco',folha:'caderno',olivia:'legumes'};
 const CHIMG={agua:'brunch',ler:'colo',grat:'lapis',andar:'caminhada'};
 const EVIMG={e1:'cabelo',e2:'criatividade',e3:'caneta'};
 const BTIMG={skincare:'beleza',hair:'cabelo',makeup:'cafe',outfits:'moda',trends:'macacao'};
-const MENUIMG={hanger:'vestido',book:'livros',spark:'beleza',plan:'caneta',list:'mesa',target:'roteiro',repeat:'brunch',gift:'compras',flower:'criatividade',
+const MENUIMG={homem:'hfato',hanger:'vestido',book:'livros',spark:'beleza',plan:'caneta',list:'mesa',target:'roteiro',repeat:'brunch',gift:'compras',flower:'criatividade',
  cal:'panquecas',pen:'lapis',chat:'cafe',user:'olhar',send:'caderno',users:'convivio',help:'leitora',heart:'luz',bag:'loja',tag:'mala',store:'moda'};
 const BANNERS={signup:'convivio',login:'casa',interests:'convivio',saved:'luz',boards:'criatividade',board:'aparas',agenda:'caneta',tasks:'mesa',goals:'roteiro',habits:'brunch',wishes:'compras',
  recs:'mala',shop:'loja',brands:'moda',sell:'secretaria',favs:'luz',challenges:'caminhada',creative:'lapis',digital:'plantas',cevents:'panquecas',

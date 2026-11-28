@@ -15,7 +15,7 @@ async function sbFetch(path,o){
  if(body!==undefined&&!(body instanceof Blob)){h['Content-Type']='application/json';body=JSON.stringify(body)}
  let r;try{r=await fetch(SB_URL+path,{method:o.method||'GET',headers:h,body:body})}catch(e){const x=new Error('Sem ligação à internet.');x.offline=true;throw x}
  const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch(e){}
- if(!r.ok){const x=new Error((j&&(j.msg||j.message||j.error_description||j.error))||('Erro '+r.status));x.status=r.status;x.code=j&&(j.error_code||j.code);throw x}
+ if(!r.ok){const x=new Error((j&&(j.msg||j.message||j.error_description||j.error))||('Erro '+r.status));x.status=r.status;x.code=j&&(j.error_code||j.code);if(x.message==='conteudo_bloqueado'){x.blocked=true;x.message='O texto tem palavras que não são permitidas na MAELLE.'}throw x}
  return j;
 }
 let refreshing=null;
@@ -34,7 +34,7 @@ const api=async(path,o)=>sbFetch(path,Object.assign({},o,{token:await token()}))
 function setTokens(j){S.auth={uid:j.user.id,email:j.user.email,at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in||3600)*1000}}
 function authMsg(e){
  const m=String(e.message||'').toLowerCase(),c=String(e.code||'');
- if(e.offline)return e.message;
+ if(e.offline||e.blocked)return e.message;
  if(c==='email_not_confirmed'||m.includes('not confirmed'))return 'Falta confirmar o e-mail. Abre a mensagem que te enviámos.';
  if(c==='invalid_credentials'||m.includes('invalid login'))return 'E-mail ou palavra-passe não coincidem.';
  if(c==='user_already_exists'||m.includes('already registered'))return 'Já existe uma conta com este e-mail.';

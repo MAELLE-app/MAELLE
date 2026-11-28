@@ -50,7 +50,7 @@ V.chat={tab:'me',html:p=>{checkOwner();if(!online())return needsLogin('Mensagens
 let sending=false;
 FORM.dm=async(fd,f)=>{const t=fd.get('t').trim(),id=f.dataset.id;if(!t||sending)return;sending=true;
  try{await add('messages',{sender_id:S.auth.uid,recipient_id:id,body:t});f.reset();C.at.inbox=0;await loadChat(id)}
- catch(e){toast(e.offline?e.message:e.code==='42501'?'Esta pessoa não aceita as tuas mensagens.':e.code==='P0001'?'Demasiadas tentativas. Espera um pouco e tenta de novo.':'Não foi possível concluir.');console.warn(e.message)}
+ catch(e){toast(e.offline||e.blocked?e.message:e.code==='42501'?'Esta pessoa não aceita as tuas mensagens.':e.code==='P0001'?'Demasiadas tentativas. Espera um pouco e tenta de novo.':'Não foi possível concluir.');console.warn(e.message)}
  finally{sending=false}};
 ACT.dmdel=async d=>{try{await remove('messages?id=eq.'+d.id);C.at.inbox=0;toast('Apagado');await loadChat(d.r)}catch(e){toast(e.offline?e.message:'Não foi possível concluir.')}};
 

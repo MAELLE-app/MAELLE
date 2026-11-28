@@ -10,6 +10,101 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+30 minutos antes de partir=30 minutes before leaving
+Uma mala de cabine=A cabin bag
+Peças em cores que combinam entre si=Pieces in colours that go together
+Um saco para os líquidos=A bag for liquids
+Um par de sapatos confortáveis=A pair of comfortable shoes
+Confirma as medidas e o peso aceites pela transportadora.=Check the size and weight your carrier allows.
+Escolhe peças que dão vários conjuntos.=Choose pieces that make several outfits.
+Enrola a roupa e põe os sapatos no fundo.=Roll your clothes and put shoes at the bottom.
+Calça e veste as peças mais volumosas na viagem.=Wear your bulkiest items while travelling.
+2 dias=2 days
+Um mapa com os sítios guardados=A map with saved places
+Sapatos para andar=Walking shoes
+Uma garrafa de água reutilizável=A reusable water bottle
+Bateria portátil=Power bank
+Escolhe um bairro para cada dia.=Choose one neighbourhood per day.
+Junta os sítios que ficam perto uns dos outros.=Group places that are close together.
+Confirma horários e reservas.=Check opening times and bookings.
+Deixa uma manhã livre para improvisar.=Leave one morning free to improvise.
+Na véspera=The day before
+Cartão de cidadão ou passaporte=ID card or passport
+Bilhetes e reservas=Tickets and bookings
+Carregador do telemóvel=Phone charger
+Medicação habitual=Your usual medication
+Cópias digitais dos documentos=Digital copies of documents
+Confirma a validade dos documentos.=Check your documents are valid.
+Carrega o telemóvel e a bateria portátil.=Charge your phone and power bank.
+Guarda a medicação na mala de mão.=Keep medication in your hand luggage.
+Verifica a hora e o local de partida.=Check departure time and place.
+Antes de partir=Before you leave
+Primeira noite reservada=First night booked
+Contactos de emergência=Emergency contacts
+Itinerário partilhado com alguém de confiança=Itinerary shared with someone you trust
+Um seguro de viagem=Travel insurance
+Escolhe um alojamento bem localizado.=Choose well-located accommodation.
+Chega de preferência durante o dia.=Arrive in daylight if you can.
+Combina quando vais dar notícias.=Agree when you will check in.
+Não digas a desconhecidos onde estás alojada.=Don’t tell strangers where you are staying.
+Confia no teu instinto e muda de planos se precisares.=Trust your instinct and change plans if you need to.
+Viagens da comunidade=Community trips
+VIAGENS DA COMUNIDADE=COMMUNITY TRIPS
+Partilhar viagem=Share a trip
+O que levar=What to pack
+O QUE LEVAR=WHAT TO PACK
+Roteiro e dicas=Itinerary and tips
+ROTEIRO E DICAS=ITINERARY AND TIPS
+Destino ou nome da viagem=Destination or trip name
+O que levar, um por linha (opcional)=What to pack, one per line (optional)
+Roteiro e dicas, um por linha=Itinerary and tips, one per line
+Ainda não há viagens partilhadas. Sê a primeira.=No shared trips yet. Be the first.
+Não partilhes moradas nem datas em que a tua casa fica vazia.=Don’t share addresses or dates when your home is empty.
+O texto tem palavras que não são permitidas na MAELLE.=This text has words that are not allowed on MAELLE.
+Ex.: camisa, jeans, blazer=E.g. shirt, jeans, blazer
+Mulher=Women
+Homem=Men
+Moda masculina=Men’s fashion
+Ideias de outfits para homem=Outfit ideas for men
+Fato azul e camisa branca=Navy suit and white shirt
+Blazer azul-escuro=Navy blazer
+Calças a condizer=Matching trousers
+Camisa branca=White shirt
+Sapatos de pele=Leather shoes
+Blazer e calças chino=Blazer and chinos
+Blazer sem forro=Unlined blazer
+Calças chino bege=Beige chinos
+Camisa clara=Light shirt
+Mocassins=Loafers
+Casaco de ganga e jeans=Denim jacket and jeans
+Casaco de ganga=Denim jacket
+T-shirt lisa=Plain T-shirt
+Jeans retos=Straight jeans
+Ténis brancos=White trainers
+Mala de lona=Canvas bag
+Casaco com cor e jeans=Colourful jacket and jeans
+Casaco quente vermelho=Warm red jacket
+Jeans escuros=Dark jeans
+Mala em pele=Leather bag
+Botas=Boots
+Hoodie e casaco de ganga=Hoodie and denim jacket
+Camisola com capuz=Hooded sweatshirt
+Calças escuras=Dark trousers
+Ténis=Trainers
+Boné e casaco leve=Cap and light jacket
+Boné cinzento=Grey cap
+Casaco leve=Light jacket
+T-shirt branca=White T-shirt
+Calças confortáveis=Comfortable trousers
+Mochila e camadas para viajar=Backpack and travel layers
+Mochila=Backpack
+Boné=Cap
+Calças práticas=Practical trousers
+Sapatilhas confortáveis=Comfortable sneakers
+Alfaiataria com cor=Colourful tailoring
+Fato em cor viva=Bold-colour suit
+Camisa lisa=Plain shirt
+Lenço de bolso=Pocket square
 5 minutos · 1 pessoa · uma noite no frio=5 minutes · 1 serving · overnight in the fridge
 5 colheres de sopa de flocos de aveia=5 tablespoons rolled oats
 100 ml de leite ou bebida vegetal=100 ml milk or plant drink
@@ -641,6 +736,101 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+30 minutos antes de partir¦30 minutes avant de partir¦30 minutos antes de salir¦30 minuti prima di partire
+Uma mala de cabine¦Une valise cabine¦Una maleta de cabina¦Un bagaglio a mano
+Peças em cores que combinam entre si¦Des pièces aux couleurs assorties¦Prendas en colores que combinan¦Capi in colori abbinabili
+Um saco para os líquidos¦Un sachet pour les liquides¦Una bolsa para líquidos¦Una bustina per i liquidi
+Um par de sapatos confortáveis¦Une paire de chaussures confortables¦Un par de zapatos cómodos¦Un paio di scarpe comode
+Confirma as medidas e o peso aceites pela transportadora.¦Vérifie les dimensions et le poids acceptés par le transporteur.¦Comprueba las medidas y el peso que admite la compañía.¦Controlla misure e peso ammessi dal vettore.
+Escolhe peças que dão vários conjuntos.¦Choisis des pièces qui composent plusieurs tenues.¦Elige prendas que den varios conjuntos.¦Scegli capi che creano più outfit.
+Enrola a roupa e põe os sapatos no fundo.¦Roule les vêtements et mets les chaussures au fond.¦Enrolla la ropa y pon los zapatos al fondo.¦Arrotola i vestiti e metti le scarpe sul fondo.
+Calça e veste as peças mais volumosas na viagem.¦Porte les pièces les plus volumineuses pendant le trajet.¦Lleva puestas las prendas más voluminosas.¦Indossa in viaggio i capi più ingombranti.
+2 dias¦2 jours¦2 días¦2 giorni
+Um mapa com os sítios guardados¦Une carte avec les lieux enregistrés¦Un mapa con los sitios guardados¦Una mappa con i posti salvati
+Sapatos para andar¦Des chaussures de marche¦Zapatos para caminar¦Scarpe per camminare
+Uma garrafa de água reutilizável¦Une gourde réutilisable¦Una botella de agua reutilizable¦Una borraccia riutilizzabile
+Bateria portátil¦Batterie externe¦Batería portátil¦Batteria portatile
+Escolhe um bairro para cada dia.¦Choisis un quartier par jour.¦Elige un barrio para cada día.¦Scegli un quartiere per ogni giorno.
+Junta os sítios que ficam perto uns dos outros.¦Regroupe les lieux proches les uns des autres.¦Agrupa los sitios cercanos entre sí.¦Raggruppa i posti vicini tra loro.
+Confirma horários e reservas.¦Vérifie les horaires et les réservations.¦Confirma horarios y reservas.¦Controlla orari e prenotazioni.
+Deixa uma manhã livre para improvisar.¦Garde une matinée libre pour improviser.¦Deja una mañana libre para improvisar.¦Lascia una mattina libera per improvvisare.
+Na véspera¦La veille¦La víspera¦Il giorno prima
+Cartão de cidadão ou passaporte¦Carte d’identité ou passeport¦Documento de identidad o pasaporte¦Carta d’identità o passaporto
+Bilhetes e reservas¦Billets et réservations¦Billetes y reservas¦Biglietti e prenotazioni
+Carregador do telemóvel¦Chargeur du téléphone¦Cargador del móvil¦Caricabatterie del telefono
+Medicação habitual¦Médicaments habituels¦Medicación habitual¦Farmaci abituali
+Cópias digitais dos documentos¦Copies numériques des documents¦Copias digitales de los documentos¦Copie digitali dei documenti
+Confirma a validade dos documentos.¦Vérifie la validité des documents.¦Comprueba la validez de los documentos.¦Controlla la validità dei documenti.
+Carrega o telemóvel e a bateria portátil.¦Charge le téléphone et la batterie externe.¦Carga el móvil y la batería portátil.¦Carica il telefono e la batteria portatile.
+Guarda a medicação na mala de mão.¦Garde les médicaments dans le bagage à main.¦Guarda la medicación en el equipaje de mano.¦Tieni i farmaci nel bagaglio a mano.
+Verifica a hora e o local de partida.¦Vérifie l’heure et le lieu de départ.¦Verifica la hora y el lugar de salida.¦Controlla ora e luogo di partenza.
+Antes de partir¦Avant de partir¦Antes de salir¦Prima di partire
+Primeira noite reservada¦Première nuit réservée¦Primera noche reservada¦Prima notte prenotata
+Contactos de emergência¦Contacts d’urgence¦Contactos de emergencia¦Contatti di emergenza
+Itinerário partilhado com alguém de confiança¦Itinéraire partagé avec une personne de confiance¦Itinerario compartido con alguien de confianza¦Itinerario condiviso con una persona fidata
+Um seguro de viagem¦Une assurance voyage¦Un seguro de viaje¦Un’assicurazione di viaggio
+Escolhe um alojamento bem localizado.¦Choisis un hébergement bien situé.¦Elige un alojamiento bien situado.¦Scegli un alloggio in buona posizione.
+Chega de preferência durante o dia.¦Arrive de préférence de jour.¦Llega preferiblemente de día.¦Arriva preferibilmente di giorno.
+Combina quando vais dar notícias.¦Convenez des moments où tu donneras des nouvelles.¦Acuerda cuándo vas a dar noticias.¦Concorda quando darai notizie.
+Não digas a desconhecidos onde estás alojada.¦Ne dis pas à des inconnus où tu loges.¦No digas a desconocidos dónde te alojas.¦Non dire a sconosciuti dove alloggi.
+Confia no teu instinto e muda de planos se precisares.¦Fais confiance à ton instinct et change tes plans si besoin.¦Confía en tu instinto y cambia de planes si lo necesitas.¦Fidati del tuo istinto e cambia programma se serve.
+Viagens da comunidade¦Voyages de la communauté¦Viajes de la comunidad¦Viaggi della community
+VIAGENS DA COMUNIDADE¦VOYAGES DE LA COMMUNAUTÉ¦VIAJES DE LA COMUNIDAD¦VIAGGI DELLA COMMUNITY
+Partilhar viagem¦Partager un voyage¦Compartir viaje¦Condividi viaggio
+O que levar¦Quoi emporter¦Qué llevar¦Cosa portare
+O QUE LEVAR¦QUOI EMPORTER¦QUÉ LLEVAR¦COSA PORTARE
+Roteiro e dicas¦Itinéraire et conseils¦Itinerario y consejos¦Itinerario e consigli
+ROTEIRO E DICAS¦ITINÉRAIRE ET CONSEILS¦ITINERARIO Y CONSEJOS¦ITINERARIO E CONSIGLI
+Destino ou nome da viagem¦Destination ou nom du voyage¦Destino o nombre del viaje¦Destinazione o nome del viaggio
+O que levar, um por linha (opcional)¦Quoi emporter, un par ligne (facultatif)¦Qué llevar, uno por línea (opcional)¦Cosa portare, uno per riga (facoltativo)
+Roteiro e dicas, um por linha¦Itinéraire et conseils, un par ligne¦Itinerario y consejos, uno por línea¦Itinerario e consigli, uno per riga
+Ainda não há viagens partilhadas. Sê a primeira.¦Pas encore de voyages partagés. Sois la première.¦Aún no hay viajes compartidos. Sé la primera.¦Ancora nessun viaggio condiviso. Sii la prima.
+Não partilhes moradas nem datas em que a tua casa fica vazia.¦Ne partage ni adresses ni dates où ton logement est vide.¦No compartas direcciones ni fechas en que tu casa esté vacía.¦Non condividere indirizzi né date in cui casa tua è vuota.
+O texto tem palavras que não são permitidas na MAELLE.¦Ce texte contient des mots interdits sur MAELLE.¦El texto tiene palabras que no están permitidas en MAELLE.¦Il testo contiene parole non consentite su MAELLE.
+Ex.: camisa, jeans, blazer¦Ex. : chemise, jean, blazer¦Ej.: camisa, vaqueros, blazer¦Es.: camicia, jeans, blazer
+Mulher¦Femme¦Mujer¦Donna
+Homem¦Homme¦Hombre¦Uomo
+Moda masculina¦Mode homme¦Moda masculina¦Moda uomo
+Ideias de outfits para homem¦Idées de tenues pour homme¦Ideas de looks para hombre¦Idee di outfit per uomo
+Fato azul e camisa branca¦Costume bleu et chemise blanche¦Traje azul y camisa blanca¦Completo blu e camicia bianca
+Blazer azul-escuro¦Blazer bleu marine¦Blazer azul marino¦Blazer blu scuro
+Calças a condizer¦Pantalon assorti¦Pantalón a juego¦Pantaloni coordinati
+Camisa branca¦Chemise blanche¦Camisa blanca¦Camicia bianca
+Sapatos de pele¦Chaussures en cuir¦Zapatos de piel¦Scarpe in pelle
+Blazer e calças chino¦Blazer et pantalon chino¦Blazer y pantalón chino¦Blazer e pantaloni chino
+Blazer sem forro¦Blazer non doublé¦Blazer sin forro¦Blazer sfoderato
+Calças chino bege¦Chino beige¦Chinos beige¦Chino beige
+Camisa clara¦Chemise claire¦Camisa clara¦Camicia chiara
+Mocassins¦Mocassins¦Mocasines¦Mocassini
+Casaco de ganga e jeans¦Veste en jean et jean¦Cazadora vaquera y vaqueros¦Giubbotto di jeans e jeans
+Casaco de ganga¦Veste en jean¦Cazadora vaquera¦Giubbotto di jeans
+T-shirt lisa¦T-shirt uni¦Camiseta lisa¦T-shirt tinta unita
+Jeans retos¦Jean droit¦Vaqueros rectos¦Jeans dritti
+Ténis brancos¦Baskets blanches¦Zapatillas blancas¦Sneakers bianche
+Mala de lona¦Sac en toile¦Bolsa de lona¦Borsa di tela
+Casaco com cor e jeans¦Veste colorée et jean¦Abrigo de color y vaqueros¦Giacca colorata e jeans
+Casaco quente vermelho¦Veste chaude rouge¦Abrigo rojo cálido¦Giacca calda rossa
+Jeans escuros¦Jean foncé¦Vaqueros oscuros¦Jeans scuri
+Mala em pele¦Sac en cuir¦Bolso de piel¦Borsa in pelle
+Botas¦Bottes¦Botas¦Stivali
+Hoodie e casaco de ganga¦Sweat à capuche et veste en jean¦Sudadera y cazadora vaquera¦Felpa e giubbotto di jeans
+Camisola com capuz¦Sweat à capuche¦Sudadera con capucha¦Felpa con cappuccio
+Calças escuras¦Pantalon foncé¦Pantalón oscuro¦Pantaloni scuri
+Ténis¦Baskets¦Zapatillas¦Sneakers
+Boné e casaco leve¦Casquette et veste légère¦Gorra y chaqueta ligera¦Cappellino e giacca leggera
+Boné cinzento¦Casquette grise¦Gorra gris¦Cappellino grigio
+Casaco leve¦Veste légère¦Chaqueta ligera¦Giacca leggera
+T-shirt branca¦T-shirt blanc¦Camiseta blanca¦T-shirt bianca
+Calças confortáveis¦Pantalon confortable¦Pantalón cómodo¦Pantaloni comodi
+Mochila e camadas para viajar¦Sac à dos et couches pour voyager¦Mochila y capas para viajar¦Zaino e strati per viaggiare
+Mochila¦Sac à dos¦Mochila¦Zaino
+Boné¦Casquette¦Gorra¦Cappellino
+Calças práticas¦Pantalon pratique¦Pantalón práctico¦Pantaloni pratici
+Sapatilhas confortáveis¦Baskets confortables¦Zapatillas cómodas¦Scarpe da ginnastica comode
+Alfaiataria com cor¦Costume en couleur¦Sastrería con color¦Sartoria a colori
+Fato em cor viva¦Costume de couleur vive¦Traje de color vivo¦Completo dal colore acceso
+Camisa lisa¦Chemise unie¦Camisa lisa¦Camicia tinta unita
+Lenço de bolso¦Pochette de costume¦Pañuelo de bolsillo¦Fazzoletto da taschino
 5 minutos · 1 pessoa · uma noite no frio¦5 minutes · 1 personne · une nuit au frais¦5 minutos · 1 persona · una noche en la nevera¦5 minuti · 1 persona · una notte in frigo
 5 colheres de sopa de flocos de aveia¦5 cuillères à soupe de flocons d’avoine¦5 cucharadas de copos de avena¦5 cucchiai di fiocchi d’avena
 100 ml de leite ou bebida vegetal¦100 ml de lait ou de boisson végétale¦100 ml de leche o bebida vegetal¦100 ml di latte o bevanda vegetale
