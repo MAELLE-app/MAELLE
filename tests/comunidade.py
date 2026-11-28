@@ -44,6 +44,7 @@ def route(r):
     if m=='GET':return ok([shape(t,x) for x in d if match(x,qs)])
     if m=='POST':
         body=q.post_data_json
+        if 'palavraproibida' in json.dumps(body):return ok({'code':'P0001','message':'conteudo_bloqueado'},400)
         for x in body if isinstance(body,list) else [body]:
             x.setdefault('id',str(uuid.uuid4()));x.setdefault('created_at',NOW)
             if t in('posts','groups'):x.setdefault('status','visible' if t=='posts' else 'active')
@@ -71,6 +72,8 @@ with sync_playwright() as pw:
     mine.locator('.like').click();W();assert len(db['post_likes'])==0
     mine.locator('input').fill('Um comentário');mine.locator('input').press('Enter');pg.wait_for_selector('.cm >> text=Um comentário');W()
     other=pg.locator('article',has_text='olá');other.locator('text=Denunciar').click();pg.click('text=Enviar denúncia');W();assert len(db['reports'])==1
+    for sel in ('#po-t',):
+        n=len(db['posts']);pg.fill(sel,'palavraproibida');pg.click('button:has-text("Publicar")');pg.wait_for_selector('text=palavras que não são permitidas');assert len(db['posts'])==n
     tab();pg.click('text=Grupos');pg.click('text=Criar o meu grupo');pg.fill('#ng-n','Leituras');pg.check('#ng-ok');pg.click('button:has-text("Criar grupo")');pg.wait_for_selector('#gp-t')
     pg.fill('#gp-t','No grupo');pg.click('button:has-text("Publicar")');pg.wait_for_selector('article >> text=No grupo');assert db['posts'][-1]['group_id']==db['groups'][0]['id']
     tab();pg.click('text=Perguntas & Respostas');pg.fill('#qa-q','Que livro?');pg.press('#qa-q','Enter');pg.wait_for_selector('h3 >> text=Que livro?');W()

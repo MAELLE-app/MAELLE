@@ -1,14 +1,14 @@
 'use strict';
-/* Receitas e ideias de casa: página completa de cada uma e partilha entre utilizadoras */
-const KINDS={receitas:{kind:'recipe',title:'Receitas da comunidade',btn:'Partilhar receita',items:'Ingredientes',steps:'Preparação',name:'Nome da receita',itemsPh:'Ingredientes, um por linha',stepsPh:'Preparação, um passo por linha',none:'Ainda não há receitas partilhadas. Sê a primeira.'},
+/* Receitas, casa e viagens: página completa de cada uma e partilha entre utilizadoras */
+const KINDS={viagens:{kind:'travel',title:'Viagens da comunidade',btn:'Partilhar viagem',items:'O que levar',steps:'Roteiro e dicas',name:'Destino ou nome da viagem',itemsPh:'O que levar, um por linha (opcional)',stepsPh:'Roteiro e dicas, um por linha',none:'Ainda não há viagens partilhadas. Sê a primeira.',warn:'Não partilhes moradas nem datas em que a tua casa fica vazia.'},
+ receitas:{kind:'recipe',title:'Receitas da comunidade',btn:'Partilhar receita',items:'Ingredientes',steps:'Preparação',name:'Nome da receita',itemsPh:'Ingredientes, um por linha',stepsPh:'Preparação, um passo por linha',none:'Ainda não há receitas partilhadas. Sê a primeira.'},
  decoracao:{kind:'home',title:'Ideias da comunidade',btn:'Partilhar ideia',items:'O que precisas',steps:'Como fazer',name:'Nome da ideia',itemsPh:'O que precisas, um por linha (opcional)',stepsPh:'Como fazer, um passo por linha',none:'Ainda não há ideias partilhadas. Sê a primeira.'}};
-const topicOfKind=k=>k==='recipe'?'receitas':'decoracao';
+const topicOfKind=k=>Object.keys(KINDS).find(t=>KINDS[t].kind===k);
 const lines=t=>String(t||'').split('\n').map(x=>x.trim()).filter(Boolean);
 const lists=(c,items,steps,own)=>{const nt=own?' data-nt':'';return `${items.length?`<h2 class="sec s">${c.items.toUpperCase()}</h2><ul class="ings">${items.map(x=>`<li${nt}>${own?esc(x):x}</li>`).join('')}</ul>`:''}<h2 class="sec s">${c.steps.toUpperCase()}</h2><ol class="steps">${steps.map(x=>`<li${nt}>${own?esc(x):x}</li>`).join('')}</ol>`};
 /* dentro de uma publicação partilhada */
 function sharedBody(p){
- if(p.kind!=='recipe'&&p.kind!=='home')return '';
- const c=KINDS[topicOfKind(p.kind)];
+ const c=KINDS[topicOfKind(p.kind)];if(!c)return '';
  return `<details class="shared" ${cur().v==='post'?'open':''}><summary>${p.kind==='recipe'?'Ver receita':'Ver ideia'}</summary>${lists(c,lines(p.items),lines(p.details),true)}</details>`;
 }
 const sharedCard=(p,sc)=>{const img=safeImg(p.image_url),likes=(p.post_likes||[]).length;return `<button class="scard" data-act="go" data-v="post" data-id="${esc(p.id)}" data-sc="${sc}">${img?`<img src="${img}" alt="" loading="lazy">`:''}<span class="t" data-nt>${esc(p.title||'')}</span><small><span data-nt>${esc(who(p))}</span> · ${ic(P.heart,12)} ${likes} · ${ic(P.chat,12)} ${(p.comments||[]).length}</small></button>`};
@@ -30,7 +30,7 @@ V.idea={tab:'home',html:p=>{
  ${lists(c,d.items,d.steps)}<button class="btn ghost mt" data-act="go" data-v="topic" data-k="${i.k}">${c.title}</button></div>`}};
 ACT.zoom=d=>sheet(`<div class="hero">${photoImg(d.k,'',960)}</div><button class="btn ghost" data-act="close">Fechar</button>`);
 
-SHEETS.share=d=>{const c=KINDS[d.k];tmpImg=null;sheet(`<h2 class="h2">${c.btn}</h2><form data-form="share" data-k="${d.k}" class="stack" novalidate><label class="pimg pick" for="pimgin" id="pimgprev">${ic(P.cam,22)}<span>Adicionar foto</span></label><input type="file" id="pimgin" accept="image/*" hidden data-change="tmpimg"><input class="field" id="sh-t" name="t" placeholder="${c.name}" maxlength="80" aria-label="${c.name}"><textarea class="field" id="sh-i" name="i" placeholder="${c.itemsPh}" maxlength="1500" aria-label="${c.items}"></textarea><textarea class="field" id="sh-s" name="s" placeholder="${c.stepsPh}" maxlength="3000" aria-label="${c.steps}"></textarea><p class="note" style="margin:0">Partilha só fotografias e textos teus.</p><p class="err" role="alert"></p><button class="btn" type="submit">Publicar</button></form>`)};
+SHEETS.share=d=>{const c=KINDS[d.k];tmpImg=null;sheet(`<h2 class="h2">${c.btn}</h2><form data-form="share" data-k="${d.k}" class="stack" novalidate><label class="pimg pick" for="pimgin" id="pimgprev">${ic(P.cam,22)}<span>Adicionar foto</span></label><input type="file" id="pimgin" accept="image/*" hidden data-change="tmpimg"><input class="field" id="sh-t" name="t" placeholder="${c.name}" maxlength="80" aria-label="${c.name}"><textarea class="field" id="sh-i" name="i" placeholder="${c.itemsPh}" maxlength="1500" aria-label="${c.items}"></textarea><textarea class="field" id="sh-s" name="s" placeholder="${c.stepsPh}" maxlength="3000" aria-label="${c.steps}"></textarea><p class="note" style="margin:0">Partilha só fotografias e textos teus.</p>${c.warn?`<p class="note" style="margin:0">${c.warn}</p>`:''}<p class="err" role="alert"></p><button class="btn" type="submit">Publicar</button></form>`)};
 FORM.share=(fd,f)=>{
  const c=KINDS[f.dataset.k],t=fd.get('t').trim(),i=fd.get('i').trim(),s=fd.get('s').trim(),img=tmpImg,sc='kind-'+c.kind;
  if(!online())return ferr(f,'Entra na tua conta para partilhares.');

@@ -100,6 +100,12 @@ with sync_playwright() as pw:
     pg.set_input_files('#pimgin',files=[{'name':'a.png','mimeType':'image/png','buffer':jpg}]);pg.wait_for_selector('#pimgprev img')
     pg.fill('#sh-t','Parede de quadros');pg.fill('#sh-s','Medir e pendurar');send();pg.wait_for_selector('.scard >> text=Parede de quadros')
     ok(db['posts'][-1]['kind']=='home' and db['posts'][-1].get('items') is None);ok(pg.locator('.scard').count()==1)
+    go('viagens');pg.wait_for_selector('text=Ainda não há viagens partilhadas');pg.click('[data-s=share]');pg.wait_for_selector('#sheet >> text=casa fica vazia')
+    pg.set_input_files('#pimgin',files=[{'name':'a.png','mimeType':'image/png','buffer':jpg}]);pg.wait_for_selector('#pimgprev img')
+    pg.fill('#sh-t','Fim de semana no Porto');pg.fill('#sh-s','Ribeira\nSerralves');send();pg.wait_for_selector('.scard >> text=Fim de semana no Porto')
+    ok(db['posts'][-1]['kind']=='travel');pg.click('.scard');pg.wait_for_selector('article .steps');ok(pg.locator('article .steps li').count()==2);noscroll()
+    for i in ('v1','v2','v3','v4'):
+        go('viagens');pg.click(f'article button.link[data-id="{i}"]');pg.wait_for_selector('.hero img');ok(pg.locator('.steps li').count()>=4 and pg.locator('.ings li').count()>=4,i);noscroll()
     # no feed aparece com o nome e os passos recolhidos
     pg.click('#tabs >> text=Comunidade');pg.click('text=Publicações');pg.wait_for_selector('article >> text=Parede de quadros');ok(not pg.locator('article .steps').first.is_visible())
     pg.locator('article summary').first.click();ok(pg.locator('article .steps li').first.is_visible());noscroll()

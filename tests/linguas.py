@@ -45,12 +45,14 @@ with sync_playwright() as pw:
                     assert pg.evaluate('v=>!!V[v]',v),v
                     pg.evaluate("v=>{stack=[{v:'home',p:{}},{v:v,p:{edit:1}}];render()}",v);pg.wait_for_timeout(60);check(v)
                     assert pg.evaluate('document.documentElement.scrollWidth<=390'),(l,v)
-                for k in ('receitas','decoracao'):
+                for k in ('receitas','decoracao','viagens'):
                     pg.evaluate("k=>{stack=[{v:'home',p:{}},{v:'topic',p:{k:k}}];render()}",k);pg.wait_for_timeout(60);check(k)
                     pg.evaluate("k=>{SHEETS.share({k:k})}",k);pg.wait_for_timeout(60);check('share '+k);pg.evaluate('closeSheet()')
-                for i in 'r1 r2 r3 r4 d1 d2 d3 d4'.split():
+                for i in 'r1 r2 r3 r4 d1 d2 d3 d4 v1 v2 v3 v4'.split():
                     pg.evaluate("i=>{stack=[{v:'home',p:{}},{v:'idea',p:{id:i}}];render()}",i);pg.wait_for_timeout(60);check(i)
                     assert pg.evaluate('document.documentElement.scrollWidth<=390'),(l,i)
+                pg.evaluate("()=>{FG='m';stack=[{v:'home',p:{}},{v:'finder',p:{}}];render()}");pg.wait_for_timeout(60);check('finder homem');pg.evaluate("FG='w'")
+                pg.evaluate("()=>{stack=[{v:'home',p:{}},{v:'topic',p:{k:'moda'}}];render()}");pg.wait_for_timeout(60);check('moda')
                 for s in SHEETS:
                     pg.evaluate("s=>{if(SHEETS[s])SHEETS[s]({})}",s);pg.wait_for_timeout(60);check(s);pg.evaluate('closeSheet()')
                 got=pg.evaluate("()=>{stack=[{v:'myplace',p:{}}];render();return new Promise(r=>setTimeout(()=>r(document.getElementById('view').innerText),100))}")
