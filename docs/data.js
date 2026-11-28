@@ -163,3 +163,23 @@ const FASHION_BRANDS=[
  {n:'Vinted',d:'Mercado de roupa em segunda mão.',tags:'segunda mao usada vintage sustentavel'}
 ];
 const REPORT_REASONS=['Assédio ou ofensas','Spam ou publicidade enganosa','Conteúdo impróprio','Pessoa que parece ter menos de 18 anos','Venda de algo proibido ou fraude','Outro motivo'];
+
+/* páginas completas das receitas e das ideias de casa */
+const DETAIL={
+ r1:{meta:'5 minutos · 1 pessoa · uma noite no frio',items:['5 colheres de sopa de flocos de aveia','100 ml de leite ou bebida vegetal','1 iogurte natural','1 colher de chá de mel (opcional)','Fruta fresca a gosto'],
+  steps:['Junta a aveia, o leite e o iogurte num frasco.','Mexe bem e adoça, se quiseres.','Fecha e guarda no frigorífico durante a noite.','De manhã, junta a fruta e come frio.']},
+ r2:{meta:'40 minutos · 2 pessoas',items:['200 g de massa','400 g de tomate cereja','3 dentes de alho','3 colheres de sopa de azeite','Manjericão fresco','Sal e pimenta'],
+  steps:['Aquece o forno a 200 °C.','Põe o tomate e o alho num tabuleiro com o azeite, sal e pimenta.','Assa cerca de 25 minutos, até o tomate rebentar.','Coze a massa e guarda um pouco da água.','Esmaga o tomate, junta a massa e um pouco da água. Finaliza com manjericão.']},
+ r3:{meta:'15 minutos · 2 pessoas',items:['1 lata de grão-de-bico cozido','1 pepino','2 tomates','Um punhado de azeitonas','Sumo de meio limão','2 colheres de sopa de azeite','Sal e pimenta'],
+  steps:['Escorre e passa o grão por água.','Corta o pepino e o tomate em cubos.','Junta tudo numa taça, com as azeitonas.','Mistura o limão, o azeite, sal e pimenta e rega a taça.']},
+ r4:{meta:'50 minutos · 8 fatias',items:['1 iogurte natural','2 medidas de açúcar (usa o copo do iogurte)','3 medidas de farinha','1 medida de óleo','3 ovos','1 saqueta de fermento'],
+  steps:['Aquece o forno a 180 °C e unta uma forma.','Bate os ovos com o açúcar.','Junta o iogurte e o óleo.','Envolve a farinha com o fermento.','Leva ao forno cerca de 35 minutos. Está pronto quando um palito sair seco.']},
+ d1:{meta:'Uma tarde',photos:['luz','estante','colo'],items:['Uma cadeira ou poltrona confortável','Um candeeiro de luz quente','Uma manta','Uma mesa pequena para a bebida e o livro'],
+  steps:['Escolhe um canto sossegado, de preferência perto de uma janela.','Coloca a cadeira com a luz por cima do ombro.','Junta a manta e a mesa.','Deixa por perto só os livros que estás a ler.']},
+ d2:{meta:'Ao longo do ano',photos:['quarto','casa','vela'],items:['Duas cores base, por exemplo creme e areia','Capas de almofada','Quadros ou fotografias'],
+  steps:['Escolhe as duas cores que já tens mais em casa.','Usa-as nas peças grandes.','Em cada estação, muda só as capas e os quadros.']},
+ d3:{meta:'10 minutos por semana',photos:['canto','casa','luz'],items:['Jiboia, zamioculca ou espada-de-são-jorge','Vasos com furo no fundo','Terra para plantas de interior'],
+  steps:['Escolhe um sítio com luz indireta.','Rega só quando a terra estiver seca.','Limpa o pó das folhas de vez em quando.','Se tens animais ou crianças, confirma antes se a planta é tóxica.']},
+ d4:{meta:'Um fim de semana',photos:['quarto','luz','decoracao'],items:['Uma manta ou almofadas de linho','Uma peça de cerâmica','Um objeto de madeira clara','Uma vela'],
+  steps:['Tira o que não usas das superfícies.','Junta três texturas diferentes em cada zona.','Deixa espaço livre entre as peças.','Nunca deixes velas acesas sem vigilância.']}
+};

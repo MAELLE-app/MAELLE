@@ -8,7 +8,7 @@ srv=http.server.ThreadingHTTPServer(('127.0.0.1',8771),functools.partial(Q,direc
 ME=str(uuid.uuid4());OTHER=str(uuid.uuid4());NOW='2026-11-26T07:00:00+00:00';ID=str(uuid.uuid4())
 X='\'"><img src=x onerror=window.__xss=1><b class=xss>';BAD='javascript:window.__xss=1';SB='https://bgfnsnxaugvsscdctwse.supabase.co/storage/v1/object/public/media/'
 who={'username':X,'avatar_url':SB+X};base={'id':ID,'created_at':NOW,'status':'visible','author_id':OTHER,'author':who}
-post=dict(base,body=X,image_url=BAD,video_url=SB+X,group_id=None,comments=[dict(base,body=X)],post_likes=[])
+post=dict(base,kind='recipe',title=X,items=X+'\n'+X,details=X,body=X,image_url=BAD,video_url=SB+X,group_id=None,comments=[dict(base,body=X)],post_likes=[])
 rows={
  'posts':[post],'comments':[post],'groups':[{'id':ID,'name':X,'description':X,'topic':X,'rules':X,'status':'active','owner_id':OTHER,'group_members':[{'user_id':ME}]}],
  'questions':[dict(base,body=X,answers=[dict(base,body=X)])],
@@ -37,7 +37,7 @@ with sync_playwright() as pw:
     pg.goto('http://127.0.0.1:8771/?convite=%22%3E%3Cimg%3E');pg.click('text=Começar');assert pg.input_value('#su-invite')=='IMG'
     pg.click('[aria-label="Voltar"]');pg.click('text=Já tenho conta');pg.fill('#li-email','a@b.pt');pg.fill('#li-pw','segredo123');pg.click('button:has-text("Entrar")');pg.wait_for_selector('text=Bem-vinda ao teu universo')
     views=[(v,{}) for v in 'home myplace club bookclub community posts groups qa edit shop brands sell favs recs me settings people inbox admin'.split()]
-    views+=[('group',{'id':ID}),('room',{'id':ID}),('user',{'id':OTHER}),('chat',{'id':OTHER}),('post',{'id':ID,'sc':'u-'+OTHER}),('follows',{'id':ME,'t':'followers'}),('follows',{'id':ME,'t':'following'})]
+    views+=[('group',{'id':ID}),('room',{'id':ID}),('user',{'id':OTHER}),('chat',{'id':OTHER}),('post',{'id':ID,'sc':'u-'+OTHER}),('follows',{'id':ME,'t':'followers'}),('follows',{'id':ME,'t':'following'}),('topic',{'k':'receitas'}),('topic',{'k':'decoracao'})]
     seen=0
     def check(where):
         global seen

@@ -89,6 +89,7 @@ const picture=src=>`<img src="${src}" alt="" loading="lazy">`;
 const itemPic=x=>x.img?picture(x.img):PIMG[x.id]?photoImg(PIMG[x.id],'',500):photoImg(TOPICS[x.c]?x.c:SVC_ART[x.c]||'criatividade','',500)+'<i class="ilus">Imagem ilustrativa</i>';
 /* fotografias CC0 do Wikimedia Commons (lista também em creditos.html); se não carregarem, aparece a ilustração */
 const PHOTOS={
+ bolo:"Blueberry Dessert (Unsplash).jpg",
  macacao:"Turquoise Jumpsuit (Unsplash).jpg",
  mala:"Checking Her Purse (Unsplash).jpg",
  compras:"Shopping freak (Unsplash).jpg",
@@ -139,7 +140,7 @@ const PHOTOS={
  loja:'Little_Black_Dress_(Unsplash).jpg',
  convivio:'Coffee,_flowers_and_books_(Unsplash).jpg'
 };
-const PHOTO_ART={vestido:'moda',loja:'moda',convivio:'livros',macacao:'moda',mala:'moda',compras:'moda',inverno:'moda',rua:'moda',gorro:'moda',urbano:'moda',cabelo:'beleza',cafe:'beleza',olhar:'beleza',quarto:'decoracao',canto:'decoracao',plantas:'decoracao',vela:'decoracao',luz:'decoracao',casa:'decoracao',malas:'viagens',roteiro:'viagens',caminhada:'viagens',saco:'viagens',mochila:'viagens',cereais:'receitas',massa:'receitas',salada:'receitas',panquecas:'receitas',legumes:'receitas',brunch:'receitas',lapis:'criatividade',camara:'criatividade',aparas:'criatividade',caneta:'organizacao',mesa:'organizacao',secretaria:'organizacao',arquivo:'organizacao',caderno:'organizacao',leitora:'livros',colo:'livros',estante:'livros'};
+const PHOTO_ART={bolo:'receitas',vestido:'moda',loja:'moda',convivio:'livros',macacao:'moda',mala:'moda',compras:'moda',inverno:'moda',rua:'moda',gorro:'moda',urbano:'moda',cabelo:'beleza',cafe:'beleza',olhar:'beleza',quarto:'decoracao',canto:'decoracao',plantas:'decoracao',vela:'decoracao',luz:'decoracao',casa:'decoracao',malas:'viagens',roteiro:'viagens',caminhada:'viagens',saco:'viagens',mochila:'viagens',cereais:'receitas',massa:'receitas',salada:'receitas',panquecas:'receitas',legumes:'receitas',brunch:'receitas',lapis:'criatividade',camara:'criatividade',aparas:'criatividade',caneta:'organizacao',mesa:'organizacao',secretaria:'organizacao',arquivo:'organizacao',caderno:'organizacao',leitora:'livros',colo:'livros',estante:'livros'};
 /* larguras que o Wikimedia aceita; pedir outra dá erro */
 const THUMBS=[120,250,330,500,960];
 const thumbW=w=>THUMBS.find(t=>t>=w)||960;
@@ -154,7 +155,7 @@ const banner=k=>photoImg(k,'banner');
 /* que fotografia vai em cada ideia, exemplo, menu e ecrã */
 const IMG={
  m1:'moda',m2:'macacao',m3:'mala',m4:'compras',b1:'beleza',b2:'cabelo',b3:'cafe',b4:'quarto',d1:'canto',d2:'decoracao',d3:'plantas',d4:'vela',
- v1:'malas',v2:'rua',v3:'roteiro',v4:'caminhada',r1:'cereais',r2:'massa',r3:'salada',r4:'panquecas',c1:'lapis',c2:'criatividade',c3:'camara',c4:'aparas',
+ v1:'malas',v2:'rua',v3:'roteiro',v4:'caminhada',r1:'cereais',r2:'massa',r3:'salada',r4:'bolo',c1:'lapis',c2:'criatividade',c3:'camara',c4:'aparas',
  o1:'caneta',o2:'mesa',o3:'secretaria',o4:'arquivo',l1:'leitora',l2:'livros',l3:'colo',l4:'estante'};
 const PIMG={p1:'compras',p2:'rua',p3:'beleza',p4:'cabelo',p5:'vela',p6:'quarto',p7:'malas',p8:'saco',p9:'caderno',p10:'caneta',p11:'criatividade',p12:'legumes',
  s1:'beleza',s2:'camara',s3:'macacao',s4:'criatividade',s5:'secretaria',s6:'moda'};
@@ -212,7 +213,8 @@ const avatar=sz=>S.profile.photo?`<span class="av" style="width:${sz}px;height:$
 const menu=(icon,t,p,act,feat)=>`<button class="menu ${feat?'feat':''}" ${act}><span class="ic ${MENUIMG[icon]?'foto':''}">${MENUIMG[icon]?photoImg(MENUIMG[icon],'',250):ic(P[icon],22)}</span><span class="tx"><span class="t">${t}</span><span class="p">${p}</span></span><span class="ch">${ic(P.next,18)}</span></button>`;
 const delBtn=(l,id)=>`<button class="del" data-act="del" data-l="${l}" data-id="${id}" aria-label="Apagar">${ic(P.trash,18)}</button>`;
 const chk=(on,l,id,f)=>`<button class="chk ${on?'on':''}" data-act="toggle" data-l="${l}" data-id="${id}" data-f="${f}" aria-pressed="${!!on}" aria-label="Marcar como feito">${ic(P.check,16)}</button>`;
-const ideaCard=i=>{const on=S.saved.includes(i.id);return `<article class="idea big">${photoImg(IMG[i.id]||i.k,'cover',500)}<div><h3>${i.t}</h3><p>${i.d}</p></div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
+const openBtn=(i,inner)=>DETAIL[i.id]?`<button class="open" data-act="go" data-v="idea" data-id="${i.id}" aria-label="${i.t}">${inner}</button>`:inner;
+const ideaCard=i=>{const on=S.saved.includes(i.id),d=DETAIL[i.id];return `<article class="idea big">${openBtn(i,photoImg(IMG[i.id]||i.k,'cover',500))}<div><h3>${i.t}</h3><p>${i.d}</p>${d?`<button class="link" data-act="go" data-v="idea" data-id="${i.id}">${i.id[0]==='r'?'Ver receita':'Ver ideia'}</button>`:''}</div><button class="heart ${on?'on':''}" data-act="saveidea" data-id="${i.id}" aria-pressed="${on}" aria-label="Guardar ideia">${ic(P.heart)}</button></article>`};
 const monthKey=()=>today().slice(0,7);
 function streak(h){let n=0;const d=new Date();if(h.days.indexOf(iso(d))<0)d.setDate(d.getDate()-1);while(h.days.indexOf(iso(d))>=0){n++;d.setDate(d.getDate()-1)}return n}
 function nextEvent(){const t=today();return S.events.filter(e=>e.date>=t).sort((a,b)=>(a.date+(a.time||'99')).localeCompare(b.date+(b.time||'99')))[0]}

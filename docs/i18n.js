@@ -10,6 +10,113 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+5 minutos · 1 pessoa · uma noite no frio=5 minutes · 1 serving · overnight in the fridge
+5 colheres de sopa de flocos de aveia=5 tablespoons rolled oats
+100 ml de leite ou bebida vegetal=100 ml milk or plant drink
+1 iogurte natural=1 pot natural yoghurt
+1 colher de chá de mel (opcional)=1 teaspoon honey (optional)
+Fruta fresca a gosto=Fresh fruit to taste
+Junta a aveia, o leite e o iogurte num frasco.=Put the oats, milk and yoghurt in a jar.
+Mexe bem e adoça, se quiseres.=Stir well and sweeten if you like.
+Fecha e guarda no frigorífico durante a noite.=Close it and leave in the fridge overnight.
+De manhã, junta a fruta e come frio.=In the morning, add the fruit and eat cold.
+40 minutos · 2 pessoas=40 minutes · serves 2
+200 g de massa=200 g pasta
+400 g de tomate cereja=400 g cherry tomatoes
+3 dentes de alho=3 garlic cloves
+3 colheres de sopa de azeite=3 tablespoons olive oil
+Manjericão fresco=Fresh basil
+Sal e pimenta=Salt and pepper
+Aquece o forno a 200 °C.=Heat the oven to 200 °C.
+Põe o tomate e o alho num tabuleiro com o azeite, sal e pimenta.=Put the tomatoes and garlic on a tray with the oil, salt and pepper.
+Assa cerca de 25 minutos, até o tomate rebentar.=Roast for about 25 minutes, until the tomatoes burst.
+Coze a massa e guarda um pouco da água.=Cook the pasta and keep some of the water.
+Esmaga o tomate, junta a massa e um pouco da água. Finaliza com manjericão.=Crush the tomatoes, add the pasta and a little water. Finish with basil.
+15 minutos · 2 pessoas=15 minutes · serves 2
+1 lata de grão-de-bico cozido=1 can cooked chickpeas
+1 pepino=1 cucumber
+2 tomates=2 tomatoes
+Um punhado de azeitonas=A handful of olives
+Sumo de meio limão=Juice of half a lemon
+2 colheres de sopa de azeite=2 tablespoons olive oil
+Escorre e passa o grão por água.=Drain and rinse the chickpeas.
+Corta o pepino e o tomate em cubos.=Dice the cucumber and tomatoes.
+Junta tudo numa taça, com as azeitonas.=Put everything in a bowl with the olives.
+Mistura o limão, o azeite, sal e pimenta e rega a taça.=Mix the lemon, oil, salt and pepper and pour over the bowl.
+50 minutos · 8 fatias=50 minutes · 8 slices
+2 medidas de açúcar (usa o copo do iogurte)=2 measures sugar (use the yoghurt pot)
+3 medidas de farinha=3 measures flour
+1 medida de óleo=1 measure oil
+3 ovos=3 eggs
+1 saqueta de fermento=1 sachet baking powder
+Aquece o forno a 180 °C e unta uma forma.=Heat the oven to 180 °C and grease a tin.
+Bate os ovos com o açúcar.=Whisk the eggs with the sugar.
+Junta o iogurte e o óleo.=Add the yoghurt and oil.
+Envolve a farinha com o fermento.=Fold in the flour and baking powder.
+Leva ao forno cerca de 35 minutos. Está pronto quando um palito sair seco.=Bake for about 35 minutes. It is ready when a skewer comes out dry.
+Uma tarde=One afternoon
+Uma cadeira ou poltrona confortável=A comfortable chair or armchair
+Um candeeiro de luz quente=A warm-light lamp
+Uma manta=A throw blanket
+Uma mesa pequena para a bebida e o livro=A small table for your drink and book
+Escolhe um canto sossegado, de preferência perto de uma janela.=Choose a quiet corner, ideally near a window.
+Coloca a cadeira com a luz por cima do ombro.=Place the chair so the light comes over your shoulder.
+Junta a manta e a mesa.=Add the blanket and the table.
+Deixa por perto só os livros que estás a ler.=Keep only the books you are reading nearby.
+Ao longo do ano=Through the year
+Duas cores base, por exemplo creme e areia=Two base colours, for example cream and sand
+Capas de almofada=Cushion covers
+Quadros ou fotografias=Pictures or photographs
+Escolhe as duas cores que já tens mais em casa.=Pick the two colours you already have most at home.
+Usa-as nas peças grandes.=Use them on the large pieces.
+Em cada estação, muda só as capas e os quadros.=Each season, change only the covers and pictures.
+10 minutos por semana=10 minutes a week
+Jiboia, zamioculca ou espada-de-são-jorge=Pothos, ZZ plant or snake plant
+Vasos com furo no fundo=Pots with a drainage hole
+Terra para plantas de interior=Indoor potting soil
+Escolhe um sítio com luz indireta.=Choose a spot with indirect light.
+Rega só quando a terra estiver seca.=Water only when the soil is dry.
+Limpa o pó das folhas de vez em quando.=Dust the leaves now and then.
+Se tens animais ou crianças, confirma antes se a planta é tóxica.=If you have pets or children, check first whether the plant is toxic.
+Um fim de semana=One weekend
+Uma manta ou almofadas de linho=A throw or linen cushions
+Uma peça de cerâmica=A ceramic piece
+Um objeto de madeira clara=A light-wood object
+Uma vela=A candle
+Tira o que não usas das superfícies.=Clear surfaces of things you don’t use.
+Junta três texturas diferentes em cada zona.=Combine three different textures in each area.
+Deixa espaço livre entre as peças.=Leave space between the pieces.
+Nunca deixes velas acesas sem vigilância.=Never leave lit candles unattended.
+Ideia=Idea
+Ver receita=View recipe
+Ver ideia=View idea
+Ingredientes=Ingredients
+INGREDIENTES=INGREDIENTS
+PREPARAÇÃO=METHOD
+O QUE PRECISAS=WHAT YOU NEED
+COMO FAZER=HOW TO DO IT
+Receitas da comunidade=Community recipes
+RECEITAS DA COMUNIDADE=COMMUNITY RECIPES
+Ideias da comunidade=Community ideas
+IDEIAS DA COMUNIDADE=COMMUNITY IDEAS
+Partilhar receita=Share a recipe
+Partilhar ideia=Share an idea
+Nome da receita=Recipe name
+Nome da ideia=Idea name
+Ingredientes, um por linha=Ingredients, one per line
+Preparação, um passo por linha=Method, one step per line
+O que precisas, um por linha (opcional)=What you need, one per line (optional)
+Como fazer, um passo por linha=How to do it, one step per line
+Ainda não há receitas partilhadas. Sê a primeira.=No shared recipes yet. Be the first.
+Ainda não há ideias partilhadas. Sê a primeira.=No shared ideas yet. Be the first.
+Entra na tua conta para veres e partilhares com a comunidade.=Sign in to see and share with the community.
+Partilha só fotografias e textos teus.=Only share your own photos and text.
+Adiciona uma fotografia.=Add a photo.
+Escreve um nome com pelo menos 3 letras.=Enter a name with at least 3 letters.
+Escreve os ingredientes.=Enter the ingredients.
+Explica os passos.=Explain the steps.
+Entra na tua conta para partilhares.=Sign in to share.
+Ampliar imagem=Enlarge image
 Imagem ilustrativa=Illustrative image
 Publicações de exemplo, de pessoas fictícias.=Sample posts from fictional people.
 Ideias em imagens. Toca numa fotografia para veres o tema e guarda no coração o que gostares.=Ideas in pictures. Tap a photo to see the topic and tap the heart to save what you like.
@@ -534,6 +641,113 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+5 minutos · 1 pessoa · uma noite no frio¦5 minutes · 1 personne · une nuit au frais¦5 minutos · 1 persona · una noche en la nevera¦5 minuti · 1 persona · una notte in frigo
+5 colheres de sopa de flocos de aveia¦5 cuillères à soupe de flocons d’avoine¦5 cucharadas de copos de avena¦5 cucchiai di fiocchi d’avena
+100 ml de leite ou bebida vegetal¦100 ml de lait ou de boisson végétale¦100 ml de leche o bebida vegetal¦100 ml di latte o bevanda vegetale
+1 iogurte natural¦1 yaourt nature¦1 yogur natural¦1 yogurt bianco
+1 colher de chá de mel (opcional)¦1 cuillère à café de miel (facultatif)¦1 cucharadita de miel (opcional)¦1 cucchiaino di miele (facoltativo)
+Fruta fresca a gosto¦Fruits frais selon ton goût¦Fruta fresca al gusto¦Frutta fresca a piacere
+Junta a aveia, o leite e o iogurte num frasco.¦Mets l’avoine, le lait et le yaourt dans un bocal.¦Pon la avena, la leche y el yogur en un frasco.¦Metti avena, latte e yogurt in un barattolo.
+Mexe bem e adoça, se quiseres.¦Mélange bien et sucre si tu veux.¦Remueve bien y endulza si quieres.¦Mescola bene e dolcifica se vuoi.
+Fecha e guarda no frigorífico durante a noite.¦Ferme et garde au réfrigérateur toute la nuit.¦Cierra y guarda en la nevera toda la noche.¦Chiudi e lascia in frigo per la notte.
+De manhã, junta a fruta e come frio.¦Le matin, ajoute les fruits et mange froid.¦Por la mañana, añade la fruta y come frío.¦Al mattino aggiungi la frutta e mangia freddo.
+40 minutos · 2 pessoas¦40 minutes · 2 personnes¦40 minutos · 2 personas¦40 minuti · 2 persone
+200 g de massa¦200 g de pâtes¦200 g de pasta¦200 g di pasta
+400 g de tomate cereja¦400 g de tomates cerises¦400 g de tomates cherry¦400 g di pomodorini
+3 dentes de alho¦3 gousses d’ail¦3 dientes de ajo¦3 spicchi d’aglio
+3 colheres de sopa de azeite¦3 cuillères à soupe d’huile d’olive¦3 cucharadas de aceite de oliva¦3 cucchiai di olio d’oliva
+Manjericão fresco¦Basilic frais¦Albahaca fresca¦Basilico fresco
+Sal e pimenta¦Sel et poivre¦Sal y pimienta¦Sale e pepe
+Aquece o forno a 200 °C.¦Préchauffe le four à 200 °C.¦Calienta el horno a 200 °C.¦Scalda il forno a 200 °C.
+Põe o tomate e o alho num tabuleiro com o azeite, sal e pimenta.¦Mets les tomates et l’ail sur une plaque avec l’huile, le sel et le poivre.¦Pon los tomates y el ajo en una bandeja con el aceite, sal y pimienta.¦Metti pomodorini e aglio in una teglia con olio, sale e pepe.
+Assa cerca de 25 minutos, até o tomate rebentar.¦Fais rôtir environ 25 minutes, jusqu’à ce que les tomates éclatent.¦Asa unos 25 minutos, hasta que los tomates revienten.¦Cuoci in forno circa 25 minuti, finché i pomodorini si aprono.
+Coze a massa e guarda um pouco da água.¦Cuis les pâtes et garde un peu d’eau.¦Cuece la pasta y reserva un poco de agua.¦Cuoci la pasta e tieni un po’ d’acqua.
+Esmaga o tomate, junta a massa e um pouco da água. Finaliza com manjericão.¦Écrase les tomates, ajoute les pâtes et un peu d’eau. Termine avec du basilic.¦Aplasta los tomates, añade la pasta y un poco de agua. Termina con albahaca.¦Schiaccia i pomodorini, unisci la pasta e un po’ d’acqua. Completa con il basilico.
+15 minutos · 2 pessoas¦15 minutes · 2 personnes¦15 minutos · 2 personas¦15 minuti · 2 persone
+1 lata de grão-de-bico cozido¦1 boîte de pois chiches cuits¦1 lata de garbanzos cocidos¦1 barattolo di ceci cotti
+1 pepino¦1 concombre¦1 pepino¦1 cetriolo
+2 tomates¦2 tomates¦2 tomates¦2 pomodori
+Um punhado de azeitonas¦Une poignée d’olives¦Un puñado de aceitunas¦Una manciata di olive
+Sumo de meio limão¦Le jus d’un demi-citron¦Zumo de medio limón¦Succo di mezzo limone
+2 colheres de sopa de azeite¦2 cuillères à soupe d’huile d’olive¦2 cucharadas de aceite de oliva¦2 cucchiai di olio d’oliva
+Escorre e passa o grão por água.¦Égoutte et rince les pois chiches.¦Escurre y enjuaga los garbanzos.¦Scola e sciacqua i ceci.
+Corta o pepino e o tomate em cubos.¦Coupe le concombre et les tomates en dés.¦Corta el pepino y los tomates en dados.¦Taglia cetriolo e pomodori a cubetti.
+Junta tudo numa taça, com as azeitonas.¦Réunis tout dans un bol avec les olives.¦Junta todo en un bol con las aceitunas.¦Unisci tutto in una ciotola con le olive.
+Mistura o limão, o azeite, sal e pimenta e rega a taça.¦Mélange le citron, l’huile, le sel et le poivre et arrose le bol.¦Mezcla el limón, el aceite, sal y pimienta y aliña el bol.¦Mescola limone, olio, sale e pepe e condisci la ciotola.
+50 minutos · 8 fatias¦50 minutes · 8 parts¦50 minutos · 8 porciones¦50 minuti · 8 fette
+2 medidas de açúcar (usa o copo do iogurte)¦2 mesures de sucre (avec le pot de yaourt)¦2 medidas de azúcar (usa el vaso del yogur)¦2 misure di zucchero (usa il vasetto dello yogurt)
+3 medidas de farinha¦3 mesures de farine¦3 medidas de harina¦3 misure di farina
+1 medida de óleo¦1 mesure d’huile¦1 medida de aceite¦1 misura di olio di semi
+3 ovos¦3 œufs¦3 huevos¦3 uova
+1 saqueta de fermento¦1 sachet de levure chimique¦1 sobre de levadura¦1 bustina di lievito
+Aquece o forno a 180 °C e unta uma forma.¦Préchauffe le four à 180 °C et beurre un moule.¦Calienta el horno a 180 °C y engrasa un molde.¦Scalda il forno a 180 °C e ungi uno stampo.
+Bate os ovos com o açúcar.¦Bats les œufs avec le sucre.¦Bate los huevos con el azúcar.¦Sbatti le uova con lo zucchero.
+Junta o iogurte e o óleo.¦Ajoute le yaourt et l’huile.¦Añade el yogur y el aceite.¦Aggiungi yogurt e olio.
+Envolve a farinha com o fermento.¦Incorpore la farine et la levure.¦Incorpora la harina con la levadura.¦Incorpora farina e lievito.
+Leva ao forno cerca de 35 minutos. Está pronto quando um palito sair seco.¦Enfourne environ 35 minutes. C’est prêt quand un cure-dent ressort sec.¦Hornea unos 35 minutos. Está listo cuando un palillo salga seco.¦Cuoci circa 35 minuti. È pronta quando uno stecchino esce asciutto.
+Uma tarde¦Un après-midi¦Una tarde¦Un pomeriggio
+Uma cadeira ou poltrona confortável¦Une chaise ou un fauteuil confortable¦Una silla o butaca cómoda¦Una sedia o poltrona comoda
+Um candeeiro de luz quente¦Une lampe à lumière chaude¦Una lámpara de luz cálida¦Una lampada a luce calda
+Uma manta¦Un plaid¦Una manta¦Un plaid
+Uma mesa pequena para a bebida e o livro¦Une petite table pour la boisson et le livre¦Una mesita para la bebida y el libro¦Un tavolino per la bevanda e il libro
+Escolhe um canto sossegado, de preferência perto de uma janela.¦Choisis un coin calme, de préférence près d’une fenêtre.¦Elige un rincón tranquilo, mejor cerca de una ventana.¦Scegli un angolo tranquillo, meglio vicino a una finestra.
+Coloca a cadeira com a luz por cima do ombro.¦Place le fauteuil avec la lumière par-dessus l’épaule.¦Coloca la silla con la luz por encima del hombro.¦Sistema la sedia con la luce sopra la spalla.
+Junta a manta e a mesa.¦Ajoute le plaid et la table.¦Añade la manta y la mesa.¦Aggiungi il plaid e il tavolino.
+Deixa por perto só os livros que estás a ler.¦Garde près de toi seulement les livres en cours.¦Deja cerca solo los libros que estás leyendo.¦Tieni vicino solo i libri che stai leggendo.
+Ao longo do ano¦Au fil de l’année¦A lo largo del año¦Durante l’anno
+Duas cores base, por exemplo creme e areia¦Deux couleurs de base, par exemple crème et sable¦Dos colores base, por ejemplo crema y arena¦Due colori base, per esempio crema e sabbia
+Capas de almofada¦Des housses de coussin¦Fundas de cojín¦Fodere per cuscini
+Quadros ou fotografias¦Des cadres ou des photos¦Cuadros o fotografías¦Quadri o fotografie
+Escolhe as duas cores que já tens mais em casa.¦Choisis les deux couleurs les plus présentes chez toi.¦Elige los dos colores que más tienes en casa.¦Scegli i due colori che hai già di più in casa.
+Usa-as nas peças grandes.¦Utilise-les sur les grandes pièces.¦Úsalos en las piezas grandes.¦Usali sui pezzi grandi.
+Em cada estação, muda só as capas e os quadros.¦À chaque saison, change seulement les housses et les cadres.¦En cada estación, cambia solo las fundas y los cuadros.¦A ogni stagione cambia solo fodere e quadri.
+10 minutos por semana¦10 minutes par semaine¦10 minutos a la semana¦10 minuti a settimana
+Jiboia, zamioculca ou espada-de-são-jorge¦Pothos, zamioculcas ou sansevière¦Poto, zamioculca o sansevieria¦Pothos, zamioculca o sansevieria
+Vasos com furo no fundo¦Des pots percés au fond¦Macetas con agujero en el fondo¦Vasi con il foro sul fondo
+Terra para plantas de interior¦Du terreau pour plantes d’intérieur¦Sustrato para plantas de interior¦Terriccio per piante da interno
+Escolhe um sítio com luz indireta.¦Choisis un endroit à lumière indirecte.¦Elige un sitio con luz indirecta.¦Scegli un posto con luce indiretta.
+Rega só quando a terra estiver seca.¦Arrose seulement quand la terre est sèche.¦Riega solo cuando la tierra esté seca.¦Annaffia solo quando il terriccio è asciutto.
+Limpa o pó das folhas de vez em quando.¦Dépoussière les feuilles de temps en temps.¦Limpia el polvo de las hojas de vez en cuando.¦Ogni tanto spolvera le foglie.
+Se tens animais ou crianças, confirma antes se a planta é tóxica.¦Si tu as des animaux ou des enfants, vérifie d’abord si la plante est toxique.¦Si tienes animales o niños, comprueba antes si la planta es tóxica.¦Se hai animali o bambini, controlla prima se la pianta è tossica.
+Um fim de semana¦Un week-end¦Un fin de semana¦Un fine settimana
+Uma manta ou almofadas de linho¦Un plaid ou des coussins en lin¦Una manta o cojines de lino¦Un plaid o cuscini di lino
+Uma peça de cerâmica¦Une pièce en céramique¦Una pieza de cerámica¦Un oggetto in ceramica
+Um objeto de madeira clara¦Un objet en bois clair¦Un objeto de madera clara¦Un oggetto in legno chiaro
+Uma vela¦Une bougie¦Una vela¦Una candela
+Tira o que não usas das superfícies.¦Retire des surfaces ce que tu n’utilises pas.¦Quita de las superficies lo que no usas.¦Togli dalle superfici ciò che non usi.
+Junta três texturas diferentes em cada zona.¦Associe trois textures différentes dans chaque zone.¦Combina tres texturas distintas en cada zona.¦Unisci tre texture diverse in ogni zona.
+Deixa espaço livre entre as peças.¦Laisse de l’espace entre les objets.¦Deja espacio libre entre las piezas.¦Lascia spazio tra gli oggetti.
+Nunca deixes velas acesas sem vigilância.¦Ne laisse jamais de bougies allumées sans surveillance.¦Nunca dejes velas encendidas sin vigilancia.¦Non lasciare mai candele accese incustodite.
+Ideia¦Idée¦Idea¦Idea
+Ver receita¦Voir la recette¦Ver receta¦Vedi ricetta
+Ver ideia¦Voir l’idée¦Ver idea¦Vedi idea
+Ingredientes¦Ingrédients¦Ingredientes¦Ingredienti
+INGREDIENTES¦INGRÉDIENTS¦INGREDIENTES¦INGREDIENTI
+PREPARAÇÃO¦PRÉPARATION¦PREPARACIÓN¦PREPARAZIONE
+O QUE PRECISAS¦CE QU’IL TE FAUT¦LO QUE NECESITAS¦COSA TI SERVE
+COMO FAZER¦COMMENT FAIRE¦CÓMO HACERLO¦COME FARE
+Receitas da comunidade¦Recettes de la communauté¦Recetas de la comunidad¦Ricette della community
+RECEITAS DA COMUNIDADE¦RECETTES DE LA COMMUNAUTÉ¦RECETAS DE LA COMUNIDAD¦RICETTE DELLA COMMUNITY
+Ideias da comunidade¦Idées de la communauté¦Ideas de la comunidad¦Idee della community
+IDEIAS DA COMUNIDADE¦IDÉES DE LA COMMUNAUTÉ¦IDEAS DE LA COMUNIDAD¦IDEE DELLA COMMUNITY
+Partilhar receita¦Partager une recette¦Compartir receta¦Condividi ricetta
+Partilhar ideia¦Partager une idée¦Compartir idea¦Condividi idea
+Nome da receita¦Nom de la recette¦Nombre de la receta¦Nome della ricetta
+Nome da ideia¦Nom de l’idée¦Nombre de la idea¦Nome dell’idea
+Ingredientes, um por linha¦Ingrédients, un par ligne¦Ingredientes, uno por línea¦Ingredienti, uno per riga
+Preparação, um passo por linha¦Préparation, une étape par ligne¦Preparación, un paso por línea¦Preparazione, un passaggio per riga
+O que precisas, um por linha (opcional)¦Ce qu’il te faut, un par ligne (facultatif)¦Lo que necesitas, uno por línea (opcional)¦Cosa ti serve, uno per riga (facoltativo)
+Como fazer, um passo por linha¦Comment faire, une étape par ligne¦Cómo hacerlo, un paso por línea¦Come fare, un passaggio per riga
+Ainda não há receitas partilhadas. Sê a primeira.¦Pas encore de recettes partagées. Sois la première.¦Aún no hay recetas compartidas. Sé la primera.¦Ancora nessuna ricetta condivisa. Sii la prima.
+Ainda não há ideias partilhadas. Sê a primeira.¦Pas encore d’idées partagées. Sois la première.¦Aún no hay ideas compartidas. Sé la primera.¦Ancora nessuna idea condivisa. Sii la prima.
+Entra na tua conta para veres e partilhares com a comunidade.¦Connecte-toi pour voir et partager avec la communauté.¦Entra en tu cuenta para ver y compartir con la comunidad.¦Accedi per vedere e condividere con la community.
+Partilha só fotografias e textos teus.¦Partage uniquement tes propres photos et textes.¦Comparte solo fotos y textos tuyos.¦Condividi solo foto e testi tuoi.
+Adiciona uma fotografia.¦Ajoute une photo.¦Añade una foto.¦Aggiungi una foto.
+Escreve um nome com pelo menos 3 letras.¦Écris un nom d’au moins 3 lettres.¦Escribe un nombre de al menos 3 letras.¦Scrivi un nome di almeno 3 lettere.
+Escreve os ingredientes.¦Écris les ingrédients.¦Escribe los ingredientes.¦Scrivi gli ingredienti.
+Explica os passos.¦Explique les étapes.¦Explica los pasos.¦Spiega i passaggi.
+Entra na tua conta para partilhares.¦Connecte-toi pour partager.¦Entra en tu cuenta para compartir.¦Accedi per condividere.
+Ampliar imagem¦Agrandir l’image¦Ampliar imagen¦Ingrandisci immagine
 Imagem ilustrativa¦Image d’illustration¦Imagen ilustrativa¦Immagine illustrativa
 Publicações de exemplo, de pessoas fictícias.¦Publications d’exemple, de personnes fictives.¦Publicaciones de ejemplo, de personas ficticias.¦Post di esempio, di persone fittizie.
 Ideias em imagens. Toca numa fotografia para veres o tema e guarda no coração o que gostares.¦Des idées en images. Touche une photo pour voir le thème et garde avec le cœur ce que tu aimes.¦Ideas en imágenes. Toca una foto para ver el tema y guarda con el corazón lo que te guste.¦Idee in immagini. Tocca una foto per vedere il tema e salva con il cuore ciò che ti piace.
