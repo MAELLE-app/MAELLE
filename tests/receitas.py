@@ -113,6 +113,13 @@ with sync_playwright() as pw:
     pg.click('article button.link[data-id="b3"]');pg.wait_for_selector('.web a');ok(pg.locator('.steps li').count()==5 and pg.locator('.ings li').count()==4);noscroll();pg.screenshot(path='/tmp/t/pag-b3.png',full_page=True)
     for i in ('b1','b2','b4'):
         go('beleza');pg.click(f'article button.link[data-id="{i}"]');pg.wait_for_selector('.hero img');ok(pg.locator('.steps li').count()>=4 and pg.locator('.ings li').count()>=3,i);noscroll()
+    for k,kind,prefix in (('moda','fashion','m'),('criatividade','creative','c'),('organizacao','organize','o'),('livros','reading','l')):
+        go(k);pg.wait_for_selector('.sec >> text=COMUNIDADE');pg.click('[data-s=share]')
+        pg.set_input_files('#pimgin',files=[{'name':'a.png','mimeType':'image/png','buffer':jpg}]);pg.wait_for_selector('#pimgprev img')
+        pg.fill('#sh-t','Teste '+k);pg.fill('#sh-s','Um\nDois');send();pg.wait_for_selector(f'.scard >> text=Teste {k}');ok(db['posts'][-1]['kind']==kind,k);noscroll()
+        for i in (prefix+n for n in '1234'):
+            go(k);pg.click(f'article button.link[data-id="{i}"]');pg.wait_for_selector('.hero img');ok(pg.locator('.steps li').count()>=3 and pg.locator('.ings li').count()>=1,i);noscroll()
+    ok(pg.evaluate('Object.keys(IDEAS).every(i=>DETAIL[i])'))
     # no feed aparece com o nome e os passos recolhidos
     pg.click('#tabs >> text=Comunidade');pg.click('text=Publicações');pg.wait_for_selector('article >> text=Parede de quadros');ok(not pg.locator('article .steps').first.is_visible())
     pg.locator('article summary').first.click();ok(pg.locator('article .steps li').first.is_visible());noscroll()

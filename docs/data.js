@@ -219,3 +219,39 @@ Object.assign(DETAIL,{
  b4:{meta:'Todas as noites',q:'fronha de cetim máscara de dormir creme de noite',items:['Fronha de cetim','Elástico de tecido macio','Creme de noite ou o teu hidratante','Máscara para os olhos (opcional)'],
   steps:['Tenta deitar-te e levantar-te a horas parecidas.','Limpa e hidrata a pele.','Prende o cabelo sem apertar ou deixa-o solto.','Larga o telemóvel um pouco antes de dormir.']}
 });
+
+/* páginas completas dos restantes temas */
+Object.assign(DETAIL,{
+ m1:{meta:'Uma tarde para organizar',items:['2 tops neutros','1 camisa e 1 camisola','2 pares de calças e 1 saia ou calções','1 casaco','2 pares de sapatos'],
+  steps:['Escolhe duas ou três cores base.','Separa as peças que já tens e combinam.','Experimenta as combinações e fotografa.','Anota o que falta antes de comprar.']},
+ m2:{meta:'5 minutos',items:['Uma peça na cor base','Uma peça no tom de apoio','Um acessório de destaque'],
+  steps:['Começa pela peça maior.','Junta o tom de apoio.','Termina com um só detalhe que se destaca.']},
+ m3:{meta:'2 minutos',items:['Um cinto','Um lenço','Brincos grandes','Uma mala pequena'],
+  steps:['Veste um conjunto simples.','Escolhe um acessório principal.','Usa o lenço no cabelo, no pescoço ou na mala.','Olha ao espelho e tira o que estiver a mais.']},
+ m4:{meta:'Em cada lavagem',items:['Detergente suave','Saco para peças delicadas','Estendal','Cabides adequados'],
+  steps:['Lê a etiqueta antes de lavar.','Vira as peças do avesso.','Lava a baixa temperatura.','Seca à sombra e dobra as malhas.']},
+ c1:{meta:'5 minutos por dia',items:['Um caderno pequeno','Uma caneta'],
+  steps:['Escolhe uma hora que consigas repetir.','Escreve uma coisa que viste.','Escreve uma que sentiste.','Escreve uma que queres.']},
+ c2:{meta:'30 minutos',items:['Revistas antigas','Tesoura','Cola em stick','Uma folha grossa'],
+  steps:['Escolhe uma cor.','Recorta tudo o que a tiver, sem pensar muito.','Dispõe os recortes antes de colar.','Cola e escreve a data.']},
+ c3:{meta:'20 minutos',items:['Telemóvel ou máquina fotográfica','Sapatos confortáveis'],
+  steps:['Limpa a lente.','Procura texturas, sombras e cores.','Aproxima-te do pormenor.','Escolhe as cinco de que mais gostas. Não fotografes pessoas sem autorização.']},
+ c4:{meta:'10 minutos',items:['Papel','Lápis ou caneta','Um objeto simples'],
+  steps:['Pousa o objeto à tua frente.','Olha só para ele, nunca para o papel.','Desenha devagar, sem levantar o lápis.','Vê o resultado e repete.']},
+ o1:{meta:'5 minutos de manhã',items:['A tua lista de tarefas','A agenda'],
+  steps:['Escreve tudo o que tens para fazer.','Escolhe as três mais importantes.','Marca uma hora para a mais difícil.','No fim do dia, risca o que fizeste.']},
+ o2:{meta:'10 minutos ao domingo',items:['Agenda','Lista de tarefas','Lista de compras'],
+  steps:['Vê os compromissos da semana.','Passa para a nova lista o que ficou por fazer.','Planeia algumas refeições.','Reserva um momento só para ti.']},
+ o3:{meta:'Ao longo do dia',items:['Um relógio ou o telemóvel'],
+  steps:['Quando surgir uma tarefa, estima o tempo.','Se for menos de dois minutos, faz já.','Se for mais, anota para depois.','Se estiveres concentrada, não interrompas: anota.']},
+ o4:{meta:'Uma gaveta de cada vez',items:['Caixas pequenas','Etiquetas','Um saco para doar ou reciclar'],
+  steps:['Esvazia a gaveta.','Separa por categorias.','Doa ou recicla o que não usas.','Arruma em caixas e põe etiquetas.']},
+ l1:{meta:'Antes de dormir',items:['Um livro de que gostes','Um marcador','Uma luz confortável'],
+  steps:['Deixa o livro à vista na mesa de cabeceira.','Afasta o telemóvel.','Lê dez páginas.','Marca onde paraste.']},
+ l2:{meta:'Ao teu ritmo',items:['Um livro','Uma lista do que queres ler a seguir'],
+  steps:['Escolhe só um para agora.','Dá-lhe cerca de cinquenta páginas.','Se não te prender, pousa sem culpa.','Anota os próximos numa lista.']},
+ l3:{meta:'5 minutos',items:['O livro que estás a ler','Lápis ou marcadores adesivos','O teu diário'],
+  steps:['Assinala as frases que te tocam.','Escolhe a favorita.','Lê-a em voz alta.','Copia-a para o diário com a página.']},
+ l4:{meta:'Quando acabares um livro',items:['Livros em bom estado','Alguém com quem trocar'],
+  steps:['Escolhe os que não vais reler.','Vê o Clube de Livros da app.','Combina a troca por mensagem.','Se se encontrarem, escolham um local público.']}
+});

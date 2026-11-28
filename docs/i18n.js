@@ -10,6 +10,164 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+Uma tarde para organizar=An afternoon to organise
+2 tops neutros=2 neutral tops
+1 camisa e 1 camisola=1 shirt and 1 jumper
+2 pares de calças e 1 saia ou calções=2 pairs of trousers and 1 skirt or shorts
+1 casaco=1 coat
+2 pares de sapatos=2 pairs of shoes
+Escolhe duas ou três cores base.=Choose two or three base colours.
+Separa as peças que já tens e combinam.=Pull out pieces you own that match.
+Experimenta as combinações e fotografa.=Try the combinations and take photos.
+Anota o que falta antes de comprar.=Note what is missing before buying.
+5 minutos=5 minutes
+Uma peça na cor base=A piece in the base colour
+Uma peça no tom de apoio=A piece in the support colour
+Um acessório de destaque=A statement accessory
+Começa pela peça maior.=Start with the biggest piece.
+Junta o tom de apoio.=Add the support colour.
+Termina com um só detalhe que se destaca.=Finish with just one standout detail.
+2 minutos=2 minutes
+Um cinto=A belt
+Um lenço=A scarf
+Brincos grandes=Statement earrings
+Uma mala pequena=A small bag
+Veste um conjunto simples.=Put on a simple outfit.
+Escolhe um acessório principal.=Choose one main accessory.
+Usa o lenço no cabelo, no pescoço ou na mala.=Wear the scarf in your hair, round your neck or on your bag.
+Olha ao espelho e tira o que estiver a mais.=Check the mirror and remove anything extra.
+Em cada lavagem=Every wash
+Detergente suave=Gentle detergent
+Saco para peças delicadas=Bag for delicates
+Estendal=Drying rack
+Cabides adequados=Suitable hangers
+Lê a etiqueta antes de lavar.=Read the label before washing.
+Vira as peças do avesso.=Turn items inside out.
+Lava a baixa temperatura.=Wash at a low temperature.
+Seca à sombra e dobra as malhas.=Dry in the shade and fold knitwear.
+5 minutos por dia=5 minutes a day
+Um caderno pequeno=A small notebook
+Uma caneta=A pen
+Escolhe uma hora que consigas repetir.=Pick a time you can repeat.
+Escreve uma coisa que viste.=Write one thing you saw.
+Escreve uma que sentiste.=Write one thing you felt.
+Escreve uma que queres.=Write one thing you want.
+30 minutos=30 minutes
+Revistas antigas=Old magazines
+Tesoura=Scissors
+Cola em stick=Glue stick
+Uma folha grossa=A thick sheet of paper
+Escolhe uma cor.=Choose a colour.
+Recorta tudo o que a tiver, sem pensar muito.=Cut out everything in it without overthinking.
+Dispõe os recortes antes de colar.=Arrange the cut-outs before gluing.
+Cola e escreve a data.=Glue and write the date.
+20 minutos=20 minutes
+Telemóvel ou máquina fotográfica=Phone or camera
+Sapatos confortáveis=Comfortable shoes
+Limpa a lente.=Clean the lens.
+Procura texturas, sombras e cores.=Look for textures, shadows and colours.
+Aproxima-te do pormenor.=Get close to the detail.
+Escolhe as cinco de que mais gostas. Não fotografes pessoas sem autorização.=Keep your five favourites. Don’t photograph people without permission.
+10 minutos=10 minutes
+Papel=Paper
+Lápis ou caneta=Pencil or pen
+Um objeto simples=A simple object
+Pousa o objeto à tua frente.=Put the object in front of you.
+Olha só para ele, nunca para o papel.=Look only at it, never at the paper.
+Desenha devagar, sem levantar o lápis.=Draw slowly without lifting the pencil.
+Vê o resultado e repete.=Look at the result and repeat.
+5 minutos de manhã=5 minutes in the morning
+A tua lista de tarefas=Your to-do list
+A agenda=Your planner
+Escreve tudo o que tens para fazer.=Write down everything you have to do.
+Escolhe as três mais importantes.=Pick the three most important.
+Marca uma hora para a mais difícil.=Set a time for the hardest one.
+No fim do dia, risca o que fizeste.=At day’s end, cross off what you did.
+10 minutos ao domingo=10 minutes on Sunday
+Agenda=Planner
+Lista de tarefas=To-do list
+Lista de compras=Shopping list
+Vê os compromissos da semana.=Check the week’s appointments.
+Passa para a nova lista o que ficou por fazer.=Move unfinished tasks to the new list.
+Planeia algumas refeições.=Plan a few meals.
+Reserva um momento só para ti.=Book a moment just for you.
+Ao longo do dia=Throughout the day
+Um relógio ou o telemóvel=A clock or your phone
+Quando surgir uma tarefa, estima o tempo.=When a task appears, estimate the time.
+Se for menos de dois minutos, faz já.=If under two minutes, do it now.
+Se for mais, anota para depois.=If longer, note it for later.
+Se estiveres concentrada, não interrompas: anota.=If you are focused, don’t stop: note it.
+Uma gaveta de cada vez=One drawer at a time
+Caixas pequenas=Small boxes
+Etiquetas=Labels
+Um saco para doar ou reciclar=A bag to donate or recycle
+Esvazia a gaveta.=Empty the drawer.
+Separa por categorias.=Sort into categories.
+Doa ou recicla o que não usas.=Donate or recycle what you don’t use.
+Arruma em caixas e põe etiquetas.=Put into boxes and label them.
+Antes de dormir=Before bed
+Um livro de que gostes=A book you enjoy
+Um marcador=A bookmark
+Uma luz confortável=Comfortable light
+Deixa o livro à vista na mesa de cabeceira.=Keep the book visible on your bedside table.
+Afasta o telemóvel.=Put your phone away.
+Lê dez páginas.=Read ten pages.
+Marca onde paraste.=Mark where you stopped.
+Ao teu ritmo=At your own pace
+Um livro=A book
+Uma lista do que queres ler a seguir=A list of what to read next
+Escolhe só um para agora.=Choose just one for now.
+Dá-lhe cerca de cinquenta páginas.=Give it about fifty pages.
+Se não te prender, pousa sem culpa.=If it doesn’t grip you, put it down guilt-free.
+Anota os próximos numa lista.=List your next reads.
+O livro que estás a ler=The book you are reading
+Lápis ou marcadores adesivos=Pencil or sticky tabs
+O teu diário=Your journal
+Assinala as frases que te tocam.=Mark the lines that move you.
+Escolhe a favorita.=Pick your favourite.
+Lê-a em voz alta.=Read it aloud.
+Copia-a para o diário com a página.=Copy it into your journal with the page number.
+Quando acabares um livro=When you finish a book
+Livros em bom estado=Books in good condition
+Alguém com quem trocar=Someone to swap with
+Escolhe os que não vais reler.=Pick the ones you won’t reread.
+Vê o Clube de Livros da app.=Visit the app’s Book Club.
+Combina a troca por mensagem.=Arrange the swap by message.
+Se se encontrarem, escolham um local público.=If you meet, choose a public place.
+Looks da comunidade=Community looks
+Partilhar look=Share a look
+Peças=Pieces
+Como combinar=How to style
+Nome do look=Look name
+Peças, uma por linha (opcional)=Pieces, one per line (optional)
+Como combinar, uma dica por linha=How to style, one tip per line
+Ainda não há looks partilhados. Sê a primeira.=No shared looks yet. Be the first.
+LOOKS DA COMUNIDADE=COMMUNITY LOOKS
+PEÇAS=PIECES
+COMO COMBINAR=HOW TO STYLE
+Criações da comunidade=Community creations
+Partilhar criação=Share a creation
+Materiais=Materials
+Nome da criação=Creation name
+Materiais, um por linha (opcional)=Materials, one per line (optional)
+Ainda não há criações partilhadas. Sê a primeira.=No shared creations yet. Be the first.
+CRIAÇÕES DA COMUNIDADE=COMMUNITY CREATIONS
+MATERIAIS=MATERIALS
+Dicas da comunidade=Community tips
+Partilhar dica=Share a tip
+Nome da dica=Tip name
+Ainda não há dicas partilhadas. Sê a primeira.=No shared tips yet. Be the first.
+DICAS DA COMUNIDADE=COMMUNITY TIPS
+Leituras da comunidade=Community reads
+Partilhar leitura=Share a read
+A tua opinião=Your thoughts
+Título da partilha=Post title
+Livros e autores, um por linha (opcional)=Books and authors, one per line (optional)
+A tua opinião ou dica=Your thoughts or tip
+Ainda não há leituras partilhadas. Sê a primeira.=No shared reads yet. Be the first.
+LEITURAS DA COMUNIDADE=COMMUNITY READS
+LIVROS=BOOKS
+A TUA OPINIÃO=YOUR THOUGHTS
 5 minutos · manhã e noite=5 minutes · morning and night
 Gel ou creme de limpeza suave=Gentle cleansing gel or cream
 Hidratante adequado ao teu tipo de pele=Moisturiser suited to your skin type
@@ -787,6 +945,164 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+Uma tarde para organizar¦Un après-midi pour trier¦Una tarde para organizar¦Un pomeriggio per riordinare
+2 tops neutros¦2 hauts neutres¦2 tops neutros¦2 top neutri
+1 camisa e 1 camisola¦1 chemise et 1 pull¦1 camisa y 1 jersey¦1 camicia e 1 maglione
+2 pares de calças e 1 saia ou calções¦2 pantalons et 1 jupe ou short¦2 pantalones y 1 falda o short¦2 pantaloni e 1 gonna o pantaloncini
+1 casaco¦1 manteau¦1 abrigo¦1 cappotto
+2 pares de sapatos¦2 paires de chaussures¦2 pares de zapatos¦2 paia di scarpe
+Escolhe duas ou três cores base.¦Choisis deux ou trois couleurs de base.¦Elige dos o tres colores base.¦Scegli due o tre colori base.
+Separa as peças que já tens e combinam.¦Sors les pièces que tu as et qui s’accordent.¦Separa las prendas que ya tienes y combinan.¦Metti da parte i capi che hai già e che si abbinano.
+Experimenta as combinações e fotografa.¦Essaie les combinaisons et photographie-les.¦Prueba las combinaciones y haz fotos.¦Prova gli abbinamenti e fotografali.
+Anota o que falta antes de comprar.¦Note ce qui manque avant d’acheter.¦Apunta lo que falta antes de comprar.¦Annota cosa manca prima di comprare.
+5 minutos¦5 minutes¦5 minutos¦5 minuti
+Uma peça na cor base¦Une pièce dans la couleur de base¦Una prenda en el color base¦Un capo nel colore base
+Uma peça no tom de apoio¦Une pièce dans le ton secondaire¦Una prenda en el tono de apoyo¦Un capo nel tono di supporto
+Um acessório de destaque¦Un accessoire fort¦Un accesorio destacado¦Un accessorio d’effetto
+Começa pela peça maior.¦Commence par la pièce principale.¦Empieza por la prenda principal.¦Inizia dal capo principale.
+Junta o tom de apoio.¦Ajoute le ton secondaire.¦Añade el tono de apoyo.¦Aggiungi il tono di supporto.
+Termina com um só detalhe que se destaca.¦Termine par un seul détail qui ressort.¦Termina con un solo detalle que destaque.¦Concludi con un solo dettaglio che spicca.
+2 minutos¦2 minutes¦2 minutos¦2 minuti
+Um cinto¦Une ceinture¦Un cinturón¦Una cintura
+Um lenço¦Un foulard¦Un pañuelo¦Un foulard
+Brincos grandes¦Grandes boucles d’oreilles¦Pendientes grandes¦Orecchini grandi
+Uma mala pequena¦Un petit sac¦Un bolso pequeño¦Una borsa piccola
+Veste um conjunto simples.¦Enfile une tenue simple.¦Ponte un conjunto sencillo.¦Indossa un outfit semplice.
+Escolhe um acessório principal.¦Choisis un accessoire principal.¦Elige un accesorio principal.¦Scegli un accessorio principale.
+Usa o lenço no cabelo, no pescoço ou na mala.¦Porte le foulard dans les cheveux, au cou ou sur le sac.¦Usa el pañuelo en el pelo, el cuello o el bolso.¦Porta il foulard nei capelli, al collo o sulla borsa.
+Olha ao espelho e tira o que estiver a mais.¦Regarde-toi et retire le superflu.¦Mírate al espejo y quita lo que sobre.¦Guardati allo specchio e togli il superfluo.
+Em cada lavagem¦À chaque lavage¦En cada lavado¦A ogni lavaggio
+Detergente suave¦Lessive douce¦Detergente suave¦Detersivo delicato
+Saco para peças delicadas¦Filet pour le linge délicat¦Bolsa para prendas delicadas¦Sacchetto per delicati
+Estendal¦Étendoir¦Tendedero¦Stendibiancheria
+Cabides adequados¦Cintres adaptés¦Perchas adecuadas¦Grucce adatte
+Lê a etiqueta antes de lavar.¦Lis l’étiquette avant de laver.¦Lee la etiqueta antes de lavar.¦Leggi l’etichetta prima di lavare.
+Vira as peças do avesso.¦Retourne les vêtements.¦Da la vuelta a las prendas.¦Gira i capi al rovescio.
+Lava a baixa temperatura.¦Lave à basse température.¦Lava a baja temperatura.¦Lava a bassa temperatura.
+Seca à sombra e dobra as malhas.¦Sèche à l’ombre et plie la maille.¦Seca a la sombra y dobla las prendas de punto.¦Asciuga all’ombra e piega la maglieria.
+5 minutos por dia¦5 minutes par jour¦5 minutos al día¦5 minuti al giorno
+Um caderno pequeno¦Un petit carnet¦Un cuaderno pequeño¦Un quadernetto
+Uma caneta¦Un stylo¦Un bolígrafo¦Una penna
+Escolhe uma hora que consigas repetir.¦Choisis un moment facile à répéter.¦Elige una hora que puedas repetir.¦Scegli un orario che puoi ripetere.
+Escreve uma coisa que viste.¦Écris une chose vue.¦Escribe algo que viste.¦Scrivi una cosa che hai visto.
+Escreve uma que sentiste.¦Écris une chose ressentie.¦Escribe algo que sentiste.¦Scrivi una cosa che hai provato.
+Escreve uma que queres.¦Écris une chose voulue.¦Escribe algo que quieres.¦Scrivi una cosa che desideri.
+30 minutos¦30 minutes¦30 minutos¦30 minuti
+Revistas antigas¦Vieux magazines¦Revistas antiguas¦Vecchie riviste
+Tesoura¦Ciseaux¦Tijeras¦Forbici
+Cola em stick¦Colle en stick¦Pegamento en barra¦Colla stick
+Uma folha grossa¦Une feuille épaisse¦Una hoja gruesa¦Un foglio spesso
+Escolhe uma cor.¦Choisis une couleur.¦Elige un color.¦Scegli un colore.
+Recorta tudo o que a tiver, sem pensar muito.¦Découpe tout ce qui la contient, sans trop réfléchir.¦Recorta todo lo que lo tenga, sin pensarlo mucho.¦Ritaglia tutto ciò che lo contiene, senza pensarci troppo.
+Dispõe os recortes antes de colar.¦Dispose les découpes avant de coller.¦Coloca los recortes antes de pegar.¦Disponi i ritagli prima di incollare.
+Cola e escreve a data.¦Colle et note la date.¦Pega y escribe la fecha.¦Incolla e scrivi la data.
+20 minutos¦20 minutes¦20 minutos¦20 minuti
+Telemóvel ou máquina fotográfica¦Téléphone ou appareil photo¦Móvil o cámara¦Telefono o fotocamera
+Sapatos confortáveis¦Chaussures confortables¦Zapatos cómodos¦Scarpe comode
+Limpa a lente.¦Nettoie l’objectif.¦Limpia la lente.¦Pulisci l’obiettivo.
+Procura texturas, sombras e cores.¦Cherche textures, ombres et couleurs.¦Busca texturas, sombras y colores.¦Cerca texture, ombre e colori.
+Aproxima-te do pormenor.¦Approche-toi du détail.¦Acércate al detalle.¦Avvicinati al dettaglio.
+Escolhe as cinco de que mais gostas. Não fotografes pessoas sem autorização.¦Garde tes cinq préférées. Ne photographie personne sans autorisation.¦Quédate con tus cinco favoritas. No fotografíes personas sin permiso.¦Tieni le cinque preferite. Non fotografare persone senza permesso.
+10 minutos¦10 minutes¦10 minutos¦10 minuti
+Papel¦Papier¦Papel¦Carta
+Lápis ou caneta¦Crayon ou stylo¦Lápiz o bolígrafo¦Matita o penna
+Um objeto simples¦Un objet simple¦Un objeto sencillo¦Un oggetto semplice
+Pousa o objeto à tua frente.¦Pose l’objet devant toi.¦Coloca el objeto delante de ti.¦Metti l’oggetto davanti a te.
+Olha só para ele, nunca para o papel.¦Regarde-le seulement, jamais la feuille.¦Míralo solo a él, nunca al papel.¦Guarda solo l’oggetto, mai il foglio.
+Desenha devagar, sem levantar o lápis.¦Dessine lentement sans lever le crayon.¦Dibuja despacio sin levantar el lápiz.¦Disegna lentamente senza staccare la matita.
+Vê o resultado e repete.¦Regarde le résultat et recommence.¦Mira el resultado y repite.¦Guarda il risultato e ripeti.
+5 minutos de manhã¦5 minutes le matin¦5 minutos por la mañana¦5 minuti al mattino
+A tua lista de tarefas¦Ta liste de tâches¦Tu lista de tareas¦La tua lista di attività
+A agenda¦Ton agenda¦Tu agenda¦La tua agenda
+Escreve tudo o que tens para fazer.¦Écris tout ce que tu as à faire.¦Escribe todo lo que tienes que hacer.¦Scrivi tutto ciò che devi fare.
+Escolhe as três mais importantes.¦Choisis les trois plus importantes.¦Elige las tres más importantes.¦Scegli le tre più importanti.
+Marca uma hora para a mais difícil.¦Fixe une heure pour la plus difficile.¦Pon hora a la más difícil.¦Fissa un orario per la più difficile.
+No fim do dia, risca o que fizeste.¦En fin de journée, raye ce qui est fait.¦Al final del día, tacha lo hecho.¦A fine giornata spunta ciò che hai fatto.
+10 minutos ao domingo¦10 minutes le dimanche¦10 minutos el domingo¦10 minuti la domenica
+Agenda¦Agenda¦Agenda¦Agenda
+Lista de tarefas¦Liste de tâches¦Lista de tareas¦Lista di attività
+Lista de compras¦Liste de courses¦Lista de la compra¦Lista della spesa
+Vê os compromissos da semana.¦Regarde les rendez-vous de la semaine.¦Revisa las citas de la semana.¦Controlla gli impegni della settimana.
+Passa para a nova lista o que ficou por fazer.¦Reporte ce qui reste à faire.¦Pasa lo pendiente a la nueva lista.¦Riporta le cose non fatte nella nuova lista.
+Planeia algumas refeições.¦Prévois quelques repas.¦Planea algunas comidas.¦Pianifica qualche pasto.
+Reserva um momento só para ti.¦Réserve un moment pour toi.¦Reserva un momento para ti.¦Riserva un momento per te.
+Ao longo do dia¦Au fil de la journée¦A lo largo del día¦Durante la giornata
+Um relógio ou o telemóvel¦Une montre ou le téléphone¦Un reloj o el móvil¦Un orologio o il telefono
+Quando surgir uma tarefa, estima o tempo.¦Quand une tâche arrive, estime sa durée.¦Cuando surja una tarea, calcula el tiempo.¦Quando arriva un compito, stima il tempo.
+Se for menos de dois minutos, faz já.¦Moins de deux minutes ? Fais-le tout de suite.¦Si son menos de dos minutos, hazlo ya.¦Se bastano meno di due minuti, fallo subito.
+Se for mais, anota para depois.¦Sinon, note-la pour plus tard.¦Si es más, apúntalo para después.¦Se serve di più, annotalo.
+Se estiveres concentrada, não interrompas: anota.¦Si tu es concentrée, ne t’interromps pas : note.¦Si estás concentrada, no te interrumpas: apunta.¦Se sei concentrata, non interromperti: annota.
+Uma gaveta de cada vez¦Un tiroir à la fois¦Un cajón cada vez¦Un cassetto alla volta
+Caixas pequenas¦Petites boîtes¦Cajas pequeñas¦Scatoline
+Etiquetas¦Étiquettes¦Etiquetas¦Etichette
+Um saco para doar ou reciclar¦Un sac à donner ou recycler¦Una bolsa para donar o reciclar¦Un sacco per donare o riciclare
+Esvazia a gaveta.¦Vide le tiroir.¦Vacía el cajón.¦Svuota il cassetto.
+Separa por categorias.¦Trie par catégories.¦Separa por categorías.¦Dividi per categorie.
+Doa ou recicla o que não usas.¦Donne ou recycle ce que tu n’utilises pas.¦Dona o recicla lo que no usas.¦Dona o ricicla ciò che non usi.
+Arruma em caixas e põe etiquetas.¦Range en boîtes et étiquette.¦Guarda en cajas y etiqueta.¦Riponi in scatole ed etichetta.
+Antes de dormir¦Avant de dormir¦Antes de dormir¦Prima di dormire
+Um livro de que gostes¦Un livre qui te plaît¦Un libro que te guste¦Un libro che ti piace
+Um marcador¦Un marque-page¦Un marcapáginas¦Un segnalibro
+Uma luz confortável¦Une lumière douce¦Una luz cómoda¦Una luce confortevole
+Deixa o livro à vista na mesa de cabeceira.¦Laisse le livre en vue sur la table de chevet.¦Deja el libro a la vista en la mesilla.¦Lascia il libro in vista sul comodino.
+Afasta o telemóvel.¦Éloigne le téléphone.¦Aparta el móvil.¦Allontana il telefono.
+Lê dez páginas.¦Lis dix pages.¦Lee diez páginas.¦Leggi dieci pagine.
+Marca onde paraste.¦Marque ta page.¦Marca dónde paraste.¦Segna dove sei arrivata.
+Ao teu ritmo¦À ton rythme¦A tu ritmo¦Al tuo ritmo
+Um livro¦Un livre¦Un libro¦Un libro
+Uma lista do que queres ler a seguir¦Une liste de prochaines lectures¦Una lista de próximas lecturas¦Una lista delle prossime letture
+Escolhe só um para agora.¦Choisis-en un seul pour l’instant.¦Elige solo uno por ahora.¦Scegline uno solo per ora.
+Dá-lhe cerca de cinquenta páginas.¦Laisse-lui une cinquantaine de pages.¦Dale unas cincuenta páginas.¦Concedigli circa cinquanta pagine.
+Se não te prender, pousa sem culpa.¦S’il ne te prend pas, pose-le sans culpabilité.¦Si no te engancha, déjalo sin culpa.¦Se non ti prende, lascialo senza sensi di colpa.
+Anota os próximos numa lista.¦Note les prochains.¦Apunta los siguientes.¦Annota i prossimi.
+O livro que estás a ler¦Le livre en cours¦El libro que estás leyendo¦Il libro che stai leggendo
+Lápis ou marcadores adesivos¦Crayon ou marque-pages adhésifs¦Lápiz o marcadores adhesivos¦Matita o segnapagina adesivi
+O teu diário¦Ton journal¦Tu diario¦Il tuo diario
+Assinala as frases que te tocam.¦Repère les phrases qui te touchent.¦Señala las frases que te lleguen.¦Segna le frasi che ti colpiscono.
+Escolhe a favorita.¦Choisis ta préférée.¦Elige tu favorita.¦Scegli la preferita.
+Lê-a em voz alta.¦Lis-la à voix haute.¦Léela en voz alta.¦Leggila ad alta voce.
+Copia-a para o diário com a página.¦Recopie-la dans ton journal avec la page.¦Cópiala en el diario con la página.¦Copiala nel diario con la pagina.
+Quando acabares um livro¦Quand tu finis un livre¦Cuando termines un libro¦Quando finisci un libro
+Livros em bom estado¦Des livres en bon état¦Libros en buen estado¦Libri in buono stato
+Alguém com quem trocar¦Quelqu’un avec qui échanger¦Alguien con quien intercambiar¦Qualcuno con cui scambiare
+Escolhe os que não vais reler.¦Choisis ceux que tu ne reliras pas.¦Elige los que no vas a releer.¦Scegli quelli che non rileggerai.
+Vê o Clube de Livros da app.¦Va voir le Club de lecture de l’app.¦Mira el Club de Lectura de la app.¦Visita il Club del libro dell’app.
+Combina a troca por mensagem.¦Organise l’échange par message.¦Acuerda el intercambio por mensaje.¦Organizza lo scambio per messaggio.
+Se se encontrarem, escolham um local público.¦Si vous vous voyez, choisissez un lieu public.¦Si quedáis, elegid un lugar público.¦Se vi incontrate, scegliete un luogo pubblico.
+Looks da comunidade¦Looks de la communauté¦Looks de la comunidad¦Look della community
+Partilhar look¦Partager un look¦Compartir look¦Condividi look
+Peças¦Pièces¦Prendas¦Capi
+Como combinar¦Comment associer¦Cómo combinar¦Come abbinare
+Nome do look¦Nom du look¦Nombre del look¦Nome del look
+Peças, uma por linha (opcional)¦Pièces, une par ligne (facultatif)¦Prendas, una por línea (opcional)¦Capi, uno per riga (facoltativo)
+Como combinar, uma dica por linha¦Comment associer, un conseil par ligne¦Cómo combinar, un consejo por línea¦Come abbinare, un consiglio per riga
+Ainda não há looks partilhados. Sê a primeira.¦Pas encore de looks partagés. Sois la première.¦Aún no hay looks compartidos. Sé la primera.¦Ancora nessun look condiviso. Sii la prima.
+LOOKS DA COMUNIDADE¦LOOKS DE LA COMMUNAUTÉ¦LOOKS DE LA COMUNIDAD¦LOOK DELLA COMMUNITY
+PEÇAS¦PIÈCES¦PRENDAS¦CAPI
+COMO COMBINAR¦COMMENT ASSOCIER¦CÓMO COMBINAR¦COME ABBINARE
+Criações da comunidade¦Créations de la communauté¦Creaciones de la comunidad¦Creazioni della community
+Partilhar criação¦Partager une création¦Compartir creación¦Condividi creazione
+Materiais¦Matériel¦Materiales¦Materiali
+Nome da criação¦Nom de la création¦Nombre de la creación¦Nome della creazione
+Materiais, um por linha (opcional)¦Matériel, un par ligne (facultatif)¦Materiales, uno por línea (opcional)¦Materiali, uno per riga (facoltativo)
+Ainda não há criações partilhadas. Sê a primeira.¦Pas encore de créations partagées. Sois la première.¦Aún no hay creaciones compartidas. Sé la primera.¦Ancora nessuna creazione condivisa. Sii la prima.
+CRIAÇÕES DA COMUNIDADE¦CRÉATIONS DE LA COMMUNAUTÉ¦CREACIONES DE LA COMUNIDAD¦CREAZIONI DELLA COMMUNITY
+MATERIAIS¦MATÉRIEL¦MATERIALES¦MATERIALI
+Dicas da comunidade¦Astuces de la communauté¦Trucos de la comunidad¦Consigli della community
+Partilhar dica¦Partager une astuce¦Compartir truco¦Condividi consiglio
+Nome da dica¦Nom de l’astuce¦Nombre del truco¦Nome del consiglio
+Ainda não há dicas partilhadas. Sê a primeira.¦Pas encore d’astuces partagées. Sois la première.¦Aún no hay trucos compartidos. Sé la primera.¦Ancora nessun consiglio condiviso. Sii la prima.
+DICAS DA COMUNIDADE¦ASTUCES DE LA COMMUNAUTÉ¦TRUCOS DE LA COMUNIDAD¦CONSIGLI DELLA COMMUNITY
+Leituras da comunidade¦Lectures de la communauté¦Lecturas de la comunidad¦Letture della community
+Partilhar leitura¦Partager une lecture¦Compartir lectura¦Condividi lettura
+A tua opinião¦Ton avis¦Tu opinión¦La tua opinione
+Título da partilha¦Titre du partage¦Título de la publicación¦Titolo della condivisione
+Livros e autores, um por linha (opcional)¦Livres et auteurs, un par ligne (facultatif)¦Libros y autores, uno por línea (opcional)¦Libri e autori, uno per riga (facoltativo)
+A tua opinião ou dica¦Ton avis ou conseil¦Tu opinión o consejo¦La tua opinione o un consiglio
+Ainda não há leituras partilhadas. Sê a primeira.¦Pas encore de lectures partagées. Sois la première.¦Aún no hay lecturas compartidas. Sé la primera.¦Ancora nessuna lettura condivisa. Sii la prima.
+LEITURAS DA COMUNIDADE¦LECTURES DE LA COMMUNAUTÉ¦LECTURAS DE LA COMUNIDAD¦LETTURE DELLA COMMUNITY
+LIVROS¦LIVRES¦LIBROS¦LIBRI
+A TUA OPINIÃO¦TON AVIS¦TU OPINIÓN¦LA TUA OPINIONE
 5 minutos · manhã e noite¦5 minutes · matin et soir¦5 minutos · mañana y noche¦5 minuti · mattina e sera
 Gel ou creme de limpeza suave¦Gel ou crème nettoyante douce¦Gel o crema limpiadora suave¦Gel o crema detergente delicata
 Hidratante adequado ao teu tipo de pele¦Hydratant adapté à ton type de peau¦Hidratante adecuado a tu tipo de piel¦Idratante adatto al tuo tipo di pelle
