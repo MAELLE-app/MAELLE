@@ -6,7 +6,7 @@ const COVER_KEY='maelle-capas';
 let coverIds={};
 try{coverIds=JSON.parse(localStorage.getItem(COVER_KEY))||{}}catch(e){}
 const coverAsked={};
-const bookCover=(t,a)=>{const au=a==='Autor por indicar'?'':a||'';return `<span class="cv" data-t="${esc(t)}" data-a="${esc(au)}" aria-hidden="true">${photoImg(avBg(t),'',160)}<b data-nt>${esc(String(t).slice(0,40))}</b></span>`};
+const bookCover=(t,a)=>{const au=a==='Autor por indicar'?'':a||'';return `<span class="cv" data-t="${esc(t)}" data-a="${esc(au)}" aria-hidden="true">${photoImg(avBg(t),'',250)}<b data-nt>${esc(String(t).slice(0,40))}</b></span>`};
 function showCover(el,id){
  if(!Number.isInteger(id)||id<=0||el.querySelector('.real'))return;
  const im=new Image();im.className='real';im.alt='';im.referrerPolicy='no-referrer';

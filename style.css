@@ -319,3 +319,27 @@ a.menu{text-decoration:none;color:inherit}
 .bigcv{display:flex;justify-content:center;margin-bottom:14px}
 .bigcv .cv{position:relative;display:block;width:130px;height:196px;border-radius:8px 16px 16px 8px;overflow:hidden;background:var(--cream)}
 .bigcv .cv b{font-size:12px}
+
+.prod .img,.pimg,.svc .pt{position:relative}
+.ilus{position:absolute;left:6px;bottom:6px;padding:3px 8px;border-radius:10px;background:rgba(255,255,255,.88);color:var(--ink);font:500 9px var(--sans);font-style:normal}
+.svc .pt .ilus{display:none}
+
+/* receitas e ideias de casa */
+.idea .open{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer}
+.idea .link{padding:6px 0 0}
+.hero{position:relative;margin-bottom:12px}
+.hero img{display:block;width:100%;height:260px;object-fit:cover;border-radius:22px;background:var(--cream)}
+.ings,.steps{margin:0 0 18px;padding:16px 18px 16px 36px;background:var(--white);border-radius:18px;font:400 14px/1.55 var(--sans);color:var(--ink);overflow-wrap:anywhere}
+.ings li,.steps li{margin-bottom:8px}.ings li:last-child,.steps li:last-child{margin-bottom:0}
+.shared summary{cursor:pointer;font:500 13px var(--sans);padding:8px 0;color:var(--ink);text-decoration:underline}
+.shared .ings,.shared .steps{background:var(--bg)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scard{display:flex;flex-direction:column;gap:6px;padding:0 0 12px;border:0;background:var(--white);border-radius:18px;overflow:hidden;text-align:left;cursor:pointer;min-width:0}
+.scard img{width:100%;height:130px;object-fit:cover}
+.scard .t{padding:0 10px;font:600 17px var(--serif);color:var(--ink);overflow-wrap:anywhere}
+.scard small{padding:0 10px;font:400 11px var(--sans);color:var(--muted)}
+.pimg.pick{cursor:pointer;background:var(--cream);color:var(--muted);font:500 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;gap:6px;align-content:center;justify-items:center;margin:0}
+textarea.field#sh-i,textarea.field#sh-s{min-height:110px}
+.inspo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
+.inspo button{padding:0;border:0;background:none;cursor:pointer;min-width:0}
+.inspo img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;background:var(--cream)}
