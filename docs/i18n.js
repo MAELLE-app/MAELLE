@@ -10,6 +10,57 @@ const langPicker=()=>`<div class="langs" data-nt role="group" aria-label="Língu
 
 /* português=inglês, uma entrada por linha */
 const EN_TEXT=`
+5 minutos · manhã e noite=5 minutes · morning and night
+Gel ou creme de limpeza suave=Gentle cleansing gel or cream
+Hidratante adequado ao teu tipo de pele=Moisturiser suited to your skin type
+Protetor solar de rosto com FPS 30 ou mais=Face sunscreen SPF 30 or higher
+De manhã, lava o rosto com o produto de limpeza e seca sem esfregar.=In the morning, cleanse your face and pat dry.
+Aplica o hidratante.=Apply moisturiser.
+Termina com o protetor solar e volta a aplicar se estiveres ao sol.=Finish with sunscreen and reapply if you are in the sun.
+À noite, retira o protetor e a maquilhagem, limpa e hidrata.=At night, remove sunscreen and make-up, cleanse and moisturise.
+20 minutos · uma vez por semana=20 minutes · once a week
+Champô suave=Gentle shampoo
+Máscara hidratante=Hydrating mask
+Pente de dentes largos=Wide-tooth comb
+Protetor de calor=Heat protectant
+Lava com o champô, sobretudo no couro cabeludo.=Shampoo, focusing on the scalp.
+Aplica a máscara nos comprimentos e pontas.=Apply the mask to lengths and ends.
+Espera o tempo indicado na embalagem e enxagua bem.=Wait the time on the pack and rinse well.
+Desembaraça das pontas para a raiz.=Detangle from ends to roots.
+Antes de usar calor, aplica o protetor.=Apply protectant before using heat.
+Base leve ou creme com cor=Light foundation or tinted cream
+Corretor=Concealer
+Rímel=Mascara
+Batom ou bálsamo com cor=Lipstick or tinted balm
+Começa com a pele limpa e hidratada.=Start with clean, moisturised skin.
+Espalha pouca base do centro para fora.=Blend a little base from the centre outwards.
+Usa o corretor só onde precisas.=Use concealer only where needed.
+Aplica o rímel e a cor nos lábios.=Apply mascara and lip colour.
+À noite, retira tudo antes de dormir.=Remove everything before bed.
+Todas as noites=Every night
+Fronha de cetim=Satin pillowcase
+Elástico de tecido macio=Soft fabric hair tie
+Creme de noite ou o teu hidratante=Night cream or your moisturiser
+Máscara para os olhos (opcional)=Eye mask (optional)
+Tenta deitar-te e levantar-te a horas parecidas.=Try to sleep and wake at similar times.
+Limpa e hidrata a pele.=Cleanse and moisturise.
+Prende o cabelo sem apertar ou deixa-o solto.=Tie hair loosely or leave it down.
+Larga o telemóvel um pouco antes de dormir.=Put your phone away before sleeping.
+Beleza da comunidade=Community beauty
+BELEZA DA COMUNIDADE=COMMUNITY BEAUTY
+Partilhar rotina=Share a routine
+Produtos indicados=Suggested products
+PRODUTOS INDICADOS=SUGGESTED PRODUCTS
+Como usar=How to use
+COMO USAR=HOW TO USE
+PRODUTOS E COMO USAR=PRODUCTS AND HOW TO USE
+Nome da rotina ou dica=Routine or tip name
+Produtos, um por linha (opcional)=Products, one per line (optional)
+Como usar, um passo por linha=How to use, one step per line
+Ainda não há rotinas partilhadas. Sê a primeira.=No shared routines yet. Be the first.
+Partilha a tua experiência. Se for publicidade ou oferta de uma marca, diz.=Share your experience. If it is an ad or a brand gift, say so.
+Procurar produtos=Find products
+São tipos de produto, não marcas. Lê os rótulos e experimenta primeiro numa pequena zona. Se tiveres um problema de pele ou alergias, fala com um dermatologista.=These are product types, not brands. Read labels and patch test first. If you have a skin condition or allergies, see a dermatologist.
 30 minutos antes de partir=30 minutes before leaving
 Uma mala de cabine=A cabin bag
 Peças em cores que combinam entre si=Pieces in colours that go together
@@ -736,6 +787,57 @@ Esta publicação já não está disponível.=This post is no longer available.
 
 /* português¦francês¦espanhol¦italiano, uma entrada por linha */
 const MORE_TEXT=`
+5 minutos · manhã e noite¦5 minutes · matin et soir¦5 minutos · mañana y noche¦5 minuti · mattina e sera
+Gel ou creme de limpeza suave¦Gel ou crème nettoyante douce¦Gel o crema limpiadora suave¦Gel o crema detergente delicata
+Hidratante adequado ao teu tipo de pele¦Hydratant adapté à ton type de peau¦Hidratante adecuado a tu tipo de piel¦Idratante adatto al tuo tipo di pelle
+Protetor solar de rosto com FPS 30 ou mais¦Protection solaire visage SPF 30 ou plus¦Protector solar facial FPS 30 o más¦Solare viso SPF 30 o superiore
+De manhã, lava o rosto com o produto de limpeza e seca sem esfregar.¦Le matin, nettoie ton visage et sèche sans frotter.¦Por la mañana, limpia el rostro y seca sin frotar.¦Al mattino deterghi il viso e asciuga senza strofinare.
+Aplica o hidratante.¦Applique l’hydratant.¦Aplica el hidratante.¦Applica l’idratante.
+Termina com o protetor solar e volta a aplicar se estiveres ao sol.¦Termine par la protection solaire et renouvelle au soleil.¦Termina con protector solar y vuelve a aplicar si estás al sol.¦Completa con il solare e riapplica se sei al sole.
+À noite, retira o protetor e a maquilhagem, limpa e hidrata.¦Le soir, retire la protection et le maquillage, nettoie et hydrate.¦Por la noche, retira protector y maquillaje, limpia e hidrata.¦La sera rimuovi solare e trucco, detergi e idrata.
+20 minutos · uma vez por semana¦20 minutes · une fois par semaine¦20 minutos · una vez a la semana¦20 minuti · una volta a settimana
+Champô suave¦Shampoing doux¦Champú suave¦Shampoo delicato
+Máscara hidratante¦Masque hydratant¦Mascarilla hidratante¦Maschera idratante
+Pente de dentes largos¦Peigne à dents larges¦Peine de púas anchas¦Pettine a denti larghi
+Protetor de calor¦Protecteur thermique¦Protector térmico¦Termoprotettore
+Lava com o champô, sobretudo no couro cabeludo.¦Lave surtout le cuir chevelu.¦Lava sobre todo el cuero cabelludo.¦Lava soprattutto il cuoio capelluto.
+Aplica a máscara nos comprimentos e pontas.¦Applique le masque sur les longueurs et pointes.¦Aplica la mascarilla en medios y puntas.¦Applica la maschera su lunghezze e punte.
+Espera o tempo indicado na embalagem e enxagua bem.¦Attends le temps indiqué et rince bien.¦Espera el tiempo indicado y aclara bien.¦Attendi il tempo indicato e risciacqua bene.
+Desembaraça das pontas para a raiz.¦Démêle des pointes vers les racines.¦Desenreda de puntas a raíz.¦Districa dalle punte alle radici.
+Antes de usar calor, aplica o protetor.¦Applique le protecteur avant la chaleur.¦Antes de usar calor, aplica el protector.¦Prima del calore applica il termoprotettore.
+Base leve ou creme com cor¦Fond de teint léger ou crème teintée¦Base ligera o crema con color¦Fondotinta leggero o crema colorata
+Corretor¦Anticernes¦Corrector¦Correttore
+Rímel¦Mascara¦Máscara de pestañas¦Mascara
+Batom ou bálsamo com cor¦Rouge ou baume teinté¦Labial o bálsamo con color¦Rossetto o balsamo colorato
+Começa com a pele limpa e hidratada.¦Commence sur une peau propre et hydratée.¦Empieza con la piel limpia e hidratada.¦Inizia con la pelle pulita e idratata.
+Espalha pouca base do centro para fora.¦Étale peu de teint du centre vers l’extérieur.¦Extiende poca base del centro hacia fuera.¦Stendi poca base dal centro verso l’esterno.
+Usa o corretor só onde precisas.¦N’utilise l’anticernes que là où il faut.¦Usa corrector solo donde lo necesites.¦Usa il correttore solo dove serve.
+Aplica o rímel e a cor nos lábios.¦Applique le mascara et la couleur sur les lèvres.¦Aplica la máscara y color en los labios.¦Applica mascara e colore sulle labbra.
+À noite, retira tudo antes de dormir.¦Le soir, retire tout avant de dormir.¦Por la noche, retira todo antes de dormir.¦La sera rimuovi tutto prima di dormire.
+Todas as noites¦Tous les soirs¦Todas las noches¦Ogni sera
+Fronha de cetim¦Taie en satin¦Funda de satén¦Federa di raso
+Elástico de tecido macio¦Élastique en tissu doux¦Goma de tela suave¦Elastico di tessuto morbido
+Creme de noite ou o teu hidratante¦Crème de nuit ou ton hydratant¦Crema de noche o tu hidratante¦Crema notte o il tuo idratante
+Máscara para os olhos (opcional)¦Masque pour les yeux (facultatif)¦Antifaz (opcional)¦Mascherina per gli occhi (facoltativa)
+Tenta deitar-te e levantar-te a horas parecidas.¦Essaie de te coucher et te lever à heures régulières.¦Intenta acostarte y levantarte a horas parecidas.¦Cerca di coricarti e alzarti a orari simili.
+Limpa e hidrata a pele.¦Nettoie et hydrate la peau.¦Limpia e hidrata la piel.¦Detergi e idrata la pelle.
+Prende o cabelo sem apertar ou deixa-o solto.¦Attache tes cheveux sans serrer ou laisse-les libres.¦Recoge el pelo sin apretar o déjalo suelto.¦Lega i capelli senza stringere o lasciali sciolti.
+Larga o telemóvel um pouco antes de dormir.¦Pose le téléphone un moment avant de dormir.¦Deja el móvil un rato antes de dormir.¦Metti via il telefono un po’ prima di dormire.
+Beleza da comunidade¦Beauté de la communauté¦Belleza de la comunidad¦Bellezza della community
+BELEZA DA COMUNIDADE¦BEAUTÉ DE LA COMMUNAUTÉ¦BELLEZA DE LA COMUNIDAD¦BELLEZZA DELLA COMMUNITY
+Partilhar rotina¦Partager une routine¦Compartir rutina¦Condividi routine
+Produtos indicados¦Produits conseillés¦Productos recomendados¦Prodotti consigliati
+PRODUTOS INDICADOS¦PRODUITS CONSEILLÉS¦PRODUCTOS RECOMENDADOS¦PRODOTTI CONSIGLIATI
+Como usar¦Comment utiliser¦Cómo usar¦Come usare
+COMO USAR¦COMMENT UTILISER¦CÓMO USAR¦COME USARE
+PRODUTOS E COMO USAR¦PRODUITS ET UTILISATION¦PRODUCTOS Y CÓMO USARLOS¦PRODOTTI E COME USARLI
+Nome da rotina ou dica¦Nom de la routine ou astuce¦Nombre de la rutina o truco¦Nome della routine o consiglio
+Produtos, um por linha (opcional)¦Produits, un par ligne (facultatif)¦Productos, uno por línea (opcional)¦Prodotti, uno per riga (facoltativo)
+Como usar, um passo por linha¦Utilisation, une étape par ligne¦Cómo usar, un paso por línea¦Come usare, un passaggio per riga
+Ainda não há rotinas partilhadas. Sê a primeira.¦Pas encore de routines partagées. Sois la première.¦Aún no hay rutinas compartidas. Sé la primera.¦Ancora nessuna routine condivisa. Sii la prima.
+Partilha a tua experiência. Se for publicidade ou oferta de uma marca, diz.¦Partage ton expérience. Si c’est une publicité ou un cadeau de marque, dis-le.¦Comparte tu experiencia. Si es publicidad o regalo de una marca, dilo.¦Condividi la tua esperienza. Se è pubblicità o un omaggio di un marchio, dillo.
+Procurar produtos¦Chercher des produits¦Buscar productos¦Cerca prodotti
+São tipos de produto, não marcas. Lê os rótulos e experimenta primeiro numa pequena zona. Se tiveres um problema de pele ou alergias, fala com um dermatologista.¦Ce sont des types de produits, pas des marques. Lis les étiquettes et teste d’abord sur une petite zone. En cas de problème de peau ou d’allergie, consulte un dermatologue.¦Son tipos de producto, no marcas. Lee las etiquetas y prueba antes en una zona pequeña. Si tienes un problema de piel o alergias, consulta a un dermatólogo.¦Sono tipi di prodotto, non marchi. Leggi le etichette e prova prima su una piccola zona. Se hai problemi di pelle o allergie, rivolgiti a un dermatologo.
 30 minutos antes de partir¦30 minutes avant de partir¦30 minutos antes de salir¦30 minuti prima di partire
 Uma mala de cabine¦Une valise cabine¦Una maleta de cabina¦Un bagaglio a mano
 Peças em cores que combinam entre si¦Des pièces aux couleurs assorties¦Prendas en colores que combinan¦Capi in colori abbinabili

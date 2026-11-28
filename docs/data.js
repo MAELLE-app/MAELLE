@@ -207,3 +207,15 @@ Object.assign(DETAIL,{
  v4:{meta:'Antes de partir',items:['Primeira noite reservada','Contactos de emergência','Itinerário partilhado com alguém de confiança','Um seguro de viagem'],
   steps:['Escolhe um alojamento bem localizado.','Chega de preferência durante o dia.','Combina quando vais dar notícias.','Não digas a desconhecidos onde estás alojada.','Confia no teu instinto e muda de planos se precisares.']}
 });
+
+/* páginas completas das ideias de beleza: produtos indicados e como usar */
+Object.assign(DETAIL,{
+ b1:{meta:'5 minutos · manhã e noite',q:'rotina de pele gel de limpeza hidratante protetor solar',items:['Gel ou creme de limpeza suave','Hidratante adequado ao teu tipo de pele','Protetor solar de rosto com FPS 30 ou mais'],
+  steps:['De manhã, lava o rosto com o produto de limpeza e seca sem esfregar.','Aplica o hidratante.','Termina com o protetor solar e volta a aplicar se estiveres ao sol.','À noite, retira o protetor e a maquilhagem, limpa e hidrata.']},
+ b2:{meta:'20 minutos · uma vez por semana',q:'máscara hidratante cabelo protetor de calor',items:['Champô suave','Máscara hidratante','Pente de dentes largos','Protetor de calor'],
+  steps:['Lava com o champô, sobretudo no couro cabeludo.','Aplica a máscara nos comprimentos e pontas.','Espera o tempo indicado na embalagem e enxagua bem.','Desembaraça das pontas para a raiz.','Antes de usar calor, aplica o protetor.']},
+ b3:{meta:'5 minutos',q:'base leve corretor rímel batom hidratante',items:['Base leve ou creme com cor','Corretor','Rímel','Batom ou bálsamo com cor'],
+  steps:['Começa com a pele limpa e hidratada.','Espalha pouca base do centro para fora.','Usa o corretor só onde precisas.','Aplica o rímel e a cor nos lábios.','À noite, retira tudo antes de dormir.']},
+ b4:{meta:'Todas as noites',q:'fronha de cetim máscara de dormir creme de noite',items:['Fronha de cetim','Elástico de tecido macio','Creme de noite ou o teu hidratante','Máscara para os olhos (opcional)'],
+  steps:['Tenta deitar-te e levantar-te a horas parecidas.','Limpa e hidrata a pele.','Prende o cabelo sem apertar ou deixa-o solto.','Larga o telemóvel um pouco antes de dormir.']}
+});

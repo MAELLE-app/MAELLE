@@ -37,7 +37,7 @@ with sync_playwright() as pw:
     pg.goto('http://127.0.0.1:8771/?convite=%22%3E%3Cimg%3E');pg.click('text=Começar');assert pg.input_value('#su-invite')=='IMG'
     pg.click('[aria-label="Voltar"]');pg.click('text=Já tenho conta');pg.fill('#li-email','a@b.pt');pg.fill('#li-pw','segredo123');pg.click('button:has-text("Entrar")');pg.wait_for_selector('text=Bem-vinda ao teu universo')
     views=[(v,{}) for v in 'home myplace club bookclub community posts groups qa edit shop brands sell favs recs me settings people inbox admin'.split()]
-    views+=[('group',{'id':ID}),('room',{'id':ID}),('user',{'id':OTHER}),('chat',{'id':OTHER}),('post',{'id':ID,'sc':'u-'+OTHER}),('follows',{'id':ME,'t':'followers'}),('follows',{'id':ME,'t':'following'}),('topic',{'k':'receitas'}),('topic',{'k':'decoracao'}),('topic',{'k':'viagens'})]
+    views+=[('group',{'id':ID}),('room',{'id':ID}),('user',{'id':OTHER}),('chat',{'id':OTHER}),('post',{'id':ID,'sc':'u-'+OTHER}),('follows',{'id':ME,'t':'followers'}),('follows',{'id':ME,'t':'following'}),('topic',{'k':'receitas'}),('topic',{'k':'decoracao'}),('topic',{'k':'viagens'}),('topic',{'k':'beleza'}),('beauty',{})]
     seen=0
     def check(where):
         global seen
